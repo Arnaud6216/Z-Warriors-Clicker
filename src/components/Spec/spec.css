@@ -1,0 +1,31 @@
+.spec-container {
+    width: 30vw;
+    height: 80%;
+    margin: 1rem;
+    padding: 1rem;
+    border: double 10px rgb(216, 121, 13);
+    background-color: rgb(51, 34, 14);
+    display: flex;
+    justify-content: center;
+}
+
+ul {
+    padding: 0;
+}
+
+.spec-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    height: 7vh;
+    background-color: rgb(94, 69, 49);;
+    list-style: none;
+    margin: 2rem;
+    border-radius: 20px;
+}
+
+.spec-option:hover {
+    background-color: rgb(145, 109, 63);
+    box-shadow: 0px 0px 14px 4px rgba(232,225,18,1);
+}
