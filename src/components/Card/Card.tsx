@@ -1,5 +1,7 @@
 
+import { useState } from "react";
 import "./card.css";
+import { useEffect } from "react";
 
 interface CardProps {
     gifSrc: string[];
@@ -7,7 +9,20 @@ interface CardProps {
     setCount: (count: number) => void;
 }
 
+
 function Card({gifSrc, count, setCount}: CardProps) {
+
+    const [gif, setGif] = useState(0);
+
+    useEffect(() => {
+        if (count >= 50 && gif === 0) {
+            setGif(2);
+        } else if (count >= 100 && gif === 2) {
+            setGif(4);
+        } else if (count >= 150 && gif === 4) {
+            setGif(6);
+        }
+      }, [count, gif]);
 
     const handleClickCount = () => {
         setCount(count + 1);
@@ -15,7 +30,12 @@ function Card({gifSrc, count, setCount}: CardProps) {
 
     return ( 
         <div className="card-container">
-            {count <= 50 ? (<img src={gifSrc[0]} alt="goku base form" />) : (<img src={gifSrc[2]} width="390px" height="220px" alt="goku ssj1" />)}
+           <img
+        src={gifSrc[gif]}
+        alt={gif === 0 ? 'Goku base form' : 'Goku SSJ1'}
+        width="390px"
+        height="220px"
+      />
             <button type="button" onClick={handleClickCount}>Power Level: {count}</button>
         </div>
      );

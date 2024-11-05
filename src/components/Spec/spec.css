@@ -13,6 +13,10 @@ ul {
     padding: 0;
 }
 
+li {
+    list-style: none;
+}
+
 .spec-option {
     display: flex;
     align-items: center;
@@ -20,12 +24,23 @@ ul {
     width: 20vw;
     height: 7vh;
     background-color: rgb(94, 69, 49);;
-    list-style: none;
     margin: 2rem;
     border-radius: 20px;
 }
 
-.spec-option:hover {
+.spec-option-available {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    height: 7vh;
+    margin: 2rem;
+    border-radius: 20px;
     background-color: rgb(145, 109, 63);
     box-shadow: 0px 0px 14px 4px rgba(232,225,18,1);
+}
+
+.spec-option-available:hover {
+    color: black;
+    font-weight: bold;
 }
