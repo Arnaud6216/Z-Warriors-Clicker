@@ -1,44 +1,34 @@
-
-import { useState } from "react";
+import { useContext } from "react";
+import { Context } from "../options/Context";
 import "./card.css";
-import { useEffect } from "react";
 
-interface CardProps {
-    gifSrc: string[];
-    count: number;
-    setCount: (count: number) => void;
-}
+function Card() {
+    const context = useContext(Context);
 
+    if (!context) {
+        // Si le context est `undefined`, vous pouvez retourner un message d'erreur ou un comportement par défaut
+        return <div>Error: Context is not available!</div>;
+    }
 
-function Card({gifSrc, count, setCount}: CardProps) {
-
-    const [gif, setGif] = useState(0);
-
-    useEffect(() => {
-        if (count >= 50 && gif === 0) {
-            setGif(2);
-        } else if (count >= 100 && gif === 2) {
-            setGif(4);
-        } else if (count >= 150 && gif === 4) {
-            setGif(6);
-        }
-      }, [count, gif]);
+    const { gifSrc, count, setCount } = context;
 
     const handleClickCount = () => {
         setCount(count + 1);
-    }
+    };
 
-    return ( 
+    return (
         <div className="card-container">
-           <img
-        src={gifSrc[gif]}
-        alt={gif === 0 ? 'Goku base form' : 'Goku SSJ1'}
-        width="390px"
-        height="220px"
-      />
-            <button type="button" onClick={handleClickCount}>Power Level: {count}</button>
+            <img
+                src={gifSrc[0]} // Affiche le GIF de Goku dans son état normal
+                alt="Goku"
+                width="390px"
+                height="220px"
+            />
+            <button className="power-button" type="button" onClick={handleClickCount}>
+                Power Level: {count}
+            </button>
         </div>
-     );
+    );
 }
 
 export default Card;

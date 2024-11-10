@@ -23,9 +23,11 @@ li {
     justify-content: center;
     width: 20vw;
     height: 7vh;
-    background-color: rgb(94, 69, 49);;
+    background-color: rgb(179, 146, 119);
     margin: 2rem;
-    border-radius: 20px;
+    border-radius: 5px; 
+    box-shadow: 0px 0px 15px 5px #221403;
+    color: black;
 }
 
 .spec-option-available {
@@ -35,12 +37,12 @@ li {
     width: 20vw;
     height: 7vh;
     margin: 2rem;
-    border-radius: 20px;
-    background-color: rgb(145, 109, 63);
+    border-radius: 5px;
+    background-color: rgb(179, 146, 119);
     box-shadow: 0px 0px 14px 4px rgba(232,225,18,1);
+    color: black;
 }
 
 .spec-option-available:hover {
-    color: black;
     font-weight: bold;
 }
