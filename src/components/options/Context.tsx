@@ -3,7 +3,7 @@ import { createContext, useState, ReactNode } from "react";
 interface ContextType {
     gifSrc: string[];
     count: number;
-    setCount: (count: number) => void;
+    setCount: React.Dispatch<React.SetStateAction<number>>;
     concentrationCount: number;
     setConcentrationCount: (count: number) => void;
     concentrationCost: number;
@@ -11,6 +11,8 @@ interface ContextType {
     concentrationIncrement: number;
     gif: number;
     setGif: (gif: number) => void;
+    attackMultiplier: number;
+    setAttackMultiplier: (attackMultiplier: number) => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -34,6 +36,7 @@ export const Provider = ({ children }: ProviderProps) => {
     const [concentrationCount, setConcentrationCount] = useState<number>(0);
     const [concentrationCost, setConcentrationCost] = useState<number>(20);
     const [gif, setGif] = useState<number>(0);  // 0 - normal, 1 - Super Saiyen transition, 2 - Super Saiyen 1
+    const [attackMultiplier, setAttackMultiplier] = useState<number>(1);
     const concentrationIncrement = 1;
 
     return (
@@ -49,6 +52,8 @@ export const Provider = ({ children }: ProviderProps) => {
                 concentrationIncrement,
                 gif,
                 setGif,
+                attackMultiplier,
+                setAttackMultiplier,
             }}
         >
             {children}

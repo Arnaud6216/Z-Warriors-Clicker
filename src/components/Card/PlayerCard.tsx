@@ -23,6 +23,7 @@ function Card() {
 				width="390px"
 				height="220px"
 			/>
+			<h1 className="player-title">Goku</h1>
 			<button className="power-button" type="button" onClick={handleClickCount}>
 				Power Level: {count}
 			</button>

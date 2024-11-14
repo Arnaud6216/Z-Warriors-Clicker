@@ -20,7 +20,7 @@ function Spec() {
 		concentrationIncrement,
 		gif,
 		setGif,
-		gifSrc,
+		setAttackMultiplier,
 	} = context;
 
 	const [style, setStyle] = useState("spec-option");
@@ -45,9 +45,7 @@ function Spec() {
 	// Incrémenter `count` en fonction de `concentrationCount` toutes les secondes
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCount(
-				(prevCount) => prevCount + concentrationCount * concentrationIncrement,
-			);
+			setCount((prevCount: number) => prevCount + concentrationCount * concentrationIncrement);
 		}, 1000);
 
 		return () => clearInterval(interval);
@@ -64,6 +62,7 @@ function Spec() {
 			setCount(count - 50);
 		}
 		setSaiyenState(1);
+		setAttackMultiplier(5);
 	};
 
 	const handleClickSsj2 = () => {
@@ -77,6 +76,7 @@ function Spec() {
 			setCount(count - 100);
 		}
 		setSaiyenState(2);
+		setAttackMultiplier(10);
 	};
 
 	return (
