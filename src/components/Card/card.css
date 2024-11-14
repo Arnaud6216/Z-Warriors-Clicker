@@ -37,3 +37,7 @@ img {
 	box-shadow: 0px 0px 30px 1px rgba(232, 225, 18, 1);
 	color: black;
 }
+
+.ennemy-title {
+	font-size: 2rem;
+}
