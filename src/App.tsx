@@ -1,15 +1,17 @@
-import './App.css';
-import Card from './components/Card/Card';
-import Spec from './components/Spec/Spec';
-import { Provider } from './components/options/Context';
+import "./App.css";
+import EnnemyCard from "./components/Card/EnnemyCard";
+import Card from "./components/Card/PlayerCard";
+import Spec from "./components/Spec/Spec";
+import { Provider } from "./components/options/Context";
 
 function App() {
-    return (
-        <Provider>
-            <Card />
-            <Spec />
-        </Provider>
-    );
+	return (
+		<Provider>
+			<Card />
+			<Spec />
+			<EnnemyCard />
+		</Provider>
+	);
 }
 
 export default App;
