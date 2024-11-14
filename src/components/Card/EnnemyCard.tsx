@@ -2,14 +2,17 @@ import { useState, useEffect } from "react";
 
 const ennemyList = [
 	{
+		imgSrc: "src/assets/vegeta.gif",
 		name: "Vegeta",
 		life: 10,
 	},
 	{
+		imgSrc: "src/assets/freezer.gif",
 		name: "Freezer",
 		life: 200,
 	},
 	{
+		imgSrc: "src/assets/cell.gif",
 		name: "Cell",
 		life: 300,
 	},
@@ -35,7 +38,7 @@ function EnnemyCard() {
 
 	return (
 		<div className="card-container">
-			<img src="" alt="ennemy" width="390px" height="220px" />
+			<img src={ennemyList[ennemyIndex].imgSrc} alt="ennemy" width="390px" height="220px" />
 			<h1 className="ennemy-title">{ennemyList[ennemyIndex].name}</h1>
 			<p className="ennemy-pv">Point de Vie : {ennemyLife}</p>
 			<button
