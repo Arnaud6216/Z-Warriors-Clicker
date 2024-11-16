@@ -41,7 +41,7 @@ function EnnemyCard() {
     };
 
     return (
-        <div className="card-container">
+        <div className="ennemy-container">
             <img
                 src={ennemyList[ennemyIndex].imgSrc}
                 alt="ennemy"

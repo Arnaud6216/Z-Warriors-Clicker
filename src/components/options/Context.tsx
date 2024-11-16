@@ -23,13 +23,13 @@ interface ProviderProps {
 
 export const Provider = ({ children }: ProviderProps) => {
     const gifSrc = [
-        "src/assets/base.webp",            // Goku normal
-        "src/assets/ssj1-transition.webp", // Transition Super Saiyen
-        "src/assets/ssj1.webp",            // Super Saiyen 1 complet
-        "src/assets/ssj2-transition.webp", // Transition Super Saiyen 2
-        "src/assets/ssj2.webp",            // Super Saiyen 2 complet
-        "src/assets/ssj3-transition.webp", // Transition Super Saiyen 3
-        "src/assets/ssj3.webp"             // Super Saiyen 3 complet
+        "src/assets/base.webp",            
+        "src/assets/ssj1-transition.webp", 
+        "src/assets/ssj1.webp",            
+        "src/assets/ssj2-transition.webp", 
+        "src/assets/ssj2.webp",           
+        "src/assets/ssj3-transition.webp", 
+        "src/assets/ssj3.webp"             
     ];
 
     const [count, setCount] = useState<number>(0);

@@ -12,3 +12,14 @@ body {
 	background-image: url(./assets/background.webp);
 	background-size: cover;
 }
+
+.home-container {
+	border: double 10px rgb(216, 121, 13);
+	background-color: rgba(51, 34, 14, 0.9);
+}
+
+.home-paragraph {
+	padding: 3rem;
+	max-width: 80ch;
+	text-align: center;
+}
