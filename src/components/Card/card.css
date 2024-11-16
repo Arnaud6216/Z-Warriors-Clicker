@@ -1,4 +1,4 @@
-.card-container {
+.card-container, .player-container, .ennemy-container {
 	display: flex;
 	margin: 0.5rem;
 	padding: 1rem;
@@ -20,6 +20,14 @@ img {
 	box-shadow: 0px 0px 15px 5px #221403;
 }
 
+.player-container {
+	border: double 10px rgb(170, 167, 0);
+}
+
+.player-title {
+	font-size: 2rem;
+}
+
 .power-button {
 	width: 8rem;
 	height: 8rem;
@@ -38,10 +46,34 @@ img {
 	color: black;
 }
 
+.ennemy-container {
+	border: double 10px rgb(163, 51, 7);
+}
+
 .ennemy-title {
 	font-size: 2rem;
 }
 
-.player-title {
-	font-size: 2rem;
+.health-bar-container {
+    width: 300px; 
+    height: 25px;
+    background-color: #ccc; 
+    border: 2px solid #000; 
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.health-bar {
+    height: 100%;
+    background-color: #4caf50; 
+    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.health-bar.medium {
+    background-color: #ffeb3b; 
+}
+
+.health-bar.low {
+    background-color: #f44336; 
 }
