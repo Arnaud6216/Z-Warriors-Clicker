@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../options/Context";
 import Option from "../options/Option";
-import "./spec.css";
+import "./tech.css";
 
 function Spec() {
 	const context = useContext(Context);
@@ -42,7 +42,10 @@ function Spec() {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCount((prevCount: number) => prevCount + concentrationCount * concentrationIncrement);
+			setCount(
+				(prevCount: number) =>
+					prevCount + concentrationCount * concentrationIncrement,
+			);
 		}, 1000);
 
 		return () => clearInterval(interval);
@@ -53,7 +56,7 @@ function Spec() {
 			setGif(1);
 
 			setTimeout(() => {
-				setGif(2); 
+				setGif(2);
 			}, 10500);
 
 			setCount(count - 50);
@@ -64,10 +67,10 @@ function Spec() {
 
 	const handleClickSsj2 = () => {
 		if (count >= 100 && gif !== 3) {
-			setGif(3); 
+			setGif(3);
 
 			setTimeout(() => {
-				setGif(4);  
+				setGif(4);
 			}, 3000);
 
 			setCount(count - 100);

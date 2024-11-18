@@ -1,10 +1,13 @@
-.card-container, .player-container, .ennemy-container {
+.card-container,
+.player-container,
+.ennemy-container {
 	display: flex;
 	margin: 0.5rem;
 	padding: 1rem;
 	flex-direction: column;
 	align-items: center;
 	width: 30vw;
+	min-width: 390px;
 	height: 85%;
 	border: double 10px rgb(216, 121, 13);
 	background-color: rgba(51, 34, 14, 0.9);
@@ -55,25 +58,25 @@ img {
 }
 
 .health-bar-container {
-    width: 300px; 
-    height: 25px;
-    background-color: #ccc; 
-    border: 2px solid #000; 
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 10px;
+	width: 300px;
+	height: 25px;
+	background-color: #ccc;
+	border: 2px solid #000;
+	border-radius: 5px;
+	overflow: hidden;
+	margin-bottom: 10px;
 }
 
 .health-bar {
-    height: 100%;
-    background-color: #4caf50; 
-    transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+	height: 100%;
+	background-color: #4caf50;
+	transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .health-bar.medium {
-    background-color: #ffeb3b; 
+	background-color: #ffeb3b;
 }
 
 .health-bar.low {
-    background-color: #f44336; 
+	background-color: #f44336;
 }
