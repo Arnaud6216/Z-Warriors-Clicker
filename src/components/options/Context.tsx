@@ -13,6 +13,11 @@ interface ContextType {
 	setGif: (gif: number) => void;
 	attackMultiplier: number;
 	setAttackMultiplier: (attackMultiplier: number) => void;
+	ennemyIndex: number;
+	setEnnemyIndex: (index: number) => void;
+	ennemyLife: number;
+	setEnnemyLife: (life: number) => void;
+	ennemyList: { imgSrc: string; name: string; life: number }[];
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -32,12 +37,20 @@ export const Provider = ({ children }: ProviderProps) => {
 		"src/assets/ssj3.webp",
 	];
 
+	const ennemyList = [
+		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 10 },
+		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 200 },
+		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 500 },
+	];
+
 	const [count, setCount] = useState<number>(0);
 	const [concentrationCount, setConcentrationCount] = useState<number>(0);
 	const [concentrationCost, setConcentrationCost] = useState<number>(20);
 	const [gif, setGif] = useState<number>(0); // 0 - normal, 1 - Super Saiyen transition, 2 - Super Saiyen 1
 	const [attackMultiplier, setAttackMultiplier] = useState<number>(1);
 	const concentrationIncrement = 1;
+	const [ennemyIndex, setEnnemyIndex] = useState(0);
+	const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
 
 	return (
 		<Context.Provider
@@ -58,6 +71,11 @@ export const Provider = ({ children }: ProviderProps) => {
 				setGif,
 				attackMultiplier,
 				setAttackMultiplier,
+				ennemyIndex,
+				setEnnemyIndex,
+				ennemyLife,
+				setEnnemyLife,
+				ennemyList,
 			}}
 		>
 			{children}

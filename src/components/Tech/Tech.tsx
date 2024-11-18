@@ -3,7 +3,7 @@ import { Context } from "../options/Context";
 import Option from "../options/Option";
 import "./tech.css";
 
-function Spec() {
+function Tech() {
 	const context = useContext(Context);
 
 	if (!context) {
@@ -21,14 +21,24 @@ function Spec() {
 		gif,
 		setGif,
 		setAttackMultiplier,
+		ennemyLife,
+		setEnnemyLife,
+		ennemyList,
+		ennemyIndex,
+		setEnnemyIndex,
 	} = context;
 
-	const [style, setStyle] = useState("spec-option");
+	const [style, setStyle] = useState("tech-option");
 	const [saiyenState, setSaiyenState] = useState(0);
+	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
+	const kamehamehaCost = 40;
 
 	useEffect(() => {
 		setStyle(
-			count >= concentrationCost ? "spec-option-available" : "spec-option",
+			count >= concentrationCost ? "tech-option-available" : "tech-option",
+		);
+		setKamehamehaStyle(
+			count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
 		);
 	}, [count, concentrationCost]);
 
@@ -37,6 +47,19 @@ function Spec() {
 			setCount(count - concentrationCost);
 			setConcentrationCount(concentrationCount + 1);
 			setConcentrationCost(concentrationCost + 5);
+		}
+	};
+
+	const handleClickKamehameha = () => {
+		if (count >= kamehamehaCost) {
+			setCount(count - kamehamehaCost);
+			const damage = 50;
+			if (ennemyLife > damage) {
+				setEnnemyLife(Math.max(ennemyLife - damage, 0));
+			} else {
+				alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
+				setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+			}
 		}
 	};
 
@@ -80,7 +103,7 @@ function Spec() {
 	};
 
 	return (
-		<div className="spec-container">
+		<div className="tech-container">
 			<ul>
 				<Option
 					label="Concentration du KI"
@@ -88,6 +111,14 @@ function Spec() {
 					onClick={handleClickKi}
 					className={style}
 				/>
+
+				<Option
+					label="Kamehameha"
+					isAvailable={count >= 40}
+					onClick={handleClickKamehameha}
+					className={kamehamehaStyle}
+				/>
+
 				{count >= 50 && saiyenState === 0 && (
 					<Option
 						label="Super Saiyen"
@@ -109,4 +140,4 @@ function Spec() {
 	);
 }
 
-export default Spec;
+export default Tech;
