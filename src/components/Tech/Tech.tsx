@@ -3,7 +3,7 @@ import { Context } from "../options/Context";
 import Option from "../options/Option";
 import "./tech.css";
 
-function Spec() {
+function Tech() {
 	const context = useContext(Context);
 
 	if (!context) {
@@ -28,16 +28,18 @@ function Spec() {
 		setEnnemyIndex,
 	} = context;
 
-	const [style, setStyle] = useState("spec-option");
+	const [style, setStyle] = useState("tech-option");
 	const [saiyenState, setSaiyenState] = useState(0);
 	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
 	const kamehamehaCost = 40;
 
 	useEffect(() => {
 		setStyle(
-			count >= concentrationCost ? "spec-option-available" : "spec-option",
+			count >= concentrationCost ? "tech-option-available" : "tech-option",
 		);
-		setKamehamehaStyle(count >= 40 ? "kamehameha-available" : "kamehameha");
+		setKamehamehaStyle(
+			count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
+		);
 	}, [count, concentrationCost]);
 
 	const handleClickKi = () => {
@@ -101,7 +103,7 @@ function Spec() {
 	};
 
 	return (
-		<div className="spec-container">
+		<div className="tech-container">
 			<ul>
 				<Option
 					label="Concentration du KI"
@@ -138,4 +140,4 @@ function Spec() {
 	);
 }
 
-export default Spec;
+export default Tech;
