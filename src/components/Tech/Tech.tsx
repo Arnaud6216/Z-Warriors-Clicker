@@ -102,6 +102,20 @@ function Tech() {
 		setAttackMultiplier(10);
 	};
 
+	const handleClickSsj3 = () => {
+		if (count >= 150 && gif !== 5) {
+			setGif(5);
+
+			setTimeout(() => {
+				setGif(6);
+			}, 12000);
+
+			setCount(count - 150);
+		}
+		setSaiyenState(3);
+		setAttackMultiplier(15);
+	};
+
 	return (
 		<div className="tech-container">
 			<ul>
@@ -130,8 +144,16 @@ function Tech() {
 				{count >= 100 && saiyenState === 1 && (
 					<Option
 						label="Super Saiyen 2"
-						isAvailable={count >= 50}
+						isAvailable={count >= 100}
 						onClick={handleClickSsj2}
+						className="saiyan-option"
+					/>
+				)}
+				{count >= 150 && saiyenState === 2 && (
+					<Option
+						label="Super Saiyen 3"
+						isAvailable={count >= 150}
+						onClick={handleClickSsj3}
 						className="saiyan-option"
 					/>
 				)}

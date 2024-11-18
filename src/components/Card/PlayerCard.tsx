@@ -15,6 +15,10 @@ function Card() {
 		setCount(count + 1);
 	};
 
+	const test = () => {
+		setCount(count + 200);
+	};
+
 	return (
 		<div className="player-container">
 			<img
@@ -27,6 +31,7 @@ function Card() {
 			<button className="power-button" type="button" onClick={handleClickCount}>
 				Power Level: {count}
 			</button>
+			<button onClick={test}>test</button>
 		</div>
 	);
 }
