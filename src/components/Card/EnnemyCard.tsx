@@ -1,29 +1,28 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../options/Context";
 
-const ennemyList = [
-	{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 10 },
-	{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 200 },
-	{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 500 },
-];
-
 function EnnemyCard() {
-	const [ennemyIndex, setEnnemyIndex] = useState(0);
-	const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
-
 	const context = useContext(Context);
+
 	if (!context) {
 		throw new Error(
 			"EnnemyCard doit être utilisé dans un fournisseur de contexte",
 		);
 	}
 
-	const { attackMultiplier } = context;
+	const {
+		attackMultiplier,
+		ennemyIndex,
+		setEnnemyIndex,
+		ennemyLife,
+		setEnnemyLife,
+		ennemyList,
+	} = context;
 
 	// Réinitialise la vie de l'ennemi à chaque changement d'index
 	useEffect(() => {
 		setEnnemyLife(ennemyList[ennemyIndex].life);
-	}, [ennemyIndex]);
+	}, [ennemyIndex, setEnnemyLife]); // il manque la dépendance ennemyList mais si elle est ajoutée la vie de l'ennemi va se reset toujours au max
 
 	const getHealthBarClass = () => {
 		const healthPercentage = (ennemyLife / ennemyList[ennemyIndex].life) * 100;
@@ -35,10 +34,10 @@ function EnnemyCard() {
 	const handleClickAttack = () => {
 		const damage = 1 * attackMultiplier;
 		if (ennemyLife > damage) {
-			setEnnemyLife((prevLife) => Math.max(prevLife - damage, 0));
+			setEnnemyLife(Math.max(ennemyLife - damage, 0));
 		} else {
 			alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-			setEnnemyIndex((prevIndex) => (prevIndex + 1) % ennemyList.length);
+			setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
 		}
 	};
 

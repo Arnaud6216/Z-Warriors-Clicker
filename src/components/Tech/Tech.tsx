@@ -21,15 +21,23 @@ function Spec() {
 		gif,
 		setGif,
 		setAttackMultiplier,
+		ennemyLife,
+		setEnnemyLife,
+		ennemyList,
+		ennemyIndex,
+		setEnnemyIndex,
 	} = context;
 
 	const [style, setStyle] = useState("spec-option");
 	const [saiyenState, setSaiyenState] = useState(0);
+	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
+	const kamehamehaCost = 40;
 
 	useEffect(() => {
 		setStyle(
 			count >= concentrationCost ? "spec-option-available" : "spec-option",
 		);
+		setKamehamehaStyle(count >= 40 ? "kamehameha-available" : "kamehameha");
 	}, [count, concentrationCost]);
 
 	const handleClickKi = () => {
@@ -37,6 +45,19 @@ function Spec() {
 			setCount(count - concentrationCost);
 			setConcentrationCount(concentrationCount + 1);
 			setConcentrationCost(concentrationCost + 5);
+		}
+	};
+
+	const handleClickKamehameha = () => {
+		if (count >= kamehamehaCost) {
+			setCount(count - kamehamehaCost);
+			const damage = 50;
+			if (ennemyLife > damage) {
+				setEnnemyLife(Math.max(ennemyLife - damage, 0));
+			} else {
+				alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
+				setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+			}
 		}
 	};
 
@@ -88,6 +109,14 @@ function Spec() {
 					onClick={handleClickKi}
 					className={style}
 				/>
+
+				<Option
+					label="Kamehameha"
+					isAvailable={count >= 40}
+					onClick={handleClickKamehameha}
+					className={kamehamehaStyle}
+				/>
+
 				{count >= 50 && saiyenState === 0 && (
 					<Option
 						label="Super Saiyen"
