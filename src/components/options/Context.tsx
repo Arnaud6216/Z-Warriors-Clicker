@@ -63,8 +63,8 @@ export const Provider = ({ children }: ProviderProps) => {
 			value={{
 				gifSrc: [
 					gifSrc[gif],
-					gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : 0],
-					gifSrc[2],
+					gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : gif === 3 ? 3 : 0],
+					gifSrc[3],
 				], // Dynamically select gifSrc based on `gif`
 				count,
 				setCount,

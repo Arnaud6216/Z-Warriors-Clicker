@@ -31,7 +31,10 @@ function Tech() {
 	const [style, setStyle] = useState("tech-option");
 	const [saiyenState, setSaiyenState] = useState(0);
 	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
+	const [kamehamehaMultiplier, setKamehamehaMultiplier] = useState(2);
 	const kamehamehaCost = 40;
+	
+	
 
 	useEffect(() => {
 		setStyle(
@@ -53,13 +56,14 @@ function Tech() {
 	const handleClickKamehameha = () => {
 		if (count >= kamehamehaCost) {
 			setCount(count - kamehamehaCost);
-			const damage = 50;
+			const damage = 50 * (kamehamehaMultiplier / 2);
 			if (ennemyLife > damage) {
 				setEnnemyLife(Math.max(ennemyLife - damage, 0));
 			} else {
 				alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
 				setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
 			}
+			console.log(damage, kamehamehaMultiplier);
 		}
 	};
 
@@ -86,6 +90,7 @@ function Tech() {
 		}
 		setSaiyenState(1);
 		setAttackMultiplier(5);
+		setKamehamehaMultiplier(4);
 	};
 
 	const handleClickSsj2 = () => {
@@ -100,6 +105,7 @@ function Tech() {
 		}
 		setSaiyenState(2);
 		setAttackMultiplier(10);
+		setKamehamehaMultiplier(6);
 	};
 
 	const handleClickSsj3 = () => {
@@ -114,6 +120,7 @@ function Tech() {
 		}
 		setSaiyenState(3);
 		setAttackMultiplier(15);
+		setKamehamehaMultiplier(8);
 	};
 
 	return (
