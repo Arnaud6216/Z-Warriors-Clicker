@@ -39,8 +39,14 @@ export const Provider = ({ children }: ProviderProps) => {
 
 	const ennemyList = [
 		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 10 },
+		{ imgSrc: "src/assets/guldo.webp", name: "Guldo", life: 50 },
+		{ imgSrc: "src/assets/burter.webp", name: "Burter", life: 60 },
+		{ imgSrc: "src/assets/jeice.webp", name: "Jeice", life: 70 },
+		{ imgSrc: "src/assets/recome.webp", name: "Recome", life: 80 },
+		{ imgSrc: "src/assets/ginyu.webp", name: "Ginyu", life: 100 },
 		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 200 },
 		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 500 },
+		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 1000 },
 	];
 
 	const [count, setCount] = useState<number>(0);
