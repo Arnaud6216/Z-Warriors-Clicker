@@ -7,10 +7,24 @@ import { Provider } from "./components/options/Context";
 
 function App() {
 	const [isGameStarted, setIsGameStarted] = useState(false);
+	const music = new Audio("./src/assets/change.mp3");
+	// const [isMusicOn, setIsMusicOn] = useState(false);
 
 	const handleStartGame = () => {
 		setIsGameStarted(true);
+		music.play();
+		// setIsMusicOn(true);
 	};
+
+	// const handleMusic = () => {
+	// 	if (isMusicOn) {
+	// 		music.pause();
+	// 		setIsMusicOn(false);
+	// 	} else {
+	// 		music.play();
+	// 		setIsMusicOn(true);
+	// 	}
+	// };
 
 	return (
 		<>
@@ -41,6 +55,11 @@ function App() {
 				</div>
 			) : (
 				<Provider>
+					{/* <div>
+						<button className="musique" type="button" onClick={handleMusic}>
+							Musique On/Off
+						</button>
+					</div> */}
 					<Card />
 					<Tech />
 					<EnnemyCard />
