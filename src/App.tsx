@@ -20,14 +20,13 @@ function App() {
 					<p className="home-paragraph">
 						Bienvenue dans Dragon Ball Z: Clicker Power, un jeu où votre
 						objectif est de cliquer pour devenir plus puissant et vaincre des
-						ennemis de plus en plus puissants !
+						ennemis de plus en plus forts !
 					</p>
 					<p className="home-paragraph">
 						Cliquez sur le <strong>bouton</strong> pour augmenter votre niveau
 						de puissance. Transformez vous en super saiyen, utilisez des
 						techniques comme le <strong>Kamehameha</strong> et la{" "}
-						<strong>Spirit Bomb</strong> pour devenir plus puissant et battre
-						vos ennemis.
+						<strong>Spirit Bomb</strong>, adaptez vous pour battre vos ennemis.
 					</p>
 					<p className="home-paragraph">
 						Cliquez sur le bouton "Commencer le jeu" pour débuter l'aventure.

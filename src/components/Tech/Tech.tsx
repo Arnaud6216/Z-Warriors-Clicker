@@ -26,6 +26,7 @@ function Tech() {
 		ennemyList,
 		ennemyIndex,
 		setEnnemyIndex,
+		setGifSize,
 	} = context;
 
 	const [style, setStyle] = useState("tech-option");
@@ -33,8 +34,6 @@ function Tech() {
 	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
 	const [kamehamehaMultiplier, setKamehamehaMultiplier] = useState(2);
 	const kamehamehaCost = 40;
-	
-	
 
 	useEffect(() => {
 		setStyle(
@@ -80,10 +79,12 @@ function Tech() {
 
 	const handleClickSsj = () => {
 		if (count >= 50 && gif !== 1) {
+			setGifSize("player-img-transition");
 			setGif(1);
 
 			setTimeout(() => {
 				setGif(2);
+				setGifSize("player-img");
 			}, 10500);
 
 			setCount(count - 50);

@@ -18,6 +18,8 @@ interface ContextType {
 	ennemyLife: number;
 	setEnnemyLife: (life: number) => void;
 	ennemyList: { imgSrc: string; name: string; life: number }[];
+	gifSize: string;
+	setGifSize: (size: string) => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -57,6 +59,7 @@ export const Provider = ({ children }: ProviderProps) => {
 	const concentrationIncrement = 1;
 	const [ennemyIndex, setEnnemyIndex] = useState(0);
 	const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
+	const [gifSize, setGifSize] = useState("player-img");
 
 	return (
 		<Context.Provider
@@ -82,6 +85,8 @@ export const Provider = ({ children }: ProviderProps) => {
 				ennemyLife,
 				setEnnemyLife,
 				ennemyList,
+				gifSize,
+				setGifSize,
 			}}
 		>
 			{children}

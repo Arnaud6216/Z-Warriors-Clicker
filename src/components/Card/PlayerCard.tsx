@@ -9,7 +9,7 @@ function Card() {
 		return <div>Error: Context is not available!</div>;
 	}
 
-	const { gifSrc, count, setCount } = context;
+	const { gifSrc, count, setCount, gifSize } = context;
 
 	const handleClickCount = () => {
 		setCount(count + 1);
@@ -24,8 +24,7 @@ function Card() {
 			<img
 				src={gifSrc[0]} // Affiche le GIF de Goku dans son état normal
 				alt="Goku"
-				width="390px"
-				height="220px"
+				className={gifSize}
 			/>
 			<h2 className="player-title">Goku</h2>
 			<button className="power-button" type="button" onClick={handleClickCount}>
