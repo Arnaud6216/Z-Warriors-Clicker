@@ -84,7 +84,7 @@ function Tech() {
 
 			setTimeout(() => {
 				setGif(2);
-				setGifSize("player-img");
+				setGifSize("player-img-end");
 			}, 10500);
 
 			setCount(count - 50);
@@ -97,9 +97,11 @@ function Tech() {
 	const handleClickSsj2 = () => {
 		if (count >= 100 && gif !== 3) {
 			setGif(3);
+			setGifSize("player-img-transition");
 
 			setTimeout(() => {
 				setGif(4);
+				setGifSize("player-img-end");
 			}, 3000);
 
 			setCount(count - 100);
@@ -112,9 +114,11 @@ function Tech() {
 	const handleClickSsj3 = () => {
 		if (count >= 150 && gif !== 5) {
 			setGif(5);
+			setGifSize("player-img-transition");
 
 			setTimeout(() => {
 				setGif(6);
+				setGifSize("player-img-end");
 			}, 12000);
 
 			setCount(count - 150);
