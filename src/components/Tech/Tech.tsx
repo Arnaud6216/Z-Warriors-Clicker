@@ -33,7 +33,11 @@ function Tech() {
 	const [saiyenState, setSaiyenState] = useState(0);
 	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
 	const [kamehamehaMultiplier, setKamehamehaMultiplier] = useState(2);
+	const [spiritBombStyle, setSpiritBombStyle] = useState("spirit-bomb");
+	const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
+	const [spiritCount, setSpiritCount] = useState(0);
 	const kamehamehaCost = 40;
+	const spiritBombCost = 200;
 
 	useEffect(() => {
 		setStyle(
@@ -41,6 +45,10 @@ function Tech() {
 		);
 		setKamehamehaStyle(
 			count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
+		);
+
+		setSpiritBombStyle(
+			count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb",
 		);
 	}, [count, concentrationCost]);
 
@@ -62,8 +70,37 @@ function Tech() {
 				alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
 				setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
 			}
-			console.log(damage, kamehamehaMultiplier);
 		}
+	};
+
+	const handleClickSpirit = () => {
+		setSpiritBombVisible("spirit-bomb-img-visible");
+
+		if (count >= spiritBombCost) {
+			setCount(count - spiritBombCost);
+
+			setTimeout(() => {
+				handleSpirit();
+
+				setSpiritCount((prevSpiritCount) => {
+					const damage = prevSpiritCount;
+
+					if (ennemyLife > damage) {
+						setEnnemyLife(Math.max(ennemyLife - damage, 0));
+					} else {
+						alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
+						setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+					}
+					return 0;
+				});
+
+				setSpiritBombVisible("spirit-bomb-img");
+			}, 5000);
+		}
+	};
+
+	const handleSpirit = () => {
+		setSpiritCount((prevSpiritCount) => prevSpiritCount + 1);
 	};
 
 	useEffect(() => {
@@ -129,48 +166,65 @@ function Tech() {
 	};
 
 	return (
-		<div className="tech-container">
-			<ul>
-				<Option
-					label="Concentration du KI"
-					isAvailable={count >= concentrationCost}
-					onClick={handleClickKi}
-					className={style}
-				/>
+		<>
+			<img
+				src="./src/assets/spirit-bomb.png"
+				className={SpiritBombVisible}
+				alt="spirit bomb"
+				onClick={handleSpirit}
+				onKeyUp={handleSpirit}
+			/>
+			<p className="spirit-count">Clique sur la Spirit bomb ! {spiritCount}</p>
+			<div className="tech-container">
+				<ul>
+					<Option
+						label="Concentration du KI"
+						isAvailable={count >= concentrationCost}
+						onClick={handleClickKi}
+						className={style}
+					/>
 
-				<Option
-					label="Kamehameha"
-					isAvailable={count >= 40}
-					onClick={handleClickKamehameha}
-					className={kamehamehaStyle}
-				/>
+					<Option
+						label="Kamehameha"
+						isAvailable={count >= 40}
+						onClick={handleClickKamehameha}
+						className={kamehamehaStyle}
+					/>
 
-				{count >= 50 && saiyenState === 0 && (
 					<Option
-						label="Super Saiyen"
-						isAvailable={count >= 50}
-						onClick={handleClickSsj}
-						className="saiyan-option"
+						label="Spirit Bomb"
+						isAvailable={count >= 200}
+						onClick={handleClickSpirit}
+						className={spiritBombStyle}
 					/>
-				)}
-				{count >= 100 && saiyenState === 1 && (
-					<Option
-						label="Super Saiyen 2"
-						isAvailable={count >= 100}
-						onClick={handleClickSsj2}
-						className="saiyan-option"
-					/>
-				)}
-				{count >= 150 && saiyenState === 2 && (
-					<Option
-						label="Super Saiyen 3"
-						isAvailable={count >= 150}
-						onClick={handleClickSsj3}
-						className="saiyan-option"
-					/>
-				)}
-			</ul>
-		</div>
+
+					{count >= 50 && saiyenState === 0 && (
+						<Option
+							label="Super Saiyen"
+							isAvailable={count >= 50}
+							onClick={handleClickSsj}
+							className="saiyan-option"
+						/>
+					)}
+					{count >= 100 && saiyenState === 1 && (
+						<Option
+							label="Super Saiyen 2"
+							isAvailable={count >= 100}
+							onClick={handleClickSsj2}
+							className="saiyan-option"
+						/>
+					)}
+					{count >= 150 && saiyenState === 2 && (
+						<Option
+							label="Super Saiyen 3"
+							isAvailable={count >= 150}
+							onClick={handleClickSsj3}
+							className="saiyan-option"
+						/>
+					)}
+				</ul>
+			</div>
+		</>
 	);
 }
 

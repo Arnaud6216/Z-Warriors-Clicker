@@ -88,3 +88,62 @@ li {
 .tech-option-available:hover {
 	font-weight: bold;
 }
+
+.spirit-bomb {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20vw;
+	height: 7vh;
+	background-color: rgb(179, 146, 119);
+	margin: 2rem;
+	border-radius: 5px;
+	box-shadow: 0px 0px 15px 5px #221403;
+	color: black;
+}
+
+.spirit-bomb-available {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20vw;
+	height: 7vh;
+	margin: 2rem;
+	border-radius: 5px;
+	background-color: rgb(247, 219, 158);
+	box-shadow: 0px 0px 14px 4px rgba(232, 225, 18, 1);
+	color: black;
+	font-weight: bold;
+}
+
+.spirit-bomb-img {
+	background: none;
+	position: absolute;
+	top: 50%;
+	height: 50px;
+	width: 50px;
+	border: none;
+	box-shadow: none;
+	/* display: none; */
+}
+
+.spirit-bomb-img-visible {
+	background: none;
+	position: absolute;
+	top: 50%;
+	height: 50px;
+	width: 50px;
+	border: none;
+	box-shadow: none;
+	display: initial;
+}
+.spirit-count {
+	background: none;
+	position: absolute;
+	top: 55%;
+	height: 50px;
+	width: 50px;
+	border: none;
+	box-shadow: none;
+	/* display: none; */
+}
