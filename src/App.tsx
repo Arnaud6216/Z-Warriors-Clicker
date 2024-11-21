@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 import EnnemyCard from "./components/Card/EnnemyCard";
 import Card from "./components/Card/PlayerCard";
@@ -7,24 +7,46 @@ import { Provider } from "./components/options/Context";
 
 function App() {
 	const [isGameStarted, setIsGameStarted] = useState(false);
-	const music = new Audio("./src/assets/change.mp3");
-	// const [isMusicOn, setIsMusicOn] = useState(false);
+	const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+
+	const musicList = ["src/assets/Gohan-anger.mp3", "src/assets/change.mp3"];
+
+	const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+	const currentTrackIndex = useRef(0); //stocke une valeur mutable qui ne déclenche pas de rendu lorsqu'elle est modifiée
 
 	const handleStartGame = () => {
 		setIsGameStarted(true);
-		music.play();
-		// setIsMusicOn(true);
+		playMusic(0);
 	};
 
-	// const handleMusic = () => {
-	// 	if (isMusicOn) {
-	// 		music.pause();
-	// 		setIsMusicOn(false);
-	// 	} else {
-	// 		music.play();
-	// 		setIsMusicOn(true);
-	// 	}
-	// };
+	const playMusic = (index: number) => {
+		if (index >= musicList.length) {
+			currentAudioRef.current = null;
+			setIsMusicPlaying(false);
+			return;
+		}
+
+		const music = new Audio(musicList[index]);
+		currentAudioRef.current = music;
+		currentTrackIndex.current = index;
+
+		music.play();
+		setIsMusicPlaying(true);
+
+		music.addEventListener("ended", () => {
+			playMusic(index + 1);
+		});
+	};
+
+	const handleMusic = () => {
+		if (isMusicPlaying && currentAudioRef.current) {
+			currentAudioRef.current.pause();
+			setIsMusicPlaying(false);
+		} else if (currentAudioRef.current) {
+			currentAudioRef.current.play();
+			setIsMusicPlaying(true);
+		}
+	};
 
 	return (
 		<>
@@ -55,11 +77,11 @@ function App() {
 				</div>
 			) : (
 				<Provider>
-					{/* <div>
+					<div>
 						<button className="musique" type="button" onClick={handleMusic}>
 							Musique On/Off
 						</button>
-					</div> */}
+					</div>
 					<Card />
 					<Tech />
 					<EnnemyCard />
