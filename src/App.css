@@ -28,3 +28,7 @@ body {
 	position: absolute;
 	top: 30px;
 }
+
+.overlay {
+	display: flex;
+}

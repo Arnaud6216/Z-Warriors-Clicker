@@ -35,7 +35,7 @@ function Tech() {
 	const [kamehamehaMultiplier, setKamehamehaMultiplier] = useState(2);
 	const [spiritBombStyle, setSpiritBombStyle] = useState("spirit-bomb");
 	const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
-	const [spiritCount, setSpiritCount] = useState(0);
+	const [spiritCount, setSpiritCount] = useState(50);
 	const kamehamehaCost = 40;
 	const spiritBombCost = 200;
 
@@ -100,7 +100,7 @@ function Tech() {
 	};
 
 	const handleSpirit = () => {
-		setSpiritCount((prevSpiritCount) => prevSpiritCount + 1);
+		setSpiritCount((prevSpiritCount) => prevSpiritCount + 2);
 	};
 
 	useEffect(() => {
@@ -167,14 +167,24 @@ function Tech() {
 
 	return (
 		<>
-			<img
-				src="./src/assets/spirit-bomb.png"
-				className={SpiritBombVisible}
-				alt="spirit bomb"
-				onClick={handleSpirit}
-				onKeyUp={handleSpirit}
-			/>
-			<p className="spirit-count">Clique sur la Spirit bomb ! {spiritCount}</p>
+			<div className="spirit-container">
+				<img
+					src="./src/assets/spirit-bomb.png"
+					height={`${spiritCount * 3}px`}
+					width={`${spiritCount * 3}px`}
+					className={SpiritBombVisible}
+					alt="spirit bomb"
+					onClick={handleSpirit}
+					onKeyUp={handleSpirit}
+					style={{
+						top: `${spiritCount * -0.2 + 50}%`,
+						left: `${spiritCount * -0.12 + 50}%`,
+					}} // modifie le top pour que l'image monte en même temps que le taille augmente et reste au milieu de l'écran
+				/>
+				<p className="spirit-count">
+					Clique sur la Spirit bomb ! {spiritCount}
+				</p>
+			</div>
 			<div className="tech-container">
 				<ul>
 					<Option

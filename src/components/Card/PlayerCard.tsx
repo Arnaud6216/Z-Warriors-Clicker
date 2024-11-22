@@ -24,7 +24,7 @@ function Card() {
 			<img
 				src={gifSrc[0]} // Affiche le GIF de Goku dans son état normal
 				alt="Goku"
-				className={gifSize}
+				className={`${gifSize} character-gif`}
 			/>
 			<h2 className="player-title">Goku</h2>
 			<button className="power-button" type="button" onClick={handleClickCount}>

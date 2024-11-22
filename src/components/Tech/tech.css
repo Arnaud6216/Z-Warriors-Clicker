@@ -120,8 +120,6 @@ li {
 	background: none;
 	position: absolute;
 	top: 50%;
-	height: 50px;
-	width: 50px;
 	border: none;
 	box-shadow: none;
 	/* display: none; */
@@ -131,8 +129,6 @@ li {
 	background: none;
 	position: absolute;
 	top: 50%;
-	height: 50px;
-	width: 50px;
 	border: none;
 	box-shadow: none;
 	display: initial;
@@ -141,9 +137,7 @@ li {
 	background: none;
 	position: absolute;
 	top: 55%;
-	height: 50px;
-	width: 50px;
 	border: none;
 	box-shadow: none;
-	/* display: none; */
+	display: none;
 }
