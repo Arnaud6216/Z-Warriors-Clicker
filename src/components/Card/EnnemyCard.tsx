@@ -65,7 +65,7 @@ function EnnemyCard() {
 				type="button"
 				onClick={handleClickAttack}
 			>
-				Attack!
+			Attack!
 			</button>
 		</div>
 	);

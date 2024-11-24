@@ -27,8 +27,8 @@ function Card() {
 				className={`${gifSize} character-gif`}
 			/>
 			<h2 className="player-title">Goku</h2>
+			<h3>Puissance : {count}</h3>
 			<button className="power-button" type="button" onClick={handleClickCount}>
-				Power Level: {count}
 			</button>
 			<button onClick={test}>test</button>
 		</div>
