@@ -23,3 +23,12 @@ body {
 	max-width: 80ch;
 	text-align: center;
 }
+
+.musique {
+	position: absolute;
+	top: 30px;
+}
+
+.overlay {
+	display: flex;
+}

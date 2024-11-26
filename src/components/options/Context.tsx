@@ -18,6 +18,8 @@ interface ContextType {
 	ennemyLife: number;
 	setEnnemyLife: (life: number) => void;
 	ennemyList: { imgSrc: string; name: string; life: number }[];
+	gifSize: string;
+	setGifSize: (size: string) => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -38,9 +40,18 @@ export const Provider = ({ children }: ProviderProps) => {
 	];
 
 	const ennemyList = [
-		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 10 },
-		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 200 },
-		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 500 },
+		{ imgSrc: "src/assets/nappa.webp", name: "Nappa", life: 50 },
+		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 100 },
+		{ imgSrc: "src/assets/guldo.webp", name: "Guldo", life: 150 },
+		{ imgSrc: "src/assets/burter.webp", name: "Burter", life: 160 },
+		{ imgSrc: "src/assets/jeice.webp", name: "Jeice", life: 170 },
+		{ imgSrc: "src/assets/recome.webp", name: "Recome", life: 180 },
+		{ imgSrc: "src/assets/ginyu.webp", name: "Ginyu", life: 200 },
+		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 400 },
+		{ imgSrc: "src/assets/c17.webp", name: "C 17", life: 500 },
+		{ imgSrc: "src/assets/c18.webp", name: "C 18", life: 600 },
+		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 800 },
+		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 1500 },
 	];
 
 	const [count, setCount] = useState<number>(0);
@@ -51,14 +62,15 @@ export const Provider = ({ children }: ProviderProps) => {
 	const concentrationIncrement = 1;
 	const [ennemyIndex, setEnnemyIndex] = useState(0);
 	const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
+	const [gifSize, setGifSize] = useState("player-img");
 
 	return (
 		<Context.Provider
 			value={{
 				gifSrc: [
 					gifSrc[gif],
-					gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : 0],
-					gifSrc[2],
+					gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : gif === 3 ? 3 : 0],
+					gifSrc[3],
 				], // Dynamically select gifSrc based on `gif`
 				count,
 				setCount,
@@ -76,6 +88,8 @@ export const Provider = ({ children }: ProviderProps) => {
 				ennemyLife,
 				setEnnemyLife,
 				ennemyList,
+				gifSize,
+				setGifSize,
 			}}
 		>
 			{children}
