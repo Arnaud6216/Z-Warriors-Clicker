@@ -21,16 +21,19 @@ function Card() {
 
 	return (
 		<div className="player-container">
-			<img
-				src={gifSrc[0]} // Affiche le GIF de Goku dans son état normal
-				alt="Goku"
-				className={`${gifSize} character-gif`}
-			/>
+			<img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
 			<h2 className="player-title">Goku</h2>
 			<h3>Puissance : {count}</h3>
-			<button className="power-button" type="button" onClick={handleClickCount}>
+			<div>
+				<button
+					className="power-button"
+					type="button"
+					onClick={handleClickCount}
+				/>
+			</div>
+			<button type="button" onClick={test}>
+				test
 			</button>
-			<button onClick={test}>test</button>
 		</div>
 	);
 }

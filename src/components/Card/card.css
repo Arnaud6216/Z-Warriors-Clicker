@@ -30,9 +30,9 @@
 
 .player-img-transition {
 	transition: transform 10.5s ease-in-out;
-    transform-origin: top left; 
-	transition: 1.5s; 
-	scale: 3;
+	transform-origin: top left;
+	transition: 1.5s;
+	scale: 2.5;
 }
 
 .player-img-end {
@@ -42,6 +42,7 @@
 
 .player-title {
 	font-size: 2rem;
+	margin-bottom: 0;
 }
 
 .power-button {
@@ -50,8 +51,7 @@
 	border-radius: 50%;
 	background-image: url(../../assets/button.png);
 	background-size: cover;
-	}
-
+}
 
 .power-button:hover {
 	box-shadow: 0px 0px 30px 1px rgba(232, 225, 18, 1);

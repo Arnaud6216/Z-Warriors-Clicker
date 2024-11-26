@@ -48,6 +48,8 @@ export const Provider = ({ children }: ProviderProps) => {
 		{ imgSrc: "src/assets/recome.webp", name: "Recome", life: 180 },
 		{ imgSrc: "src/assets/ginyu.webp", name: "Ginyu", life: 200 },
 		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 400 },
+		{ imgSrc: "src/assets/c17.webp", name: "C 17", life: 500 },
+		{ imgSrc: "src/assets/c18.webp", name: "C 18", life: 600 },
 		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 800 },
 		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 1500 },
 	];
