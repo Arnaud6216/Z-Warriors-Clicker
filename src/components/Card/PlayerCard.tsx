@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../options/Context";
 import "./card.css";
 
 function Card() {
 	const context = useContext(Context);
+	const [animation, setAnimation] = useState("power-button");
 
 	if (!context) {
 		return <div>Error: Context is not available!</div>;
@@ -13,6 +14,10 @@ function Card() {
 
 	const handleClickCount = () => {
 		setCount(count + 1);
+		setTimeout(() => {
+			setAnimation("power-button power-button-animation");
+		}, 100);
+		setAnimation("power-button");
 	};
 
 	const test = () => {
@@ -24,9 +29,9 @@ function Card() {
 			<img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
 			<h2 className="player-title">Goku</h2>
 			<h3>Puissance : {count}</h3>
-			<div>
+			<div className="power-button-container">
 				<button
-					className="power-button"
+					className={animation}
 					type="button"
 					onClick={handleClickCount}
 				/>
