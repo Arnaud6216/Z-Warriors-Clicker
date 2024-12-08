@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 type HomepageProps = {
-    handleStartGame: () => void;
+    handleStartGame?: () => void;
 };
 
 function Homepage({handleStartGame}: HomepageProps) {

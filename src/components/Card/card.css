@@ -19,8 +19,8 @@
 	background-color: rgb(123, 70, 0);
 	padding: 0.3rem;
 	border-radius: 5px;
-	border: solid 2px black;
-	box-shadow: 0px 0px 15px 5px #3b2305;
+	box-shadow: 0px 0px 15px 5px #834903;
+	z-index: 999;
 }
 
 .player-img {
