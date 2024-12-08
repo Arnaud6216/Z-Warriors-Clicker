@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+📜 Disclaimer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce jeu est un projet de fan créé à des fins non commerciales et éducatives. Il s'inspire de l'univers de Dragon Ball Z, qui est une propriété de Toei Animation, Akira Toriyama, et leurs détenteurs de droits respectifs.
+Ce projet n'est en aucun cas affilié, approuvé ou sponsorisé par les créateurs ou les détenteurs des droits de Dragon Ball Z. Tous les droits sur les noms, personnages et marques appartiennent à leurs propriétaires respectifs.
+Dragon Ball Z Clicker Game
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+Bienvenue dans Dragon Ball Z Clicker Game, un jeu incrémental immersif où vous incarnez un héros cherchant à devenir le plus puissant combattant de l'univers ! Cliquez pour accumuler de la puissance, débloquez des techniques emblématiques, et affrontez des adversaires redoutables.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  🎮 Fonctionnalités
 
-- Configure the top-level `parserOptions` property like this:
+    Accumulez de la puissance : Cliquez pour augmenter votre puissance de combat (Ki). Plus vous cliquez, plus vous devenez fort !
+    Techniques spéciales : Utilisez votre puissance pour débloquer et activer des attaques spéciales comme le Kamehameha, la spirit bomb, et bien d'autres.
+    Batailles épiques : Combattez des ennemis iconiques. Cliquez pour attaquer et réduire leur barre de vie.
+    Progression infinie : Faites évoluer vos compétences et devenez l'ultime guerrier Saiyan.
+    Graphismes immersifs : Plongez dans un univers inspiré de Dragon Ball Z avec des animations dynamiques.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+    
+  🕹️ Comment jouer ?
+    
+    Cliquez pour accumuler du Ki : Cliquez sur la boule de cristal pour augmenter votre puissance.
+    Combattez vos ennemis : Cliquez sur le bouton "Attack" pour infliger des dégâts à votre adversaire.
+    Débloquez des techniques : Utilisez votre Ki accumulé pour débloquer des attaques spéciales.
+    Progressez : Transformez vous en super saiyen pour améliorer vos compétences et vaincre des adversaires de plus en plus puissants.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   🗺️ Feuille de route pour Dragon Clicker Z
+   
+    - Sélection de personnages
+        Inclure Vegeta, Gohan ou encore Trunks, avec leurs techniques propre à chacun.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+    - Système des 7 boules de cristal
+        Intégrer une mécanique basée sur la collecte des Dragon Balls.
+          Les boules de cristal pourron être obtenues :
+            En battant des ennemis spécifiques.
+            En atteignant certains jalons de puissance.
+ 
+        Souhaits du Dragon Shenron :
+          Une fois les 7 boules réunies, permettre aux joueurs de faire un vœu, par exemple :
+            Augmenter la puissance ou la vitesse de Ki.
+            Débloquer un nouveau personnage ou technique (fusion).
+        
+    - Inclure les phases GT et Super, avec de nouvelles transformations et techniques.
