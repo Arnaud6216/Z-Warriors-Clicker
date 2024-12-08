@@ -19,7 +19,6 @@ function EnnemyCard() {
 		ennemyList,
 	} = context;
 
-	// Réinitialise la vie de l'ennemi à chaque changement d'index
 	useEffect(() => {
 		setEnnemyLife(ennemyList[ennemyIndex].life);
 	}, [ennemyIndex, setEnnemyLife]); // il manque la dépendance ennemyList mais si elle est ajoutée la vie de l'ennemi va se reset toujours au max

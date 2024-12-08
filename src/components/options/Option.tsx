@@ -3,9 +3,10 @@ interface OptionProps {
 	isAvailable: boolean;
 	onClick: () => void;
 	className: string;
+	title: string;
 }
 
-const Option = ({ label, isAvailable, onClick, className }: OptionProps) => {
+const Option = ({ label, isAvailable, onClick, className, title }: OptionProps) => {
 	return (
 		<li>
 			<button
@@ -13,6 +14,7 @@ const Option = ({ label, isAvailable, onClick, className }: OptionProps) => {
 				className={className}
 				onClick={onClick}
 				disabled={!isAvailable}
+				title={title}
 			>
 				{label}
 			</button>

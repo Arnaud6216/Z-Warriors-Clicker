@@ -7,9 +7,9 @@ type HomepageProps = {
 function Homepage({handleStartGame}: HomepageProps) {
     return ( 
         <div className="home-container">
-            <h1>Dragon Ball Z: Clicker Power</h1>
+            <h1>Z Warriors Clicker</h1>
             <p className="home-paragraph">
-                Bienvenue dans Dragon Ball Z: Clicker Power, un jeu où votre
+                Bienvenue dans Z Warriors Clicker, un jeu où votre
                 objectif est de cliquer pour devenir plus puissant et vaincre des
                 ennemis de plus en plus forts !
             </p>

@@ -10,7 +10,7 @@ function App() {
 	const [currentLocation, setCurrentLocation] = useState("/");
 	const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
-	const musicList = ["src/assets/Gohan-anger.mp3", "src/assets/change.mp3"];
+	const musicList = ["src/assets/music/Gohan-anger.mp3", "src/assets/music/change.mp3"];
 
 	const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 	const currentTrackIndex = useRef(0); //stocke une valeur mutable qui ne déclenche pas de rendu lorsqu'elle est modifiée

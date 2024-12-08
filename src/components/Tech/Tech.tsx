@@ -196,6 +196,7 @@ function Tech() {
 						isAvailable={count >= concentrationCost}
 						onClick={handleClickKi}
 						className={style}
+						title="Augmente le KI de 1 par seconde"
 					/>
 
 					<Option
@@ -203,6 +204,7 @@ function Tech() {
 						isAvailable={count >= 40}
 						onClick={handleClickKamehameha}
 						className={kamehamehaStyle}
+						title="Inflige 50 points de dégats. Multipliés en fonction de l'état de Super Saiyen"
 					/>
 
 					<Option
@@ -210,6 +212,7 @@ function Tech() {
 						isAvailable={count >= 200}
 						onClick={handleClickSpirit}
 						className={spiritBombStyle}
+						title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
 					/>
 
 					{count >= 50 && saiyenState === 0 && (
@@ -218,6 +221,7 @@ function Tech() {
 							isAvailable={count >= superSaiyen1}
 							onClick={handleClickSsj}
 							className="saiyan-option"
+							title="Augmente les dégats d'attaque de 5 et multiplie les techniques"
 						/>
 					)}
 					{count >= 100 && saiyenState === 1 && (
@@ -226,6 +230,7 @@ function Tech() {
 							isAvailable={count >= superSaiyen2}
 							onClick={handleClickSsj2}
 							className="saiyan-option"
+							title="Augmente les dégats d'attaque de 10 et multiplie les techniques"
 						/>
 					)}
 					{count >= 150 && saiyenState === 2 && (
@@ -234,6 +239,7 @@ function Tech() {
 							isAvailable={count >= superSaiyen3}
 							onClick={handleClickSsj3}
 							className="saiyan-option"
+							title="Augmente les dégats d'attaque de 15 et multiplie les techniques"
 						/>
 					)}
 				</ul>
