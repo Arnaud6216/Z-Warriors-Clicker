@@ -25,7 +25,7 @@ Bienvenue dans Z Warriors Clicker, un jeu incrémental immersif où vous incarne
     Progressez : Transformez vous en super saiyen pour améliorer vos compétences et vaincre des adversaires de plus en plus puissants.
 
 
-   🗺️ Feuille de route pour Z Warriors Clicker
+   🗺️ Feuille de route
    
     - Sélection de personnages
         Inclure Vegeta, Gohan ou encore Trunks, avec leurs techniques propre à chacun.
