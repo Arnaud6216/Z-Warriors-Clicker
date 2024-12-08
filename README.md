@@ -1,12 +1,12 @@
 📜 Disclaimer
 
-Ce jeu est un projet de fan créé à des fins non commerciales et éducatives. Il s'inspire de l'univers de Dragon Ball Z, qui est une propriété de Toei Animation, Akira Toriyama, et leurs détenteurs de droits respectifs.
+Ce jeu est un projet de fan créé à des fins non commerciales et éducatives. Il s'inspire de l'univers de Dragon Ball, qui est une propriété de Toei Animation, Akira Toriyama, et leurs détenteurs de droits respectifs.
 Ce projet n'est en aucun cas affilié, approuvé ou sponsorisé par les créateurs ou les détenteurs des droits de Dragon Ball Z. Tous les droits sur les noms, personnages et marques appartiennent à leurs propriétaires respectifs.
-Dragon Ball Z Clicker Game
 
 
 
-Bienvenue dans Dragon Ball Z Clicker Game, un jeu incrémental immersif où vous incarnez un héros cherchant à devenir le plus puissant combattant de l'univers ! Cliquez pour accumuler de la puissance, débloquez des techniques emblématiques, et affrontez des adversaires redoutables.
+
+Bienvenue dans Z Warriors Clicker, un jeu incrémental immersif où vous incarnez un héros cherchant à devenir le plus puissant combattant de l'univers ! Cliquez pour accumuler de la puissance, débloquez des techniques emblématiques, et affrontez des adversaires redoutables.
 
   🎮 Fonctionnalités
 
@@ -25,7 +25,7 @@ Bienvenue dans Dragon Ball Z Clicker Game, un jeu incrémental immersif où vous
     Progressez : Transformez vous en super saiyen pour améliorer vos compétences et vaincre des adversaires de plus en plus puissants.
 
 
-   🗺️ Feuille de route pour Dragon Clicker Z
+   🗺️ Feuille de route pour Z Warriors Clicker
    
     - Sélection de personnages
         Inclure Vegeta, Gohan ou encore Trunks, avec leurs techniques propre à chacun.
