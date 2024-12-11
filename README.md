@@ -42,3 +42,6 @@ Bienvenue dans Z Warriors Clicker, un jeu incrémental immersif où vous incarne
             Débloquer un nouveau personnage ou technique (fusion).
         
     - Inclure les phases GT et Super, avec de nouvelles transformations et techniques.
+
+    - Intégration d'un back-end avec mySQL :
+      L'utilisateur pourra créer un compte et y enregistrer ses scores
