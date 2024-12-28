@@ -27,23 +27,24 @@ function Tech() {
 		ennemyIndex,
 		setEnnemyIndex,
 		setGifSize,
+		setEnnemyStyle,
 	} = context;
 
 	const [style, setStyle] = useState("tech-option");
 	const [saiyenState, setSaiyenState] = useState(0);
 	const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
-	const [kamehamehaMultiplier, setKamehamehaMultiplier] = useState(2);
 	const [spiritBombStyle, setSpiritBombStyle] = useState("spirit-bomb");
 	const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
 	const [spiritCount, setSpiritCount] = useState(50);
 	const [spiritMultiplier, setSpiritMultiplier] = useState(1);
+    const [kamehamehaDamage, setKamehamehaDamage] = useState(50);
 
-	const superSaiyen1 = 50;
-	const superSaiyen2 = 100;
-	const superSaiyen3 = 150;
+	const superSaiyen1 = 1000;
+	const superSaiyen2 = 2000;
+	const superSaiyen3 = 3000;
 
-	const kamehamehaCost = 40;
-	const spiritBombCost = 200;
+	const kamehamehaCost = 150;
+	const spiritBombCost = 500;
 
 	useEffect(() => {
 		setStyle(
@@ -68,9 +69,12 @@ function Tech() {
 	const handleClickKamehameha = () => {
 		if (count >= kamehamehaCost) {
 			setCount(count - kamehamehaCost);
-			const damage = 50 * (kamehamehaMultiplier / 2);
-			if (ennemyLife > damage) {
-				setEnnemyLife(Math.max(ennemyLife - damage, 0));
+			if (ennemyLife > kamehamehaDamage) {
+				setEnnemyLife(Math.max(ennemyLife - kamehamehaDamage, 0));
+				setEnnemyStyle("attacked");
+				setTimeout(() => {
+					setEnnemyStyle("");
+				}, 800);
 			} else {
 				alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
 				setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
@@ -91,6 +95,10 @@ function Tech() {
 
 					if (ennemyLife > damage) {
 						setEnnemyLife(Math.max(ennemyLife - damage, 0));
+						setEnnemyStyle("attacked");
+				        setTimeout(() => {
+					      setEnnemyStyle("");
+				        }, 800);
 					} else {
 						alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
 						setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
@@ -103,7 +111,7 @@ function Tech() {
 	};
 
 	const handleSpirit = () => {
-		setSpiritCount((prevSpiritCount) => prevSpiritCount + 2);
+		setSpiritCount((prevSpiritCount) => prevSpiritCount + 5);
 	};
 
 	useEffect(() => {
@@ -131,7 +139,7 @@ function Tech() {
 		}
 		setSaiyenState(1);
 		setAttackMultiplier(5);
-		setKamehamehaMultiplier(4);
+		setKamehamehaDamage(100);
 		setSpiritMultiplier(1.5)
 	};
 
@@ -149,7 +157,7 @@ function Tech() {
 		}
 		setSaiyenState(2);
 		setAttackMultiplier(10);
-		setKamehamehaMultiplier(6);
+	setKamehamehaDamage(150);
 		setSpiritMultiplier(2);
 	};
 
@@ -167,7 +175,7 @@ function Tech() {
 		}
 		setSaiyenState(3);
 		setAttackMultiplier(15);
-		setKamehamehaMultiplier(8);
+		setKamehamehaDamage(200);
 		setSpiritMultiplier(3);
 	};
 
@@ -192,7 +200,7 @@ function Tech() {
 			<div className="tech-container">
 				<ul>
 					<Option
-						label="Concentration du KI"
+						label={`Concentration du KI - Coût : ${concentrationCost}`}
 						isAvailable={count >= concentrationCost}
 						onClick={handleClickKi}
 						className={style}
@@ -200,22 +208,22 @@ function Tech() {
 					/>
 
 					<Option
-						label="Kamehameha"
+						label={`Kamehameha - Coût : ${kamehamehaCost}`}
 						isAvailable={count >= 40}
 						onClick={handleClickKamehameha}
 						className={kamehamehaStyle}
-						title="Inflige 50 points de dégats. Multipliés en fonction de l'état de Super Saiyen"
+						title={`Inflige ${kamehamehaDamage} points de dégats.`}
 					/>
 
 					<Option
-						label="Spirit Bomb"
+						label={`Spirit Bomb - Coût : ${spiritBombCost}`}
 						isAvailable={count >= 200}
 						onClick={handleClickSpirit}
 						className={spiritBombStyle}
 						title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
 					/>
 
-					{count >= 50 && saiyenState === 0 && (
+					{count >= 1000 && saiyenState === 0 && (
 						<Option
 							label="Super Saiyen"
 							isAvailable={count >= superSaiyen1}
@@ -224,7 +232,7 @@ function Tech() {
 							title="Augmente les dégats d'attaque de 5 et multiplie les techniques"
 						/>
 					)}
-					{count >= 100 && saiyenState === 1 && (
+					{count >= 2000 && saiyenState === 1 && (
 						<Option
 							label="Super Saiyen 2"
 							isAvailable={count >= superSaiyen2}
@@ -233,7 +241,7 @@ function Tech() {
 							title="Augmente les dégats d'attaque de 10 et multiplie les techniques"
 						/>
 					)}
-					{count >= 150 && saiyenState === 2 && (
+					{count >= 3000 && saiyenState === 2 && (
 						<Option
 							label="Super Saiyen 3"
 							isAvailable={count >= superSaiyen3}

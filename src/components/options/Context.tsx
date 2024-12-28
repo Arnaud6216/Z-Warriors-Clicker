@@ -20,6 +20,8 @@ interface ContextType {
 	ennemyList: { imgSrc: string; name: string; life: number }[];
 	gifSize: string;
 	setGifSize: (size: string) => void;
+	ennemyStyle: string;
+	setEnnemyStyle: (style: string) => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -41,28 +43,29 @@ export const Provider = ({ children }: ProviderProps) => {
 
 	const ennemyList = [
 		{ imgSrc: "src/assets/nappa.webp", name: "Nappa", life: 50 },
-		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 100 },
+		{ imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 500 },
 		{ imgSrc: "src/assets/guldo.webp", name: "Guldo", life: 150 },
 		{ imgSrc: "src/assets/burter.webp", name: "Burter", life: 160 },
 		{ imgSrc: "src/assets/jeice.webp", name: "Jeice", life: 170 },
 		{ imgSrc: "src/assets/recome.webp", name: "Recome", life: 180 },
 		{ imgSrc: "src/assets/ginyu.webp", name: "Ginyu", life: 200 },
-		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 400 },
+		{ imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 1000 },
 		{ imgSrc: "src/assets/c17.webp", name: "C 17", life: 500 },
 		{ imgSrc: "src/assets/c18.webp", name: "C 18", life: 600 },
-		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 800 },
-		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 1500 },
+		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 3000 },
+		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 5000 },
 	];
 
 	const [count, setCount] = useState<number>(0);
 	const [concentrationCount, setConcentrationCount] = useState<number>(0);
 	const [concentrationCost, setConcentrationCost] = useState<number>(20);
-	const [gif, setGif] = useState<number>(0); // 0 - normal, 1 - Super Saiyen transition, 2 - Super Saiyen 1
+	const [gif, setGif] = useState<number>(0); 
 	const [attackMultiplier, setAttackMultiplier] = useState<number>(1);
 	const concentrationIncrement = 1;
 	const [ennemyIndex, setEnnemyIndex] = useState(0);
 	const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
 	const [gifSize, setGifSize] = useState("player-img");
+	const [ennemyStyle, setEnnemyStyle] = useState("");
 
 	return (
 		<Context.Provider
@@ -90,6 +93,8 @@ export const Provider = ({ children }: ProviderProps) => {
 				ennemyList,
 				gifSize,
 				setGifSize,
+				ennemyStyle,
+				setEnnemyStyle,
 			}}
 		>
 			{children}

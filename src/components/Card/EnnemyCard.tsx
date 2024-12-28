@@ -17,7 +17,10 @@ function EnnemyCard() {
 		ennemyLife,
 		setEnnemyLife,
 		ennemyList,
+		ennemyStyle,
 	} = context;
+
+
 
 	useEffect(() => {
 		setEnnemyLife(ennemyList[ennemyIndex].life);
@@ -47,7 +50,7 @@ function EnnemyCard() {
 				alt="ennemy"
 				width="390px"
 				height="220px"
-				className="character-gif"
+				className={`ennemy-gif ${ennemyStyle}`}
 			/>
 			<h2 className="ennemy-title">{ennemyList[ennemyIndex].name}</h2>
 			<div className="health-bar-container">
