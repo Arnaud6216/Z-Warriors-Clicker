@@ -75,6 +75,16 @@ li {
 	border: double 5px rgb(117, 66, 7);
 }
 
+.kamehameha-progress-bar {
+	overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 20%; 
+    background-color: #beac06; /* Couleur de la barre */
+    transition: width 0.1s linear; 
+}
+
 .saiyan-option {
 	display: flex;
 	align-items: center;

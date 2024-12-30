@@ -22,6 +22,7 @@ interface ContextType {
 	setGifSize: (size: string) => void;
 	ennemyStyle: string;
 	setEnnemyStyle: (style: string) => void;
+	soundEffectList: { play: () => void }[];
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -54,6 +55,12 @@ export const Provider = ({ children }: ProviderProps) => {
 		{ imgSrc: "src/assets/c18.webp", name: "C 18", life: 600 },
 		{ imgSrc: "src/assets/cell.webp", name: "Cell", life: 3000 },
 		{ imgSrc: "src/assets/buu.webp", name: "Buu", life: 5000 },
+	];
+
+	const soundEffectList = [
+		{ play: () => new Audio("src/assets/music/lightAttack.mp3").play() },
+		{ play: () => new Audio("src/assets/music/heavyAttack.mp3").play() },
+		{ play: () => new Audio("src/assets/music/kamehameha.mp3").play() }
 	];
 
 	const [count, setCount] = useState<number>(0);
@@ -95,6 +102,7 @@ export const Provider = ({ children }: ProviderProps) => {
 				setGifSize,
 				ennemyStyle,
 				setEnnemyStyle,
+				soundEffectList
 			}}
 		>
 			{children}
