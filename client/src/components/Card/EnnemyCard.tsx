@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../options/Context";
 import { useRef } from "react";
+import { Context } from "../options/Context";
 
 function EnnemyCard() {
   const context = useContext(Context);
