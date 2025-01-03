@@ -7,7 +7,7 @@ function Tech() {
   const context = useContext(Context);
 
   if (!context) {
-    return <div>Error: Context is not available!</div>;
+    return <div>Error: Context is not available</div>;
   }
 
   const {
