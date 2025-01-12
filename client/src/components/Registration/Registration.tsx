@@ -15,7 +15,6 @@ function Registration({ setIsLogged }: RegistrationProps) {
     const username = (elements.namedItem("username") as HTMLInputElement).value;
     const password = (elements.namedItem("password") as HTMLInputElement).value;
 
-    // Simulez une vérification simple
     if (username === "admin" && password === "admin") {
       setIsLogged(true);
     } else {
@@ -33,9 +32,7 @@ function Registration({ setIsLogged }: RegistrationProps) {
     // Logique d'inscription (simulé ici, connectez-le à une API réelle)
     if (username && password) {
       alert(`Compte créé pour ${username} !`);
-      setIsRegister(true); // Basculer sur l'écran de connexion après inscription
-    } else {
-      alert("Veuillez remplir tous les champs.");
+      setIsRegister(true);
     }
   };
 

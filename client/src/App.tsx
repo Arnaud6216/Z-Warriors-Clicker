@@ -6,13 +6,14 @@ import Homepage from "./components/Homepage/Homepage";
 import Registration from "./components/Registration/Registration";
 import Tech from "./components/Tech/Tech";
 import { Provider } from "./components/options/Context";
+import AudioController from "./components/Audio/AudioController";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
-
   const [currentLocation, setCurrentLocation] = useState("/");
-
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [musicVolume, setMusicVolume] = useState(50); // Ajout d'un état pour le volume de la musique
+
   const musicList = [
     "src/assets/music/We-gotta-power.mp3",
     "src/assets/music/Solid-state-scouter.mp3",
@@ -22,8 +23,9 @@ function App() {
     "src/assets/music/Goku-ssj3-theme.mp3",
     "src/assets/music/Goku-ssj4-theme.mp3",
   ];
+
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const currentTrackIndex = useRef(0); //stocke une valeur mutable qui ne déclenche pas de rendu lorsqu'elle est modifiée
+  const currentTrackIndex = useRef(0);
 
   const playMusic = (index: number) => {
     if (index >= musicList.length) {
@@ -36,6 +38,9 @@ function App() {
     currentAudioRef.current = music;
     currentTrackIndex.current = index;
 
+    // Appliquer le volume actuel de la musique
+    music.volume = musicVolume / 100;
+
     music.play();
     setIsMusicPlaying(true);
 
@@ -44,24 +49,14 @@ function App() {
     });
   };
 
-  const handleMusic = () => {
-    if (isMusicPlaying && currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      setIsMusicPlaying(false);
-    } else if (currentAudioRef.current) {
-      currentAudioRef.current.play();
-      setIsMusicPlaying(true);
-    }
-  };
-
   const handleStartGame = () => {
     setCurrentLocation("/game");
-    playMusic(0);
+    playMusic(0); // Lance la musique lorsque le jeu commence
   };
 
   return (
     <>
-      {isLogged === false ? (
+      {!isLogged ? (
         <Registration setIsLogged={setIsLogged} />
       ) : (
         <>
@@ -70,14 +65,16 @@ function App() {
           )}
           {currentLocation === "/game" && (
             <Provider>
-              <div>
-                <button className="musique" type="button" onClick={handleMusic}>
-                  Musique On/Off
-                </button>
-              </div>
               <Card />
               <Tech />
               <EnnemyCard />
+              <AudioController
+                currentAudioRef={currentAudioRef}
+                isMusicPlaying={isMusicPlaying}
+                setIsMusicPlaying={setIsMusicPlaying}
+                setMusicVolume={setMusicVolume} // Passer la fonction pour changer le volume de la musique
+                musicVolume={musicVolume} // Passer la valeur actuelle du volume
+              />
             </Provider>
           )}
         </>

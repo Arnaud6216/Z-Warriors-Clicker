@@ -24,11 +24,6 @@ body {
   text-align: center;
 }
 
-.musique {
-  position: absolute;
-  top: 30px;
-}
-
 .overlay {
   display: flex;
 }

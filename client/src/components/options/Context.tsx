@@ -26,8 +26,6 @@ interface ContextType {
   ennemy: Ennemy[];
   musicVolume: number;
   setMusicVolume: (volume: number) => void;
-  soundEffectVolume: number;
-  setSoundEffectVolume: (volume: number) => void;
 }
 
 interface Ennemy {
@@ -87,7 +85,6 @@ export const Provider = ({ children }: ProviderProps) => {
   const [gifSize, setGifSize] = useState("player-img");
   const [ennemyStyle, setEnnemyStyle] = useState("");
   const [musicVolume, setMusicVolume] = useState(0.5);
-  const [soundEffectVolume, setSoundEffectVolume] = useState(0.5);
 
   return (
     <Context.Provider
@@ -120,8 +117,6 @@ export const Provider = ({ children }: ProviderProps) => {
         ennemy,
         musicVolume,
         setMusicVolume,
-        soundEffectVolume,
-        setSoundEffectVolume,
       }}
     >
       {children}
