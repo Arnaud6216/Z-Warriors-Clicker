@@ -1,10 +1,10 @@
-import "./Registration.css";
+import "./Login.css";
 
-interface RegistrationProps {
+interface LoginProps {
   setIsLogged: (isLogged: boolean) => void;
 }
 
-function Registration({ setIsLogged }: RegistrationProps) {
+function Login({ setIsLogged }: LoginProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -32,4 +32,4 @@ function Registration({ setIsLogged }: RegistrationProps) {
   );
 }
 
-export default Registration;
+export default Login;

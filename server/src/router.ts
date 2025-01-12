@@ -5,14 +5,21 @@ const router = express.Router();
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
+import accountActions from "./modules/account/accountActions";
 
-// Define item-related routes
-import itemActions from "./modules/item/accountActions";
-
-router.get("/api/account", itemActions.browse);
-router.get("/api/account/:id", itemActions.read);
-router.post("/api/account", itemActions.add);
+router.get("/api/account", accountActions.browse);
+router.get("/api/account/:id", accountActions.read);
 
 /* ************************************************************************* */
+import ennemyActions from "./modules/ennemy/ennemyActions";
+
+router.get("/api/ennemy", ennemyActions.browse);
+router.get("/api/ennemy/:id", ennemyActions.read);
+
+/* ************************************************************************* */
+import progressActions from "./modules/progress/progressActions";
+
+router.get("/api/progress", progressActions.browse);
+router.get("/api/progress/:id", progressActions.read);
 
 export default router;

@@ -1,12 +1,40 @@
-create table account (
-  id int unsigned primary key auto_increment not null,
-  username varchar(255) not null unique,
-  email varchar(255) not null unique,
-  password varchar(255) not null 
+CREATE TABLE account (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL
 );
 
-insert into account(id, username, email, password)
-values
-  (1, "admin", "guevaer8@gmail.com" "admin");
+CREATE TABLE ennemy (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name VARCHAR(50) NOT NULL UNIQUE,
+  img_src VARCHAR(255) NOT NULL UNIQUE,
+  life SMALLINT UNSIGNED NOT NULL
+);
 
+CREATE TABLE progress (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  account_id INT UNSIGNED NOT NULL,
+  ennemy_id INT UNSIGNED NOT NULL,
+  FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
+  FOREIGN KEY (ennemy_id) REFERENCES ennemy(id) ON DELETE CASCADE
+);
 
+INSERT INTO account (username, email, password)
+VALUES
+  ("admin", "guevaer8@gmail.com", "admin");
+
+INSERT INTO ennemy (name, img_src, life)
+VALUES
+    ("Nappa", "src/assets/nappa.webp", 50),
+    ("Vegeta", "src/assets/vegeta.webp", 500),
+    ("Guldo", "src/assets/guldo.webp", 150),
+    ("Burter", "src/assets/burter.webp", 160),
+    ("Jeice", "src/assets/jeice.webp", 170),
+    ("Recome", "src/assets/recome.webp", 180),
+    ("Ginyu", "src/assets/ginyu.webp", 200),
+    ("Freezer", "src/assets/freezer.webp", 1000),
+    ("C 17", "src/assets/c17.webp", 500),
+    ("C 18", "src/assets/c18.webp", 600),
+    ("Cell", "src/assets/cell.webp", 3000),
+    ("Buu", "src/assets/buu.webp", 5000);

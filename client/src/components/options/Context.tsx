@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+
 interface ContextType {
   gifSrc: string[];
   count: number;
@@ -23,6 +24,14 @@ interface ContextType {
   ennemyStyle: string;
   setEnnemyStyle: (style: string) => void;
   soundEffectList: { play: () => void }[];
+  ennemy: Ennemy[];
+}
+
+interface Ennemy {
+  id: number;
+  name: string;
+  img_src: string;
+  life: number;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -41,6 +50,16 @@ export const Provider = ({ children }: ProviderProps) => {
     "src/assets/ssj3-transition.webp",
     "src/assets/ssj3.webp",
   ];
+
+  const [ennemy, setEnnemy] = useState([] as Ennemy[]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/ennemy`)
+      .then((response) => response.json())
+      .then((data: Ennemy[]) => {
+        setEnnemy(data);
+      });
+  }, []);
 
   const ennemyList = [
     { imgSrc: "src/assets/nappa.webp", name: "Nappa", life: 50 },
@@ -103,6 +122,7 @@ export const Provider = ({ children }: ProviderProps) => {
         ennemyStyle,
         setEnnemyStyle,
         soundEffectList,
+        ennemy,
       }}
     >
       {children}
