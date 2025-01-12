@@ -23,11 +23,11 @@ function Tech() {
     setAttackMultiplier,
     ennemyLife,
     setEnnemyLife,
-    ennemyList,
     ennemyIndex,
     setEnnemyIndex,
     setGifSize,
     setEnnemyStyle,
+    ennemy,
     // soundEffectList,
   } = context;
 
@@ -104,8 +104,8 @@ function Tech() {
           setEnnemyStyle("");
         }, 800);
       } else {
-        alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-        setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+        alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
+        setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
       }
     }
   };
@@ -128,8 +128,8 @@ function Tech() {
               setEnnemyStyle("");
             }, 800);
           } else {
-            alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-            setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+            alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
+            setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
           }
           return 50;
         });

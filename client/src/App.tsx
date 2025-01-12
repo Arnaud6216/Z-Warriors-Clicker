@@ -14,8 +14,13 @@ function App() {
 
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const musicList = [
+    "src/assets/music/We-gotta-power.mp3",
+    "src/assets/music/Solid-state-scouter.mp3",
     "src/assets/music/Gohan-anger.mp3",
     "src/assets/music/change.mp3",
+    "src/assets/music/Goku-ssj1-theme.mp3",
+    "src/assets/music/Goku-ssj3-theme.mp3",
+    "src/assets/music/Goku-ssj4-theme.mp3",
   ];
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const currentTrackIndex = useRef(0); //stocke une valeur mutable qui ne déclenche pas de rendu lorsqu'elle est modifiée

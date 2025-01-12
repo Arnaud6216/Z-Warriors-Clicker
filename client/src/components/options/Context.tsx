@@ -18,13 +18,16 @@ interface ContextType {
   setEnnemyIndex: (index: number) => void;
   ennemyLife: number;
   setEnnemyLife: (life: number) => void;
-  ennemyList: { imgSrc: string; name: string; life: number }[];
   gifSize: string;
   setGifSize: (size: string) => void;
   ennemyStyle: string;
   setEnnemyStyle: (style: string) => void;
   soundEffectList: { play: () => void }[];
   ennemy: Ennemy[];
+  musicVolume: number;
+  setMusicVolume: (volume: number) => void;
+  soundEffectVolume: number;
+  setSoundEffectVolume: (volume: number) => void;
 }
 
 interface Ennemy {
@@ -58,23 +61,14 @@ export const Provider = ({ children }: ProviderProps) => {
       .then((response) => response.json())
       .then((data: Ennemy[]) => {
         setEnnemy(data);
+        if (data.length > 0) {
+          setEnnemyLife(data[0].life);
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des ennemis :", error);
       });
   }, []);
-
-  const ennemyList = [
-    { imgSrc: "src/assets/nappa.webp", name: "Nappa", life: 50 },
-    { imgSrc: "src/assets/vegeta.webp", name: "Vegeta", life: 500 },
-    { imgSrc: "src/assets/guldo.webp", name: "Guldo", life: 150 },
-    { imgSrc: "src/assets/burter.webp", name: "Burter", life: 160 },
-    { imgSrc: "src/assets/jeice.webp", name: "Jeice", life: 170 },
-    { imgSrc: "src/assets/recome.webp", name: "Recome", life: 180 },
-    { imgSrc: "src/assets/ginyu.webp", name: "Ginyu", life: 200 },
-    { imgSrc: "src/assets/freezer.webp", name: "Freezer", life: 1000 },
-    { imgSrc: "src/assets/c17.webp", name: "C 17", life: 500 },
-    { imgSrc: "src/assets/c18.webp", name: "C 18", life: 600 },
-    { imgSrc: "src/assets/cell.webp", name: "Cell", life: 3000 },
-    { imgSrc: "src/assets/buu.webp", name: "Buu", life: 5000 },
-  ];
 
   const soundEffectList = [
     { play: () => new Audio("src/assets/music/lightAttack.mp3").play() },
@@ -89,9 +83,11 @@ export const Provider = ({ children }: ProviderProps) => {
   const [attackMultiplier, setAttackMultiplier] = useState<number>(1);
   const concentrationIncrement = 1;
   const [ennemyIndex, setEnnemyIndex] = useState(0);
-  const [ennemyLife, setEnnemyLife] = useState(ennemyList[ennemyIndex].life);
+  const [ennemyLife, setEnnemyLife] = useState<number>(0);
   const [gifSize, setGifSize] = useState("player-img");
   const [ennemyStyle, setEnnemyStyle] = useState("");
+  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [soundEffectVolume, setSoundEffectVolume] = useState(0.5);
 
   return (
     <Context.Provider
@@ -116,13 +112,16 @@ export const Provider = ({ children }: ProviderProps) => {
         setEnnemyIndex,
         ennemyLife,
         setEnnemyLife,
-        ennemyList,
         gifSize,
         setGifSize,
         ennemyStyle,
         setEnnemyStyle,
         soundEffectList,
         ennemy,
+        musicVolume,
+        setMusicVolume,
+        soundEffectVolume,
+        setSoundEffectVolume,
       }}
     >
       {children}
