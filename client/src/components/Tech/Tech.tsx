@@ -250,7 +250,7 @@ function Tech() {
             title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
           />
 
-          {count >= 1000 && saiyenState === 0 && (
+          {count >= superSaiyen1 && saiyenState === 0 && (
             <Option
               label="Super Saiyen"
               isAvailable={count >= superSaiyen1}
@@ -259,7 +259,7 @@ function Tech() {
               title="Augmente les dégats d'attaque de 5 et multiplie les techniques"
             />
           )}
-          {count >= 2000 && saiyenState === 1 && (
+          {count >= superSaiyen2 && saiyenState === 1 && (
             <Option
               label="Super Saiyen 2"
               isAvailable={count >= superSaiyen2}
@@ -268,7 +268,7 @@ function Tech() {
               title="Augmente les dégats d'attaque de 10 et multiplie les techniques"
             />
           )}
-          {count >= 3000 && saiyenState === 2 && (
+          {count >= superSaiyen3 && saiyenState === 2 && (
             <Option
               label="Super Saiyen 3"
               isAvailable={count >= superSaiyen3}
