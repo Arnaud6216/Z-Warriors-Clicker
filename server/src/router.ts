@@ -22,5 +22,9 @@ import progressActions from "./modules/progress/progressActions";
 
 router.get("/api/progress", progressActions.browse);
 router.get("/api/progress/:id", progressActions.read);
+/* ************************************************************************* */
+import authActions from "./modules/auth/authActions";
+
+router.post("/api/login", authActions.login);
 
 export default router;

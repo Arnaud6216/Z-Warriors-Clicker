@@ -71,7 +71,7 @@ export const Provider = ({ children }: ProviderProps) => {
   const soundEffectList = [
     { play: () => new Audio("src/assets/music/lightAttack.mp3").play() },
     { play: () => new Audio("src/assets/music/heavyAttack.mp3").play() },
-    { play: () => new Audio("src/assets/music/kamehameha.mp3").play() },
+    // { play: () => new Audio("src/assets/music/kamehameha.mp3").play() },
   ];
 
   const [count, setCount] = useState<number>(0);

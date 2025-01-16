@@ -16,6 +16,7 @@ const AudioController: React.FC<AudioControllerProps> = ({
   musicVolume,
   setMusicVolume,
 }) => {
+
   // Fonction pour gérer la lecture / pause de la musique
   const handleMusic = () => {
     if (isMusicPlaying && currentAudioRef.current) {
@@ -32,16 +33,16 @@ const AudioController: React.FC<AudioControllerProps> = ({
     const volume = Number(e.target.value);
     setMusicVolume(volume);
     if (currentAudioRef.current) {
-      currentAudioRef.current.volume = volume / 100; // Ajuster le volume de l'audio
+      currentAudioRef.current.volume = volume / 100; 
     }
   };
 
   // Assurer que le volume est correctement appliqué à chaque changement de musique
   useEffect(() => {
     if (currentAudioRef.current) {
-      currentAudioRef.current.volume = musicVolume / 100; // Appliquer le volume au moment où une nouvelle musique est jouée
+      currentAudioRef.current.volume = musicVolume / 100; 
     }
-  }, [musicVolume, currentAudioRef]); // Réagir au changement de volume
+  }, [musicVolume, currentAudioRef]); 
 
   return (
     <footer className="audio-container">

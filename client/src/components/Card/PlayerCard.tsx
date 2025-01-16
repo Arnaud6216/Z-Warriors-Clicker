@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Context } from "../options/Context";
+import { Context } from "../../services/Context";
 import "./card.css";
 
 function Card() {

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../options/Context";
+import { Context } from "../../services/Context";
 import Option from "../options/Option";
 import "./tech.css";
 
