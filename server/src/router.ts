@@ -9,7 +9,7 @@ import accountActions from "./modules/account/accountActions";
 
 router.get("/api/account", accountActions.browse);
 router.get("/api/account/:id", accountActions.read);
-router.get("/api/account", accountActions.add);
+router.post("/api/account", accountActions.add);
 
 /* ************************************************************************* */
 import ennemyActions from "./modules/ennemy/ennemyActions";

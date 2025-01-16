@@ -21,9 +21,9 @@ function Login() {
 
   const navigate = useNavigate();
 
-const handleRegister = () => {
+  const handleRegister = () => {
     navigate("/register");
-};
+  };
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -79,7 +79,9 @@ const handleRegister = () => {
       <button type="submit">Se connecter</button>
 
       <p>Pas de compte ?</p>
-      <button type="button" onClick={handleRegister}>Inscrivez vous</button>
+      <button type="button" onClick={handleRegister}>
+        Inscrivez vous
+      </button>
     </form>
   );
 }

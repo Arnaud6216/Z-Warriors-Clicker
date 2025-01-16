@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
-import Homepage from "./components/Homepage/Homepage.tsx";
-import { Provider } from "./services/Context.tsx";
-import Gameboard from "./pages/GameBoard.tsx";
 import Login from "./components/Auth/login/Login.tsx";
 import Register from "./components/Auth/register/Register.tsx";
+import Homepage from "./components/Homepage/Homepage.tsx";
+import Gameboard from "./pages/GameBoard.tsx";
+import { Provider } from "./services/Context.tsx";
 
 const router = createBrowserRouter([
   {

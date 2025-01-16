@@ -3,9 +3,8 @@ import type { ChangeEventHandler, FormEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
-
 function Register() {
-
+  const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const [password, setPassword] = useState("");
 
@@ -26,8 +25,8 @@ function Register() {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email:
-              (emailRef.current as HTMLInputElement).value,
+            username: (usernameRef.current as HTMLInputElement).value,
+            email: (emailRef.current as HTMLInputElement).value,
             password,
           }),
         },
@@ -45,20 +44,28 @@ function Register() {
 
   return (
     <>
-        <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container" onSubmit={handleSubmit}>
+        <h2>Inscription</h2>
 
-          <h2>Inscription</h2>
+        <label htmlFor="username">Pseudo</label>
+        <input type="text" id="username" name="username" ref={usernameRef} />
 
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" ref={emailRef}/>
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email" ref={emailRef} />
 
-          <label htmlFor="password">Mot de passe</label>
-          <input type="password" id="password" name="password" onChange={handlePasswordChange} value={password}/>
+        <label htmlFor="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          onChange={handlePasswordChange}
+          value={password}
+        />
 
-          <button className="submit" type="submit">
-            Inscription
-          </button>
-        </form>
+        <button className="submit" type="submit">
+          Inscription
+        </button>
+      </form>
     </>
   );
 }

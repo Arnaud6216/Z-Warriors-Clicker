@@ -10,14 +10,13 @@ type User = {
 };
 
 function App() {
-
-  const [user, setUser] = useState<User | null>(null);;
+  const [user, setUser] = useState<User | null>(null);
 
   return (
     <>
-        <Outlet context={{ user, setUser }} />
+      <Outlet context={{ user, setUser }} />
     </>
-  )   
+  );
 }
 
 export default App;

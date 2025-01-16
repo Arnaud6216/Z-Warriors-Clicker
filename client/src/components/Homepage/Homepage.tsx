@@ -2,10 +2,9 @@ import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Homepage() {
-
   const { user } = useOutletContext() as {
     user: { id: number; username: string; email: string; password: string };
-  }
+  };
 
   const navigate = useNavigate();
 
@@ -35,14 +34,9 @@ function Homepage() {
         Cliquez sur le bouton "Commencer le jeu" pour débuter l'aventure.
       </p>
 
-        <button
-          type="button"
-          className="start-button"
-          onClick={handleStartGame}
-        >
-          Commencer le jeu
-        </button>
-     
+      <button type="button" className="start-button" onClick={handleStartGame}>
+        Commencer le jeu
+      </button>
     </div>
   );
 }
