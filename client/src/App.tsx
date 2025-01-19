@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 import "./App.css";
+import AudioController from "./components/Audio/AudioController";
 import EnnemyCard from "./components/Card/EnnemyCard";
 import Card from "./components/Card/PlayerCard";
 import Homepage from "./components/Homepage/Homepage";
 import Registration from "./components/Registration/Registration";
 import Tech from "./components/Tech/Tech";
 import { Provider } from "./components/options/Context";
-import AudioController from "./components/Audio/AudioController";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);

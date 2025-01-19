@@ -17,6 +17,7 @@ function EnnemyCard() {
     ennemyLife,
     setEnnemyLife,
     soundEffectList,
+    attackMultiplier,
   } = context;
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function EnnemyCard() {
 
   const handleClickLightAttack = () => {
     soundEffectList[0].play();
-    const damage = 1;
+    const damage = 1 * attackMultiplier;
     if (ennemyLife > damage) {
       setEnnemyLife(Math.max(ennemyLife - damage, 0));
     } else {
@@ -67,7 +68,7 @@ function EnnemyCard() {
     }, 3400);
 
     soundEffectList[1].play();
-    const damage = 7;
+    const damage = 7 * attackMultiplier;
     if (ennemyLife > damage) {
       setEnnemyLife(Math.max(ennemyLife - damage, 0));
     } else {

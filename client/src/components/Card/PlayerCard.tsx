@@ -10,7 +10,14 @@ function Card() {
     return <div>Error: Context is not available!</div>;
   }
 
-  const { gifSrc, count, setCount, gifSize } = context;
+  const {
+    gifSrc,
+    count,
+    setCount,
+    gifSize,
+    attackMultiplier,
+    concentrationCount,
+  } = context;
 
   const handleClickCount = () => {
     setCount(count + 1);
@@ -28,7 +35,15 @@ function Card() {
     <div className="player-container">
       <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
       <h2 className="player-title">Goku</h2>
-      <h3>Puissance : {count}</h3>
+      <div className="info-container">
+        <h3>Puissance : {count}</h3>
+        <p className="player-info">
+          Attaque : <strong>x{attackMultiplier}</strong>{" "}
+        </p>
+        <p className="player-info">
+          Puissance par seconde : <strong>+{concentrationCount}</strong>
+        </p>
+      </div>
       <div className="power-button-container">
         <button
           className={animation}

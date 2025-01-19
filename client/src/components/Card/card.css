@@ -45,6 +45,19 @@
   margin: 0;
 }
 
+.info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-container h3 {
+  color: #ffcb00;
+}
+
+.player-info {
+  margin: 0;
+}
+
 .power-button-container {
   border-radius: 50%;
 }
