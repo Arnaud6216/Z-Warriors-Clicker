@@ -1,42 +1,87 @@
+import { useEffect, useRef, useState } from "react";
 import "./AudioController.css";
 
-interface AudioControllerProps {
-  currentAudioRef: React.MutableRefObject<HTMLAudioElement | null>;
-  isMusicPlaying: boolean;
-  setIsMusicPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  musicVolume: number;
-  setMusicVolume: React.Dispatch<React.SetStateAction<number>>;
-}
+const AudioController: React.FC = () => {
 
-const AudioController: React.FC<AudioControllerProps> = ({
-  currentAudioRef,
-  isMusicPlaying,
-  setIsMusicPlaying,
-  musicVolume,
-  setMusicVolume,
-}) => {
+  const musicList = [
+    "src/assets/music/We-gotta-power.mp3",
+    "src/assets/music/Solid-state-scouter.mp3",
+    "src/assets/music/Gohan-anger.mp3",
+    "src/assets/music/change.mp3",
+    "src/assets/music/Goku-ssj1-theme.mp3",
+    "src/assets/music/Goku-ssj3-theme.mp3",
+    "src/assets/music/Goku-ssj4-theme.mp3",
+  ];
+
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [musicVolume, setMusicVolume] = useState(50); 
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const handleMusic = () => {
-    if (isMusicPlaying && currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      setIsMusicPlaying(false);
-    } else if (currentAudioRef.current) {
-      currentAudioRef.current.play();
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause(); 
+        setIsMusicPlaying(false);
+      } else {
+        audioRef.current.play(); 
+        setIsMusicPlaying(true);
+      }
+    } else {
+      const audio = new Audio(musicList[currentTrackIndex]);
+      audio.volume = musicVolume / 100;
+      audioRef.current = audio;
+      audio.play();
       setIsMusicPlaying(true);
+
+      audio.addEventListener("ended", () => {
+        if (currentTrackIndex < musicList.length - 1) {
+          setCurrentTrackIndex(currentTrackIndex + 1);
+        } else {
+          setIsMusicPlaying(false);
+        }
+      });
     }
   };
 
-  const handleMusicVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const volume = Number(e.target.value);
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const volume = Number(event.target.value);
     setMusicVolume(volume);
-    if (currentAudioRef.current) {
-      currentAudioRef.current.volume = volume / 100;
+
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
     }
   };
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = musicVolume / 100;
+    }
+  }, [musicVolume]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+
+      audioRef.current.pause();
+      audioRef.current = new Audio(musicList[currentTrackIndex]);
+      audioRef.current.volume = musicVolume / 100;
+      audioRef.current.play(); 
+      setIsMusicPlaying(true);
+
+      audioRef.current.addEventListener("ended", () => {
+        if (currentTrackIndex < musicList.length - 1) {
+          setCurrentTrackIndex(currentTrackIndex + 1);
+        } else {
+          setIsMusicPlaying(false);
+        }
+      });
+    }
+  }, [currentTrackIndex]); 
 
   return (
     <footer className="audio-container">
       <button className="musique" type="button" onClick={handleMusic}>
-        Musique : {isMusicPlaying ? "Pause" : "Play"}
+        {isMusicPlaying ? "Pause" : "Play"}
       </button>
       <label htmlFor="music-range">Volume de la musique :</label>
       <input
@@ -45,7 +90,7 @@ const AudioController: React.FC<AudioControllerProps> = ({
         min="0"
         max="100"
         value={musicVolume}
-        onChange={handleMusicVolume}
+        onChange={handleVolumeChange}
       />
     </footer>
   );

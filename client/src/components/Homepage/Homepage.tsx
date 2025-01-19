@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-type HomepageProps = {
-  handleStartGame?: () => void;
-};
+function Homepage() {
+  const { user } = useOutletContext() as {
+    user: { id: number; username: string; email: string; password: string };
+  };
 
-function Homepage({ handleStartGame }: HomepageProps) {
+  const navigate = useNavigate();
+
+  const handleStartGame = () => {
+    if (user == null) {
+      navigate("/login");
+    } else {
+      navigate("/game");
+    }
+  };
+
   return (
     <div className="home-container">
       <h1>Z Warriors Clicker</h1>
@@ -22,17 +33,11 @@ function Homepage({ handleStartGame }: HomepageProps) {
       <p className="home-paragraph">
         Cliquez sur le bouton "Commencer le jeu" pour débuter l'aventure.
       </p>
-      <Link to="/game">
-        <button
-          type="button"
-          className="start-button"
-          onClick={handleStartGame}
-        >
-          Commencer le jeu
-        </button>
-      </Link>
+
+      <button type="button" className="start-button" onClick={handleStartGame}>
+        Commencer le jeu
+      </button>
     </div>
   );
 }
-
 export default Homepage;
