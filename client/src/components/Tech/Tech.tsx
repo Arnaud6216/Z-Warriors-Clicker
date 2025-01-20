@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Context } from "../options/Context";
+import { Context } from "../../services/Context";
 import Option from "../options/Option";
 import "./tech.css";
 
@@ -7,7 +7,7 @@ function Tech() {
   const context = useContext(Context);
 
   if (!context) {
-    return <div>Error: Context is not available!</div>;
+    return <div>Error: Context is not available</div>;
   }
 
   const {
@@ -23,11 +23,11 @@ function Tech() {
     setAttackMultiplier,
     ennemyLife,
     setEnnemyLife,
-    ennemyList,
     ennemyIndex,
     setEnnemyIndex,
     setGifSize,
     setEnnemyStyle,
+    ennemy,
     // soundEffectList,
   } = context;
 
@@ -49,13 +49,13 @@ function Tech() {
 
   useEffect(() => {
     setStyle(
-      count >= concentrationCost ? "tech-option-available" : "tech-option",
+      count >= concentrationCost ? "tech-option-available" : "tech-option"
     );
     setKamehamehaStyle(
-      count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
+      count >= kamehamehaCost ? "kamehameha-available" : "kamehameha"
     );
     setSpiritBombStyle(
-      count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb",
+      count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb"
     );
   }, [count, concentrationCost]);
 
@@ -104,8 +104,8 @@ function Tech() {
           setEnnemyStyle("");
         }, 800);
       } else {
-        alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-        setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+        alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
+        setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
       }
     }
   };
@@ -128,8 +128,8 @@ function Tech() {
               setEnnemyStyle("");
             }, 800);
           } else {
-            alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-            setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
+            alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
+            setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
           }
           return 50;
         });
@@ -146,7 +146,7 @@ function Tech() {
     const interval = setInterval(() => {
       setCount(
         (prevCount: number) =>
-          prevCount + concentrationCount * concentrationIncrement,
+          prevCount + concentrationCount * concentrationIncrement
       );
     }, 1000);
 
@@ -250,7 +250,7 @@ function Tech() {
             title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
           />
 
-          {count >= 1000 && saiyenState === 0 && (
+          {count >= superSaiyen1 && saiyenState === 0 && (
             <Option
               label="Super Saiyen"
               isAvailable={count >= superSaiyen1}
@@ -259,7 +259,7 @@ function Tech() {
               title="Augmente les dégats d'attaque de 5 et multiplie les techniques"
             />
           )}
-          {count >= 2000 && saiyenState === 1 && (
+          {count >= superSaiyen2 && saiyenState === 1 && (
             <Option
               label="Super Saiyen 2"
               isAvailable={count >= superSaiyen2}
@@ -268,7 +268,7 @@ function Tech() {
               title="Augmente les dégats d'attaque de 10 et multiplie les techniques"
             />
           )}
-          {count >= 3000 && saiyenState === 2 && (
+          {count >= superSaiyen3 && saiyenState === 2 && (
             <Option
               label="Super Saiyen 3"
               isAvailable={count >= superSaiyen3}

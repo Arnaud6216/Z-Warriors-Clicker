@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
-import EnnemyCard from "./components/Card/EnnemyCard.tsx";
-import Card from "./components/Card/PlayerCard.tsx";
+import Login from "./components/Auth/login/Login.tsx";
+import Register from "./components/Auth/register/Register.tsx";
 import Homepage from "./components/Homepage/Homepage.tsx";
-import Tech from "./components/Tech/Tech.tsx";
-import { Provider } from "./components/options/Context";
+import Gameboard from "./pages/GameBoard.tsx";
+import { Provider } from "./services/Context.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,12 +18,18 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
         path: "/game",
         element: (
           <Provider>
-            <Card />
-            <Tech />
-            <EnnemyCard />
+            <Gameboard />
           </Provider>
         ),
       },

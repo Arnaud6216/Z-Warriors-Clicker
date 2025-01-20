@@ -1,0 +1,15 @@
+.audio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 10%;
+  position: absolute;
+  border: double 10px rgb(216, 121, 13);
+  background-color: rgba(51, 34, 14, 0.9);
+  bottom: 0%;
+}
+
+.musique {
+  margin: 2rem;
+}

@@ -8,7 +8,7 @@
   align-items: center;
   width: 30vw;
   min-width: 390px;
-  height: 85%;
+  height: 100%;
   border: double 10px rgb(216, 121, 13);
   background-color: rgba(51, 34, 14, 0.9);
 }
@@ -42,6 +42,20 @@
 
 .player-title {
   font-size: 2rem;
+  margin: 0;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.info-container h3 {
+  color: #ffcb00;
+}
+
+.player-info {
   margin: 0;
 }
 

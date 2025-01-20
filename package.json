@@ -1,14 +1,14 @@
 {
-  "name": "my-project",
+  "name": "z-warriors-clicker",
   "version": "0.0.1",
   "description": "",
-  "homepage": "https://github.com/{{ org }}/my-project#readme",
+  "homepage": "https://github.com/{{ org }}/z-warriors-clicker#readme",
   "bugs": {
-    "url": "https://github.com/{{ org }}/my-project/issues"
+    "url": "https://github.com/{{ org }}/z-warriors-clicker/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/{{ org }}/my-project.git"
+    "url": "git+https://github.com/{{ org }}/z-warriors-clicker.git"
   },
   "workspaces": ["client", "server"],
   "scripts": {
