@@ -100,7 +100,7 @@ function EnnemyCard() {
           }}
         />
       </div>
-      <p>Points de Vie : {ennemyLife}</p>
+      <p className="ennemy-info">Points de Vie : {ennemyLife}</p>
       <button
         type="button"
         className="button-attack"

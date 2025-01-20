@@ -159,3 +159,43 @@
   background-color: #beac06; /* Couleur de la barre */
   transition: width 0.1s linear;
 }
+
+@media screen and (max-width: 480px) {
+  .player-container, .ennemy-container {
+    min-width: 280px;
+    width: 85%;
+  }
+
+  .audio-container {
+    display: none;
+  }
+
+
+  .player-img, .ennemy-gif, .character-gif {
+    width: 300px;
+    height: 200px;
+    box-shadow: none;
+  }
+
+  .player-img-transition {
+    scale: 1;
+  }
+
+  .player-title, .ennemy-title {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0.2rem;
+  }
+
+  .player-info, .ennemy-info {
+    font-size: 0.9rem;
+  }
+
+  .power-button {
+    width: 6rem;
+    height: 6rem;
+  }
+}

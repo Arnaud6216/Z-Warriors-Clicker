@@ -26,3 +26,16 @@ body {
 .overlay {
   display: flex;
 }
+
+@media screen and (max-width: 480px) {
+  #root {
+    flex-direction: column;
+    justify-content: initial;
+    align-items: center;
+    height: initial;
+  }
+
+  body {
+    min-height: 0;
+  }
+}
