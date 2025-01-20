@@ -20,6 +20,9 @@ function EnnemyCard() {
     attackMultiplier,
   } = context;
 
+  const lightAttack = 1 * attackMultiplier;
+  const strongAttack = 5 * attackMultiplier;
+  
   useEffect(() => {
     if (ennemy[ennemyIndex]) {
       setEnnemyLife(ennemy[ennemyIndex].life);
@@ -35,9 +38,8 @@ function EnnemyCard() {
 
   const handleClickLightAttack = () => {
     soundEffectList[0].play();
-    const damage = 1 * attackMultiplier;
-    if (ennemyLife > damage) {
-      setEnnemyLife(Math.max(ennemyLife - damage, 0));
+    if (ennemyLife > lightAttack) {
+      setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
     } else {
       alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
       setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
@@ -68,9 +70,8 @@ function EnnemyCard() {
     }, 3400);
 
     soundEffectList[1].play();
-    const damage = 7 * attackMultiplier;
-    if (ennemyLife > damage) {
-      setEnnemyLife(Math.max(ennemyLife - damage, 0));
+    if (ennemyLife > strongAttack) {
+      setEnnemyLife(Math.max(ennemyLife - strongAttack, 0));
     } else {
       alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
       setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
@@ -104,6 +105,7 @@ function EnnemyCard() {
         type="button"
         className="button-attack"
         onClick={handleClickLightAttack}
+        title={`inflige ${lightAttack} points de dégâts`}
       >
         Attaque légère
       </button>
@@ -112,6 +114,7 @@ function EnnemyCard() {
         className="button-attack"
         onClick={handleClickStrongAttack}
         disabled={isButtonDisabled}
+        title={`inflige ${strongAttack} points de dégâts`}
         style={{ position: "relative", overflow: "hidden" }}
       >
         Attaque lourde
