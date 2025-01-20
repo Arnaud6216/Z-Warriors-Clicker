@@ -32,7 +32,7 @@ const add: RequestHandler = async (req, res, next) => {
       id: req.body.id,
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      hashed_password: req.body.hashed_password,
     };
 
     const accountId = await accountRepository.create(newAccount);

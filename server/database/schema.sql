@@ -2,7 +2,7 @@ CREATE TABLE account (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   username VARCHAR(50) NOT NULL UNIQUE,
   email VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(100) NOT NULL
+  hashed_password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE ennemy (
@@ -19,10 +19,6 @@ CREATE TABLE progress (
   FOREIGN KEY (account_id) REFERENCES account(id) ON DELETE CASCADE,
   FOREIGN KEY (ennemy_id) REFERENCES ennemy(id) ON DELETE CASCADE
 );
-
-INSERT INTO account (username, email, password)
-VALUES
-  ("admin", "guevaer8@gmail.com", "admin");
 
 INSERT INTO ennemy (name, img_src, life)
 VALUES

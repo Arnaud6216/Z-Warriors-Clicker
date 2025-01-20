@@ -6,14 +6,14 @@ type Account = {
   id: number;
   username: string;
   email: string;
-  password: string;
+  hashed_password: string;
 };
 
 class AccountRepository {
   async create(account: Omit<Account, "id">) {
     const [result] = await databaseClient.query<Result>(
-      "insert into account (username, email, password) values (?, ?, ?)",
-      [account.username, account.email, account.password],
+      "insert into account (username, email, hashed_password) values (?, ?, ?)",
+      [account.username, account.email, account.hashed_password],
     );
 
     return result.insertId;
@@ -28,7 +28,7 @@ class AccountRepository {
     return rows[0] as Account;
   }
 
-  async readByEmail(email: string) {
+  async readByEmailWithPassword(email: string) {
     // Execute the SQL SELECT query to retrieve a specific account by its email
     const [rows] = await databaseClient.query<Rows>(
       "select * from account where email = ?",
