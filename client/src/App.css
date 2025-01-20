@@ -1,0 +1,28 @@
+#root {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+  height: 80vh;
+  width: 100%;
+}
+
+body {
+  background-image: url(./assets/background.webp);
+  background-size: cover;
+}
+
+.home-container {
+  border: double 10px rgb(216, 121, 13);
+  background-color: rgba(51, 34, 14, 0.9);
+}
+
+.home-paragraph {
+  padding: 1.5rem;
+  max-width: 80ch;
+  text-align: center;
+}
+
+.overlay {
+  display: flex;
+}
