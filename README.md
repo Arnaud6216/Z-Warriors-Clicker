@@ -1,5 +1,6 @@
 📜 Disclaimer
 
+
 Ce jeu est un projet de fan créé à des fins non commerciales et éducatives. Il s'inspire de l'univers de Dragon Ball, qui est une propriété de Toei Animation, Akira Toriyama, et leurs détenteurs de droits respectifs. Ce projet n'est en aucun cas affilié, approuvé ou sponsorisé par les créateurs ou les détenteurs des droits de Dragon Ball Z. Tous les droits sur les noms, personnages et marques appartiennent à leurs propriétaires respectifs.
 
 Bienvenue dans Z Warriors Clicker, un jeu incrémental immersif où vous incarnez un héros cherchant à devenir le plus puissant combattant de l'univers ! Cliquez pour accumuler de la puissance, débloquez des techniques emblématiques, et affrontez des adversaires redoutables.
