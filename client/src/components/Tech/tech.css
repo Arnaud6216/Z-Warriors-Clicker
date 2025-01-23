@@ -81,7 +81,7 @@ li {
   bottom: 0;
   left: 0;
   height: 20%;
-  background-color: #beac06; /* Couleur de la barre */
+  background-color: #beac06; 
   transition: width 0.1s linear;
 }
 
@@ -155,7 +155,7 @@ li {
   background: none;
   position: relative;
   border: none;
-  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 100px 350px, inset
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1000px 2000px, inset
     rgba(255, 255, 255, 0.8) 0px 0px 100px 550px;
   border-radius: 50%;
   animation: shadow-drop-center 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
@@ -207,15 +207,15 @@ li {
 
   .tech-option, .kamehameha, .spirit-bomb, .saiyan-option {
     width: 30vw;
-    margin: 0.2rem;
+    margin: 0.3rem;
     font-size: 0.6rem;
-    margin: 0.1rem;
   }
 
   .tech-option-available, .kamehameha-available, .spirit-bomb-available, .saiyan-option-available {
     width: 30vw;
     margin: 0.2rem;
     font-size: 0.6rem;
-    margin: 0.1rem;
+    margin: 0.3rem;
+    box-shadow: 0px 0px 1px 1px rgb(232, 225, 18);
   }
 }

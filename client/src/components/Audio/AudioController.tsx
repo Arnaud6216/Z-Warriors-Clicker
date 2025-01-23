@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import "./AudioController.css";
 
 const AudioController: React.FC = () => {
-
   const musicList = [
     "src/assets/music/We-gotta-power.mp3",
     "src/assets/music/Solid-state-scouter.mp3",
@@ -14,17 +13,20 @@ const AudioController: React.FC = () => {
   ];
 
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(50); 
+  const [musicVolume, setMusicVolume] = useState(50);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [visible, setVisible] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [containerHeight, setContainerHeight] = useState("");
 
   const handleMusic = () => {
     if (audioRef.current) {
       if (isMusicPlaying) {
-        audioRef.current.pause(); 
+        audioRef.current.pause();
         setIsMusicPlaying(false);
       } else {
-        audioRef.current.play(); 
+        audioRef.current.play();
         setIsMusicPlaying(true);
       }
     } else {
@@ -61,11 +63,10 @@ const AudioController: React.FC = () => {
 
   useEffect(() => {
     if (audioRef.current) {
-
       audioRef.current.pause();
       audioRef.current = new Audio(musicList[currentTrackIndex]);
       audioRef.current.volume = musicVolume / 100;
-      audioRef.current.play(); 
+      audioRef.current.play();
       setIsMusicPlaying(true);
 
       audioRef.current.addEventListener("ended", () => {
@@ -76,15 +77,29 @@ const AudioController: React.FC = () => {
         }
       });
     }
-  }, [currentTrackIndex]); 
+  }, [currentTrackIndex]);
+
+  const handleHideAudio= () => {
+    if (isVisible) {
+      setVisible("invisible");
+      setContainerHeight("hidden");
+      setIsVisible(false);
+    } else {
+      setVisible("");
+      setContainerHeight("");
+      setIsVisible(true);
+    }
+  };
 
   return (
-    <footer className="audio-container">
-      <button className="musique" type="button" onClick={handleMusic}>
+    <footer className={`audio-container ${containerHeight}`}>
+      <img className="arrow-img" src="./src/assets/audio.png" alt="" onClick={handleHideAudio} onKeyDown={handleHideAudio} title="Afficher / Cacher le menu"/>
+      <button className={`playmusic-button ${visible}`} type="button" onClick={handleMusic}>
         {isMusicPlaying ? "Pause" : "Play"}
       </button>
-      <label htmlFor="music-range">Volume de la musique :</label>
+      <label className={visible} htmlFor="music-range">Volume :</label>
       <input
+      className={visible}
         type="range"
         id="music-range"
         min="0"

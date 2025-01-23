@@ -51,7 +51,6 @@ function EnnemyCard() {
 
   const handleClickStrongAttack = () => {
     if (isButtonDisabled) return;
-
     setIsButtonDisabled(true);
     setProgress(0);
 

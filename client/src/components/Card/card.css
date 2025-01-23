@@ -168,11 +168,6 @@
     width: 85%;
   }
 
-  .audio-container {
-    display: none;
-  }
-
-
   .player-img, .ennemy-gif, .character-gif {
     width: 300px;
     height: 200px;
