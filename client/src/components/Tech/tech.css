@@ -104,6 +104,11 @@ li {
   font-weight: bold;
 }
 
+.spirit-container {
+  position: fixed;
+  top: 0;
+}
+
 .spirit-bomb {
   display: flex;
   align-items: center;
@@ -135,8 +140,7 @@ li {
 
 .spirit-bomb-img {
   background: none;
-  position: absolute;
-  top: 50%;
+  position: relative;
   border: none;
   box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 100px 350px, inset
     rgba(255, 255, 255, 0.8) 0px 0px 100px 550px;
@@ -144,20 +148,20 @@ li {
   animation: shadow-drop-center 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     alternate both;
   display: none;
+  z-index: 1000;
 }
 
 .spirit-bomb-img-visible {
   background: none;
-  position: absolute;
-  top: 50%;
+  position: relative;
   border: none;
   box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 100px 350px, inset
     rgba(255, 255, 255, 0.8) 0px 0px 100px 550px;
   border-radius: 50%;
-  animation: shadow-drop-center 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  animation: shadow-drop-center 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     alternate both;
   display: initial;
-  z-index: 999;
+  z-index: 1000;
 }
 
 @keyframes shadow-drop-center {

@@ -212,15 +212,12 @@ function Tech() {
       <div className="spirit-container">
         <img
           src="./src/assets/spirit-bomb.png"
-          height={`${spiritCount * 3}px`}
-          width={`${spiritCount * 3}px`}
           className={SpiritBombVisible}
           alt="spirit bomb"
           onClick={handleSpirit}
           onKeyUp={handleSpirit}
           style={{
-            top: `${spiritCount * -0.2 + 50}%`, // modifie le top et le left pour que l'image reste au milieu quand elle grandit
-            left: `${spiritCount * -0.09 + 50}%`,
+            transform: `scale(${spiritCount * 0.002})`,
           }}
         />
       </div>
