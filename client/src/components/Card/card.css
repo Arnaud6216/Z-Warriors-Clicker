@@ -135,7 +135,10 @@
   transition: width 0.1s linear;
 }
 
-@media screen and (max-width: 480px) {
+/* --------------------------------------------
+---------PORTAIT MOBILE RESPONSIVE ------------
+-------------------------------------------- */
+@media screen and (max-width: 480px) and (min-height: 800px) {
   .player-container,
   .ennemy-container {
     min-width: 280px;
@@ -172,5 +175,67 @@
   .power-button {
     width: 6rem;
     height: 6rem;
+  }
+}
+
+/* --------------------------------------------
+---------lANDSCAPE MOBILE RESPONSIVE ----------
+-------------------------------------------- */
+@media (min-width: 800px) and (max-width: 930px) and (min-height: 320px) and (
+    max-height: 480px
+  ) {
+  .player-container,
+  .ennemy-container {
+    min-width: 200px;
+    width: 85%;
+    border: double 5px rgb(216, 121, 13);
+  }
+
+  .player-img,
+  .ennemy-gif,
+  .character-gif {
+    width: 200px;
+    height: 120px;
+    box-shadow: none;
+  }
+
+  .player-title,
+  .ennemy-title {
+    font-size: 1rem;
+  }
+
+  h3 {
+    font-size: 0.7rem;
+    margin: 0.1rem;
+  }
+
+  .player-info {
+    font-size: 0.6rem;
+  }
+
+  .power-button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .health-bar {
+    height: 100%;
+  }
+
+  .health-bar-container {
+    overflow: initial;
+    width: 80%;
+    margin-bottom: 2px;
+    height: 15px;
+  }
+
+  .ennemy-info {
+    font-size: 0.7rem;
+    margin: 0.3rem;
+  }
+
+  .button-attack {
+    font-size: 0.6rem;
+    margin: 0.1rem;
   }
 }

@@ -117,30 +117,36 @@ const AudioController: React.FC = () => {
       >
         {isMusicPlaying ? "Pause" : "Play"}
       </button>
-      <label className={visible} htmlFor="music-range">
-        Musique :
-      </label>
-      <input
-        className={visible}
-        type="range"
-        id="music-range"
-        min="0"
-        max="100"
-        value={musicVolume}
-        onChange={handleMusicVolume}
-      />
-      <label className={visible} htmlFor="effect-range">
-        Effets :
-      </label>
-      <input
-        className={visible}
-        type="range"
-        id="effect-range"
-        min="0"
-        max="100"
-        value={effectVolume * 100}
-        onChange={handleEffectVolume}
-      />
+
+      <fieldset className="audio-range">
+        <label className={visible} htmlFor="music-range">
+          Musique
+        </label>
+        <input
+          className={visible}
+          type="range"
+          id="music-range"
+          min="0"
+          max="100"
+          value={musicVolume}
+          onChange={handleMusicVolume}
+        />
+      </fieldset>
+
+      <fieldset className="audio-range">
+        <label className={visible} htmlFor="effect-range">
+          Effets
+        </label>
+        <input
+          className={visible}
+          type="range"
+          id="effect-range"
+          min="0"
+          max="100"
+          value={effectVolume * 100}
+          onChange={handleEffectVolume}
+        />
+      </fieldset>
     </footer>
   );
 };
