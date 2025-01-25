@@ -22,10 +22,12 @@ interface ContextType {
   setGifSize: (size: string) => void;
   ennemyStyle: string;
   setEnnemyStyle: (style: string) => void;
-  soundEffectList: { play: () => void }[];
+  soundEffectList: { play: (volume: number) => void }[];
   ennemy: Ennemy[];
   musicVolume: number;
   setMusicVolume: (volume: number) => void;
+  effectVolume: number;
+  setEffectVolume: (volume: number) => void;
 }
 
 interface Ennemy {
@@ -69,9 +71,36 @@ export const Provider = ({ children }: ProviderProps) => {
   }, []);
 
   const soundEffectList = [
-    { play: () => new Audio("src/assets/music/lightAttack.mp3").play() },
-    { play: () => new Audio("src/assets/music/heavyAttack.mp3").play() },
-    // { play: () => new Audio("src/assets/music/kamehameha.mp3").play() },
+    {
+      name: "lightAttack",
+      play: (volume = 1) => {
+        const audio = new Audio("src/assets/music/lightAttack.mp3");
+        audio.volume = Math.max(0, Math.min(volume, 1)); // Clamp volume
+        audio.play().catch((err) => {
+          console.error("Erreur lors de la lecture du son lightAttack :", err);
+        });
+      },
+    },
+    {
+      name: "heavyAttack",
+      play: (volume = 1) => {
+        const audio = new Audio("src/assets/music/heavyAttack.mp3");
+        audio.volume = Math.max(0, Math.min(volume, 1));
+        audio.play().catch((err) => {
+          console.error("Erreur lors de la lecture du son heavyAttack :", err);
+        });
+      },
+    },
+    {
+      name: "kamehameha",
+      play: (volume = 1) => {
+        const audio = new Audio("src/assets/music/kamehameha.mp3");
+        audio.volume = Math.max(0, Math.min(volume, 1));
+        audio.play().catch((err) => {
+          console.error("Erreur lors de la lecture du son kamehameha :", err);
+        });
+      },
+    },
   ];
 
   const [count, setCount] = useState<number>(0);
@@ -85,15 +114,12 @@ export const Provider = ({ children }: ProviderProps) => {
   const [gifSize, setGifSize] = useState("player-img");
   const [ennemyStyle, setEnnemyStyle] = useState("");
   const [musicVolume, setMusicVolume] = useState(0.5);
+  const [effectVolume, setEffectVolume] = useState(0.5);
 
   return (
     <Context.Provider
       value={{
-        gifSrc: [
-          gifSrc[gif],
-          gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : gif === 3 ? 3 : 0],
-          gifSrc[3],
-        ], // Dynamically select gifSrc based on `gif`
+        gifSrc,
         count,
         setCount,
         concentrationCount,
@@ -117,6 +143,8 @@ export const Provider = ({ children }: ProviderProps) => {
         ennemy,
         musicVolume,
         setMusicVolume,
+        effectVolume,
+        setEffectVolume,
       }}
     >
       {children}

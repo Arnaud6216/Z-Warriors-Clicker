@@ -18,11 +18,12 @@ function EnnemyCard() {
     setEnnemyLife,
     soundEffectList,
     attackMultiplier,
+    effectVolume,
   } = context;
 
   const lightAttack = 1 * attackMultiplier;
   const strongAttack = 5 * attackMultiplier;
-  
+
   useEffect(() => {
     if (ennemy[ennemyIndex]) {
       setEnnemyLife(ennemy[ennemyIndex].life);
@@ -37,7 +38,7 @@ function EnnemyCard() {
   };
 
   const handleClickLightAttack = () => {
-    soundEffectList[0].play();
+    soundEffectList[0].play(effectVolume);
     if (ennemyLife > lightAttack) {
       setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
     } else {
@@ -68,7 +69,7 @@ function EnnemyCard() {
       setProgress(0);
     }, 3400);
 
-    soundEffectList[1].play();
+    soundEffectList[1].play(effectVolume);
     if (ennemyLife > strongAttack) {
       setEnnemyLife(Math.max(ennemyLife - strongAttack, 0));
     } else {

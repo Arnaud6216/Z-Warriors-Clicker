@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import "./AudioController.css";
+import { useContext } from "react";
+import { Context } from "../../services/Context";
 
 const AudioController: React.FC = () => {
+  const context = useContext(Context);
+
+  if (!context) {
+    return <div>Error: Context is not available!</div>;
+  }
+
+  const { effectVolume, setEffectVolume } = context;
+
   const musicList = [
     "src/assets/music/We-gotta-power.mp3",
     "src/assets/music/Solid-state-scouter.mp3",
@@ -40,13 +50,13 @@ const AudioController: React.FC = () => {
         if (currentTrackIndex < musicList.length - 1) {
           setCurrentTrackIndex(currentTrackIndex + 1);
         } else {
-          setIsMusicPlaying(false);
+          setCurrentTrackIndex(0);
         }
       });
     }
   };
 
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMusicVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
     const volume = Number(event.target.value);
     setMusicVolume(volume);
 
@@ -55,11 +65,10 @@ const AudioController: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = musicVolume / 100;
-    }
-  }, [musicVolume]);
+  const handleEffectVolume = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const volume = Number(event.target.value);
+    setEffectVolume(volume / 100);
+  };
 
   useEffect(() => {
     if (audioRef.current) {
@@ -79,7 +88,7 @@ const AudioController: React.FC = () => {
     }
   }, [currentTrackIndex]);
 
-  const handleHideAudio= () => {
+  const handleHideAudio = () => {
     if (isVisible) {
       setVisible("invisible");
       setContainerHeight("hidden");
@@ -93,19 +102,44 @@ const AudioController: React.FC = () => {
 
   return (
     <footer className={`audio-container ${containerHeight}`}>
-      <img className="arrow-img" src="./src/assets/audio.png" alt="" onClick={handleHideAudio} onKeyDown={handleHideAudio} title="Afficher / Cacher le menu"/>
-      <button className={`playmusic-button ${visible}`} type="button" onClick={handleMusic}>
+      <img
+        className="arrow-img"
+        src="./src/assets/audio.png"
+        alt=""
+        onClick={handleHideAudio}
+        onKeyDown={handleHideAudio}
+        title="Afficher / Cacher le menu"
+      />
+      <button
+        className={`playmusic-button ${visible}`}
+        type="button"
+        onClick={handleMusic}
+      >
         {isMusicPlaying ? "Pause" : "Play"}
       </button>
-      <label className={visible} htmlFor="music-range">Volume :</label>
+      <label className={visible} htmlFor="music-range">
+        Musique :
+      </label>
       <input
-      className={visible}
+        className={visible}
         type="range"
         id="music-range"
         min="0"
         max="100"
         value={musicVolume}
-        onChange={handleVolumeChange}
+        onChange={handleMusicVolume}
+      />
+      <label className={visible} htmlFor="effect-range">
+        Effets :
+      </label>
+      <input
+        className={visible}
+        type="range"
+        id="effect-range"
+        min="0"
+        max="100"
+        value={effectVolume * 100}
+        onChange={handleEffectVolume}
       />
     </footer>
   );

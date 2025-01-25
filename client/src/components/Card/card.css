@@ -92,33 +92,6 @@
   box-shadow: 0px 0px 15px 5px #834903;
 }
 
-.attacked {
-  animation: wobble-hor-bottom 0.8s both;
-}
-
-@keyframes wobble-hor-bottom {
-  0%,
-  100% {
-    transform: translateX(0%);
-    transform-origin: 50% 50%;
-  }
-  15% {
-    transform: translateX(-30px) rotate(-6deg);
-  }
-  30% {
-    transform: translateX(15px) rotate(6deg);
-  }
-  45% {
-    transform: translateX(-15px) rotate(-3.6deg);
-  }
-  60% {
-    transform: translateX(9px) rotate(2.4deg);
-  }
-  75% {
-    transform: translateX(-6px) rotate(-1.2deg);
-  }
-}
-
 .ennemy-title {
   font-size: 2rem;
   margin: 0;
@@ -158,17 +131,20 @@
   bottom: 0;
   left: 0;
   height: 20%;
-  background-color: #beac06; 
+  background-color: #beac06;
   transition: width 0.1s linear;
 }
 
 @media screen and (max-width: 480px) {
-  .player-container, .ennemy-container {
+  .player-container,
+  .ennemy-container {
     min-width: 280px;
     width: 85%;
   }
 
-  .player-img, .ennemy-gif, .character-gif {
+  .player-img,
+  .ennemy-gif,
+  .character-gif {
     width: 300px;
     height: 200px;
     box-shadow: none;
@@ -178,7 +154,8 @@
     scale: 1;
   }
 
-  .player-title, .ennemy-title {
+  .player-title,
+  .ennemy-title {
     font-size: 1.4rem;
   }
 
@@ -187,7 +164,8 @@
     margin: 0.2rem;
   }
 
-  .player-info, .ennemy-info {
+  .player-info,
+  .ennemy-info {
     font-size: 0.9rem;
   }
 
