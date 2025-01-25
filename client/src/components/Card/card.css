@@ -12,7 +12,9 @@
   border: double 10px rgb(216, 121, 13);
   background-color: rgba(51, 34, 14, 0.9);
 }
-/* PLAYER SECTION --------------------------------------------*/
+/* --------------------------------------------
+---------------PLAYER SECTION --------------
+-------------------------------------------- */
 .character-gif {
   width: 390px;
   height: 220px;
@@ -20,7 +22,6 @@
   padding: 0.3rem;
   border-radius: 5px;
   box-shadow: 0px 0px 15px 5px #834903;
-  z-index: 999;
 }
 
 .player-img {
@@ -79,8 +80,9 @@
   box-shadow: 0px 0px 30px 1px rgba(232, 225, 18, 1);
   color: black;
 }
-/* ENNEMY SECTION --------------------------------------------*/
-
+/* --------------------------------------------
+---------------ENNEMY SECTION --------------
+-------------------------------------------- */
 .ennemy-gif {
   width: 390px;
   height: 220px;
@@ -156,6 +158,41 @@
   bottom: 0;
   left: 0;
   height: 20%;
-  background-color: #beac06; /* Couleur de la barre */
+  background-color: #beac06; 
   transition: width 0.1s linear;
+}
+
+@media screen and (max-width: 480px) {
+  .player-container, .ennemy-container {
+    min-width: 280px;
+    width: 85%;
+  }
+
+  .player-img, .ennemy-gif, .character-gif {
+    width: 300px;
+    height: 200px;
+    box-shadow: none;
+  }
+
+  .player-img-transition {
+    scale: 1;
+  }
+
+  .player-title, .ennemy-title {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0.2rem;
+  }
+
+  .player-info, .ennemy-info {
+    font-size: 0.9rem;
+  }
+
+  .power-button {
+    width: 6rem;
+    height: 6rem;
+  }
 }

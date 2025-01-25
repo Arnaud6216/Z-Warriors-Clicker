@@ -10,8 +10,8 @@ function Gameboard() {
     <>
       <PlayerCard />
       <Tech />
-      <EnnemyCard />
       <AudioController />
+      <EnnemyCard />
     </>
   );
 }

@@ -81,7 +81,7 @@ li {
   bottom: 0;
   left: 0;
   height: 20%;
-  background-color: #beac06; /* Couleur de la barre */
+  background-color: #beac06; 
   transition: width 0.1s linear;
 }
 
@@ -102,6 +102,11 @@ li {
 
 .tech-option-available:hover {
   font-weight: bold;
+}
+
+.spirit-container {
+  position: fixed;
+  top: 0;
 }
 
 .spirit-bomb {
@@ -135,8 +140,7 @@ li {
 
 .spirit-bomb-img {
   background: none;
-  position: absolute;
-  top: 50%;
+  position: relative;
   border: none;
   box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 100px 350px, inset
     rgba(255, 255, 255, 0.8) 0px 0px 100px 550px;
@@ -144,20 +148,20 @@ li {
   animation: shadow-drop-center 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     alternate both;
   display: none;
+  z-index: 1000;
 }
 
 .spirit-bomb-img-visible {
   background: none;
-  position: absolute;
-  top: 50%;
+  position: relative;
   border: none;
-  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 100px 350px, inset
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 1000px 2000px, inset
     rgba(255, 255, 255, 0.8) 0px 0px 100px 550px;
   border-radius: 50%;
-  animation: shadow-drop-center 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+  animation: shadow-drop-center 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     alternate both;
   display: initial;
-  z-index: 999;
+  z-index: 1000;
 }
 
 @keyframes shadow-drop-center {
@@ -184,4 +188,34 @@ li {
   border: none;
   box-shadow: none;
   display: none;
+}
+
+@media screen and (max-width: 480px) {
+
+  .tech-container {
+    width: 100%;
+    height: 20%;
+    margin: 0;
+    padding: 0;
+    border: ridge 8px rgb(179, 146, 119);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tech-option, .kamehameha, .spirit-bomb, .saiyan-option {
+    width: 30vw;
+    margin: 0.3rem;
+    font-size: 0.6rem;
+  }
+
+  .tech-option-available, .kamehameha-available, .spirit-bomb-available, .saiyan-option-available {
+    width: 30vw;
+    margin: 0.2rem;
+    font-size: 0.6rem;
+    margin: 0.3rem;
+    box-shadow: 0px 0px 1px 1px rgb(232, 225, 18);
+  }
 }
