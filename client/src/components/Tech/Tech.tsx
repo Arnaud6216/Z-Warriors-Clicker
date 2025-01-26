@@ -153,6 +153,13 @@ function Tech() {
     return () => clearInterval(interval);
   }, [concentrationCount, concentrationIncrement, setCount]);
 
+  // gif[0] = normal state
+  // gif[1] = super saiyen transformation
+  // gif[2] = super saiyen state
+  // gif[3] = super saiyen 2 transformation
+  // gif[4] = super saiyen 2 state
+  // gif[5] = super saiyen 3 transformation
+  // gif[6] = super saiyen 3 state
   const handleClickSsj = () => {
     if (count >= superSaiyen1 && gif !== (1 || 2 || 3)) {
       setGifSize("player-img-transition");

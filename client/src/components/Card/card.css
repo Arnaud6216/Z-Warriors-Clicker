@@ -189,6 +189,7 @@
     min-width: 200px;
     width: 85%;
     border: double 5px rgb(216, 121, 13);
+    height: 90%;
   }
 
   .player-img,
@@ -197,6 +198,10 @@
     width: 200px;
     height: 120px;
     box-shadow: none;
+  }
+
+  .player-img-transition {
+    scale: 2;
   }
 
   .player-title,

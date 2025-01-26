@@ -119,7 +119,11 @@ export const Provider = ({ children }: ProviderProps) => {
   return (
     <Context.Provider
       value={{
-        gifSrc,
+        gifSrc: [
+          gifSrc[gif],
+          gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : gif === 3 ? 3 : 0],
+          gifSrc[3],
+        ], // Dynamically select gifSrc based on `gif`
         count,
         setCount,
         concentrationCount,

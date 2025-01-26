@@ -42,7 +42,7 @@
 @media screen and (max-width: 480px) and (min-height: 800px) {
   .audio-container {
     width: 100%;
-    height: 5%;
+    height: 10%;
     position: initial;
   }
 
@@ -75,7 +75,7 @@
   ) {
   .audio-container {
     border: double 5px rgb(216, 121, 13);
-    bottom: -5.5%;
+    bottom: 0;
     height: 20%;
   }
 

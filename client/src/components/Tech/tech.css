@@ -181,15 +181,6 @@ li {
   }
 }
 
-.spirit-count {
-  background: none;
-  position: absolute;
-  top: 55%;
-  border: none;
-  box-shadow: none;
-  display: none;
-}
-
 @media screen and (max-width: 480px) and (min-height: 800px) {
   .tech-container {
     width: 100%;
@@ -250,5 +241,9 @@ li {
 
   li {
     width: 90%;
+  }
+
+  .spirit-container {
+    top: -60%;
   }
 }
