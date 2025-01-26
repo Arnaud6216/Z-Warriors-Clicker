@@ -21,7 +21,6 @@
   background-color: rgb(123, 70, 0);
   padding: 0.3rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 15px 5px #834903;
 }
 
 .player-img {
@@ -89,7 +88,6 @@
   background-color: rgb(123, 70, 0);
   padding: 0.3rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 15px 5px #834903;
 }
 
 .ennemy-title {
@@ -242,5 +240,57 @@
   .button-attack {
     font-size: 0.6rem;
     margin: 0.1rem;
+  }
+}
+
+/* --------------------------------------------
+---------TABLET RESPONSIVE ------------
+-------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1024px) and (min-height: 500px) {
+  .player-container,
+  .ennemy-container {
+    min-width: 200px;
+    width: 85%;
+    border: double 8px rgb(216, 121, 13);
+    height: 60%;
+  }
+
+  .player-img,
+  .ennemy-gif,
+  .character-gif {
+    width: 240px;
+    height: 160px;
+    box-shadow: none;
+  }
+
+  .player-title,
+  .ennemy-title {
+    font-size: 1.5rem;
+  }
+
+  .ennemy-title {
+    margin-bottom: 1.4rem;
+  }
+
+  .health-bar-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .player-container,
+  .ennemy-container {
+    min-width: 200px;
+    width: 85%;
+    border: double 8px rgb(216, 121, 13);
+    height: 60%;
+  }
+
+  .player-img,
+  .ennemy-gif,
+  .character-gif {
+    width: 350px;
+    height: 180px;
+    box-shadow: none;
   }
 }

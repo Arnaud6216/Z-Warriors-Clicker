@@ -102,3 +102,15 @@
     height: 0vh;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1080px) and (min-height: 500px) {
+  .audio-container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .audio-container {
+    width: 80%;
+  }
+}

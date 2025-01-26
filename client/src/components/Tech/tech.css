@@ -247,3 +247,45 @@ li {
     top: -60%;
   }
 }
+
+/* --------------------------------------------
+---------TABLET RESPONSIVE ------------
+-------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1080px) and (min-height: 500px) {
+  .tech-container {
+    height: 50%;
+    width: 13%;
+  }
+
+  .tech-option,
+  .kamehameha,
+  .spirit-bomb,
+  .saiyan-option,
+  .tech-option-available,
+  .kamehameha-available,
+  .spirit-bomb-available,
+  .saiyan-option-available {
+    font-size: 0.7rem;
+    margin: 0.2rem auto;
+    height: 4rem;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .tech-container {
+    height: 50%;
+  }
+
+  .tech-option,
+  .kamehameha,
+  .spirit-bomb,
+  .saiyan-option,
+  .tech-option-available,
+  .kamehameha-available,
+  .spirit-bomb-available,
+  .saiyan-option-available {
+    font-size: 0.8rem;
+    margin: 1rem;
+  }
+}
