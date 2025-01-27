@@ -1,0 +1,19 @@
+.user-disconnected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 50%;
+    margin: 1rem;
+    padding: 1rem;
+    border: double 10px rgb(216, 121, 13);
+    background-color: rgba(51, 34, 14, 0.9);
+}
+
+.goku-approve {
+    padding: 0.5rem;
+    background-color: rgba(126, 70, 7, 0.9);
+    width: 90%;
+    border-radius: 15px;
+}

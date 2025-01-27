@@ -27,19 +27,15 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
-const add: RequestHandler = async (req, res, next) => {
-  try {
-    const newProgress = {
-      account_id: req.body.account_id,
-      ennemy_id: req.body.ennemi_id,
-    };
+const edit: RequestHandler = async (req, res, next) => {
+  
+    try {
+      const { accountId, ennemyId } = req.body;
+      const updatedProgress = await progressRepository.edit(accountId, ennemyId);
+      res.status(200).json(updatedProgress);
+    } catch (error) {
+      next(error);
+    }
+  } 
 
-    const progressId = await progressRepository.create(newProgress);
-
-    res.status(201).json({ progressId });
-  } catch (err) {
-    next(err);
-  }
-};
-
-export default { browse, read, add };
+export default { browse, read, edit };

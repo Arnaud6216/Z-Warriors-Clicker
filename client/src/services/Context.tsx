@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { useOutletContext } from "react-router-dom";
 
 interface ContextType {
   gifSrc: string[];
@@ -28,6 +29,8 @@ interface ContextType {
   setMusicVolume: (volume: number) => void;
   effectVolume: number;
   setEffectVolume: (volume: number) => void;
+  progress: Progress | null;
+  setProgress: (progress: Progress | null) => void;
 }
 
 interface Ennemy {
@@ -35,6 +38,14 @@ interface Ennemy {
   name: string;
   img_src: string;
   life: number;
+}
+
+interface Progress {
+  id: number;
+  account_id: number;
+  ennemy_id: number;
+  username: string;
+  name: string;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -69,6 +80,19 @@ export const Provider = ({ children }: ProviderProps) => {
         console.error("Erreur lors de la récupération des ennemis :", error);
       });
   }, []);
+  const { user } = useOutletContext<{ user: { id: number; name: string } }>();
+  const [progress, setProgress] = useState(null as Progress | null);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`)
+        .then((response) => response.json())
+        .then((data) => setProgress(data))
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des progrès :", error);
+        });
+    }
+  }, [user]);
 
   const soundEffectList = [
     {
@@ -149,6 +173,8 @@ export const Provider = ({ children }: ProviderProps) => {
         setMusicVolume,
         effectVolume,
         setEffectVolume,
+        progress,
+        setProgress,
       }}
     >
       {children}
