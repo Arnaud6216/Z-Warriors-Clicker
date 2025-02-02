@@ -52,7 +52,7 @@ function Card() {
         />
       </div>
       <button type="button" onClick={test}>
-        test
+        (dev) +200
       </button>
     </div>
   );

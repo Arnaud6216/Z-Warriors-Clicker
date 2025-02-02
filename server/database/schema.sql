@@ -34,3 +34,11 @@ VALUES
     ("C 18", "src/assets/c18.webp", 600),
     ("Cell", "src/assets/cell.webp", 3000),
     ("Buu", "src/assets/buu.webp", 5000);
+
+CREATE TRIGGER add_default_progress
+AFTER INSERT ON account
+FOR EACH ROW
+BEGIN
+    INSERT INTO progress (account_id, ennemy_id)
+    VALUES (NEW.id, 1); 
+END;
