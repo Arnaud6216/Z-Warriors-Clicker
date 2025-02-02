@@ -1,13 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-
-type User = {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-};
+import type { User } from "./types/vite-env";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);

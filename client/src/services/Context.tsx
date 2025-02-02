@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import type { Ennemy } from "../types/vite-env";
 
 interface ContextType {
   gifSrc: string[];
@@ -28,13 +29,6 @@ interface ContextType {
   setMusicVolume: (volume: number) => void;
   effectVolume: number;
   setEffectVolume: (volume: number) => void;
-}
-
-interface Ennemy {
-  id: number;
-  name: string;
-  img_src: string;
-  life: number;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);

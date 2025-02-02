@@ -1,13 +1,6 @@
 import databaseClient from "../../../database/client";
-
+import type { Account } from "../../types/express/index";
 import type { Result, Rows } from "../../../database/client";
-
-type Account = {
-  id: number;
-  username: string;
-  email: string;
-  hashed_password: string;
-};
 
 class AccountRepository {
   async create(account: Omit<Account, "id">) {

@@ -1,11 +1,6 @@
 import databaseClient from "../../../database/client";
-
+import type { Progress } from "../../types/express/index";
 import type { Result, Rows } from "../../../database/client";
-
-type Progress = {
-  account_id: number;
-  ennemy_id: number;
-};
 
 class ProgressRepository {
   async create(progress: Omit<Progress, "id">) {

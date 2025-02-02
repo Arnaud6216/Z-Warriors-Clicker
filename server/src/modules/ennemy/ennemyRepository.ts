@@ -1,13 +1,6 @@
 import databaseClient from "../../../database/client";
-
+import type { Ennemy } from "../../types/express/index";
 import type { Result, Rows } from "../../../database/client";
-
-type Ennemy = {
-  id: number;
-  name: string;
-  img_src: string;
-  life: number;
-};
 
 class EnnemyRepository {
   async create(ennemy: Omit<Ennemy, "id">) {
