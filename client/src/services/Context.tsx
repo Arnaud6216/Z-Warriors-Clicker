@@ -33,6 +33,7 @@ interface ContextType {
   setEffectVolume: (volume: number) => void;
   progress: Progress | null;
   setProgress: (progress: Progress | null) => void;
+  ennemyDefeated: () => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -127,6 +128,24 @@ export const Provider = ({ children }: ProviderProps) => {
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [effectVolume, setEffectVolume] = useState(0.5);
 
+  const ennemyDefeated = () => {
+    alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
+    setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+
+    if (user) {
+      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ennemyIndex: ennemyIndex + 1 }),
+      })
+        .then((response) => response.json())
+        .then((data) => setProgress(data))
+        .catch((error) => {
+          console.error("Erreur lors de la sauvegarde du progrès :", error);
+        });
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -162,6 +181,7 @@ export const Provider = ({ children }: ProviderProps) => {
         setEffectVolume,
         progress,
         setProgress,
+        ennemyDefeated,
       }}
     >
       {children}

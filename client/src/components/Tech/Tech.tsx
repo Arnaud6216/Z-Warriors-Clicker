@@ -23,12 +23,9 @@ function Tech() {
     setAttackMultiplier,
     ennemyLife,
     setEnnemyLife,
-    ennemyIndex,
-    setEnnemyIndex,
     setGifSize,
     setEnnemyStyle,
-    ennemy,
-    // soundEffectList,
+    ennemyDefeated,
   } = context;
 
   const [style, setStyle] = useState("tech-option");
@@ -104,8 +101,7 @@ function Tech() {
           setEnnemyStyle("");
         }, 800);
       } else {
-        alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
-        setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+        ennemyDefeated();
       }
     }
   };
@@ -128,8 +124,7 @@ function Tech() {
               setEnnemyStyle("");
             }, 800);
           } else {
-            alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
-            setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+            ennemyDefeated();
           }
           return 50;
         });

@@ -14,8 +14,8 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const read: RequestHandler = async (req, res, next) => {
   try {
-    const progressId = Number(req.params.id);
-    const progress = await progressRepository.read(progressId);
+    const userId = Number(req.params.id);
+    const progress = await progressRepository.read(userId);
 
     if (progress == null) {
       res.sendStatus(404);
@@ -30,8 +30,8 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   
     try {
-      const { accountId, ennemyId } = req.body;
-      const updatedProgress = await progressRepository.edit(accountId, ennemyId);
+      const { userId, ennemyId } = req.body;
+      const updatedProgress = await progressRepository.edit(userId, ennemyId);
       res.status(200).json(updatedProgress);
     } catch (error) {
       next(error);

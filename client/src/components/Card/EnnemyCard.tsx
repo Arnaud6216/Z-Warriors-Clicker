@@ -13,12 +13,12 @@ function EnnemyCard() {
   const {
     ennemy,
     ennemyIndex,
-    setEnnemyIndex,
     ennemyLife,
     setEnnemyLife,
     soundEffectList,
     attackMultiplier,
     effectVolume,
+    ennemyDefeated,
   } = context;
 
   const lightAttack = 1 * attackMultiplier;
@@ -42,8 +42,7 @@ function EnnemyCard() {
     if (ennemyLife > lightAttack) {
       setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
     } else {
-      alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
-      setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+      ennemyDefeated();
     }
   };
 
@@ -73,8 +72,7 @@ function EnnemyCard() {
     if (ennemyLife > strongAttack) {
       setEnnemyLife(Math.max(ennemyLife - strongAttack, 0));
     } else {
-      alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
-      setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+   ennemyDefeated();
     }
   };
 

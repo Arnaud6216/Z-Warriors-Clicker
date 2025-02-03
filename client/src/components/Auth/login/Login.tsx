@@ -1,13 +1,7 @@
 import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-
-type User = {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-};
+import type { User } from "../../../types/vite-env";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);

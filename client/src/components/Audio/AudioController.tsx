@@ -74,7 +74,6 @@ const AudioController: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = new Audio(musicList[currentTrackIndex]);
-      audioRef.current.volume = musicVolume / 100;
       audioRef.current.play();
       setIsMusicPlaying(true);
 

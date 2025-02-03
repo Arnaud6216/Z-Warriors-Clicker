@@ -30,4 +30,6 @@ type Ennemy = {
 type Progress = {
   account_id: number;
   ennemy_id: number;
+  username: string;
+  name: string;
 };

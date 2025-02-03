@@ -2,14 +2,7 @@ import "./Navbar.css";
 import { useContext } from "react";
 import { Context } from "../../services/Context";
 import { useOutletContext, useNavigate } from "react-router-dom";
-
-
-type User = {
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-  };
+import type { User } from "../../types/vite-env";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -22,7 +15,6 @@ function Navbar() {
         throw new Error("Context must be used within a Provider");
     }
     const { progress } = context;
-
     const handleLogout = () => {
         setUser(null);
         navigate("/login");
