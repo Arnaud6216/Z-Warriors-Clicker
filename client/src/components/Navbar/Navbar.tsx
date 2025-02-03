@@ -34,7 +34,7 @@ function Navbar() {
         </p>
         <div className="progress-container">
         <p className="progress-username">{`Bienvenue ${progress?.username} !`}</p>
-        <p className="progress-ennemy">{`Dernier ennemi vaincu : ${progress?.name}`}</p>
+        {/* <p className="progress-ennemy">{`Dernier ennemi vaincu : ${progress?.name}`}</p> */}
         </div>
         <button className="logout-button" type="button" onClick={handleLogout}>Deconnexion</button>
       </header>
