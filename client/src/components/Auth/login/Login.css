@@ -17,8 +17,20 @@
   max-width: 300px;
 }
 
+.connexion-title {
+  margin: 0 0 3rem 0;
+}
+
 .submit,
 #username,
 #password #email {
   margin: 0.8rem;
+}
+
+.password-label {
+  margin-top: 0.5rem;
+}
+
+.connexion-button {
+  margin-top: 1rem;
 }

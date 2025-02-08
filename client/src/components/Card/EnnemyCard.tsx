@@ -24,12 +24,14 @@ function EnnemyCard() {
   const lightAttack = 1 * attackMultiplier;
   const strongAttack = 5 * attackMultiplier;
 
+  //Ennemy's life initialisation
   useEffect(() => {
     if (ennemy[ennemyIndex]) {
       setEnnemyLife(ennemy[ennemyIndex].life);
     }
   }, [ennemyIndex, ennemy, setEnnemyLife]);
 
+  //Health bar color based on ennemy's life
   const getHealthBarClass = () => {
     const healthPercentage = (ennemyLife / ennemy[ennemyIndex]?.life) * 100;
     if (healthPercentage > 50) return "health-bar";
@@ -41,6 +43,7 @@ function EnnemyCard() {
     soundEffectList[0].play(effectVolume);
     if (ennemyLife > lightAttack) {
       setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
+      // Verify if the ennemy's life do not go below 0
     } else {
       ennemyDefeated();
     }
@@ -54,6 +57,7 @@ function EnnemyCard() {
     setIsButtonDisabled(true);
     setProgress(0);
 
+    // disable the button for 3 seconds and display a progress bar
     let currentProgress = 0;
     const interval = setInterval(() => {
       currentProgress += 100 / 30;
@@ -72,7 +76,7 @@ function EnnemyCard() {
     if (ennemyLife > strongAttack) {
       setEnnemyLife(Math.max(ennemyLife - strongAttack, 0));
     } else {
-   ennemyDefeated();
+      ennemyDefeated();
     }
   };
 

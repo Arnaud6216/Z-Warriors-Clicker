@@ -56,6 +56,7 @@ export const Provider = ({ children }: ProviderProps) => {
   const [ennemy, setEnnemy] = useState([] as Ennemy[]);
 
   useEffect(() => {
+    // Fetch ennemy data to initialise the first ennemy
     fetch(`${import.meta.env.VITE_API_URL}/api/ennemy`)
       .then((response) => response.json())
       .then((data: Ennemy[]) => {
@@ -72,6 +73,7 @@ export const Provider = ({ children }: ProviderProps) => {
   const [progress, setProgress] = useState(null as Progress | null);
 
   useEffect(() => {
+    //get progress by the connected user
     if (user) {
       fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`)
         .then((response) => response.json())
@@ -129,15 +131,16 @@ export const Provider = ({ children }: ProviderProps) => {
   const [effectVolume, setEffectVolume] = useState(0.5);
 
   const ennemyDefeated = async () => {
+    //when the ennemy's life is below 0
     const nextIndex = (ennemyIndex + 1) % ennemy.length;
     const currentEnnemy = ennemy[ennemyIndex];
     const nextEnnemy = ennemy[nextIndex];
-
+    //alert the user that he has defeated the ennemy and pass to the next one
     alert(`Tu as battu ${currentEnnemy?.name} !`);
-    setEnnemyIndex(nextIndex); // Met à jour l'ennemi affiché localement
+    setEnnemyIndex(nextIndex);
 
+    //update the progress to
     if (user && progress) {
-      // Comparaison de l'ID de l'ennemi à l'ID de l'ennemi dans progress
       if (nextEnnemy.id > progress.ennemy_id) {
         try {
           const response = await fetch(
@@ -146,14 +149,14 @@ export const Provider = ({ children }: ProviderProps) => {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                ennemy_id: nextEnnemy.id, // Met à jour uniquement l'ID de l'ennemi dans la BDD
+                ennemy_id: nextEnnemy.id,
               }),
             },
           );
 
           const updatedProgress = await response.json();
 
-          setProgress(updatedProgress); // Met à jour la progression dans le contexte
+          setProgress(updatedProgress);
 
           try {
             const response = await fetch(
@@ -161,6 +164,7 @@ export const Provider = ({ children }: ProviderProps) => {
             );
 
             const progressData = await response.json();
+
             setProgress(progressData);
           } catch (error) {
             console.error(

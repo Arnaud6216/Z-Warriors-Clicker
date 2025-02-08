@@ -45,6 +45,7 @@ function Tech() {
   const spiritBombCost = 500;
 
   useEffect(() => {
+    // display the available style if the player has enough points
     setStyle(
       count >= concentrationCost ? "tech-option-available" : "tech-option",
     );
@@ -96,10 +97,6 @@ function Tech() {
       setCount(count - kamehamehaCost);
       if (ennemyLife > kamehamehaDamage) {
         setEnnemyLife(Math.max(ennemyLife - kamehamehaDamage, 0));
-
-        setTimeout(() => {
-          setEnnemyStyle("");
-        }, 800);
       } else {
         ennemyDefeated();
       }
@@ -107,6 +104,7 @@ function Tech() {
   };
 
   const handleClickSpirit = () => {
+    // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
     setSpiritBombVisible("spirit-bomb-img-visible");
 
     if (count >= spiritBombCost) {
@@ -115,17 +113,15 @@ function Tech() {
       setTimeout(() => {
         handleSpirit();
         setSpiritCount((prevSpiritCount) => {
+          // set the damage by the number of clicks on the spirit bomb mutiply by the spirit multiplier (based on saiyan state)
           const damage = prevSpiritCount * spiritMultiplier;
 
           if (ennemyLife > damage) {
             setEnnemyLife(Math.max(ennemyLife - damage, 0));
-            setEnnemyStyle("attacked");
-            setTimeout(() => {
-              setEnnemyStyle("");
-            }, 800);
           } else {
             ennemyDefeated();
           }
+          //reset the spirit bomb minimal damage
           return 50;
         });
         setSpiritBombVisible("spirit-bomb-img");
@@ -138,6 +134,7 @@ function Tech() {
   };
 
   useEffect(() => {
+    //increment the count by the concentration count every second
     const interval = setInterval(() => {
       setCount(
         (prevCount: number) =>
@@ -155,6 +152,8 @@ function Tech() {
   // gif[4] = super saiyen 2 state
   // gif[5] = super saiyen 3 transformation
   // gif[6] = super saiyen 3 state
+  // Transformation logic : if the player has enough points and is not already in a transformation, the gif will change to the
+  // transformation gif and then to the state gif after the transformation gif duration
   const handleClickSsj = () => {
     if (count >= superSaiyen1 && gif !== (1 || 2 || 3)) {
       setGifSize("player-img-transition");

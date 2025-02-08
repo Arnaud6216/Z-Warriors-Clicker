@@ -33,6 +33,7 @@ function Register() {
       );
 
       if (response.status === 201) {
+        alert("Inscription réussie ! tu peux te connecter.");
         navigate("/login");
       } else {
         console.info(response);
@@ -45,7 +46,7 @@ function Register() {
   return (
     <>
       <form className="form-container" onSubmit={handleSubmit}>
-        <h2>Inscription</h2>
+        <h2 className="inscription-title">Inscription</h2>
 
         <label htmlFor="username">Pseudo</label>
         <input type="text" id="username" name="username" ref={usernameRef} />
@@ -64,6 +65,10 @@ function Register() {
 
         <button className="submit" type="submit">
           Inscription
+        </button>
+        <p>Déjà inscrit ?</p>
+        <button type="button" onClick={() => navigate("/login")}>
+          Connexion
         </button>
       </form>
     </>

@@ -30,7 +30,7 @@ function Gameboard() {
             src="./src/assets/connexion.jpeg"
             alt=""
           />
-          <p>Connectez vous pour pouvoir jouer !</p>
+          <p>Connecte toi pour pouvoir jouer !</p>
           <button type="button" onClick={() => navigate("/login")}>
             Connexion
           </button>

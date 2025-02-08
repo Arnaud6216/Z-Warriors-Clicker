@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Context } from "../../services/Context";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import type { User } from "../../types/vite-env";
@@ -7,34 +7,18 @@ import type { User } from "../../types/vite-env";
 function Navbar() {
   const navigate = useNavigate();
   const context = useContext(Context);
-  const { user, setUser } = useOutletContext() as {
-    user: User | null;
+  const { setUser } = useOutletContext() as {
     setUser: (user: User | null) => void;
   };
 
   if (!context) {
     throw new Error("Context must be used within a Provider");
   }
-  const { progress, setProgress } = context;
+  const { progress } = context;
   const handleLogout = () => {
     setUser(null);
     navigate("/login");
   };
-
-  useEffect(() => {
-    // Si un utilisateur est connecté, on récupère son progrès
-    if (user) {
-      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Mettre à jour le `progress` dans le contexte
-          setProgress(data);
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la récupération du progrès :", error);
-        });
-    }
-  }, [user, setProgress]); // Ajoute `user` et `setProgress` comme dépendances
 
   return (
     <>

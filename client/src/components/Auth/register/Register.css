@@ -17,8 +17,12 @@
   max-width: 300px;
 }
 
-.submit,
+.inscription-title {
+  margin: 0 0 3rem 0;
+}
+
 #username,
-#password, #email {
-  margin: 0.8rem;
+#password,
+#email {
+  margin: 0.8rem 0.8rem 2rem 0.8rem;
 }

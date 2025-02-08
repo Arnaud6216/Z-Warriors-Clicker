@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { User } from "../../../types/vite-env";
+import "./Login.css";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -14,10 +15,6 @@ function Login() {
   };
 
   const navigate = useNavigate();
-
-  const handleRegister = () => {
-    navigate("/register");
-  };
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -47,7 +44,7 @@ function Login() {
         const user = await response.json();
 
         setUser(user);
-        navigate("/game");
+        navigate("/");
       } else {
         const errorData = await response.json();
         setErrorMessage(
@@ -62,18 +59,23 @@ function Login() {
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
+      <h2 className="connexion-title">Connexion</h2>
       <label htmlFor="email">Email</label>
       <input ref={emailRef} type="email" id="email" />
 
-      <label htmlFor="password">Mot de passe</label>
+      <label className="password-label" htmlFor="password">
+        Mot de passe
+      </label>
       <input type="password" id="password" ref={passwordRef} />
 
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-      <button type="submit">Se connecter</button>
+      <button className="connexion-button" type="submit">
+        Se connecter
+      </button>
 
       <p>Pas de compte ?</p>
-      <button type="button" onClick={handleRegister}>
+      <button type="button" onClick={() => navigate("/register")}>
         Inscrivez vous
       </button>
     </form>
