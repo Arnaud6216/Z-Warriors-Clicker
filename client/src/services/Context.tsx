@@ -128,21 +128,53 @@ export const Provider = ({ children }: ProviderProps) => {
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [effectVolume, setEffectVolume] = useState(0.5);
 
-  const ennemyDefeated = () => {
-    alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
-    setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+  const ennemyDefeated = async () => {
+    const nextIndex = (ennemyIndex + 1) % ennemy.length;
+    const currentEnnemy = ennemy[ennemyIndex];
+    const nextEnnemy = ennemy[nextIndex];
 
-    if (user) {
-      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ennemyIndex: ennemyIndex + 1 }),
-      })
-        .then((response) => response.json())
-        .then((data) => setProgress(data))
-        .catch((error) => {
-          console.error("Erreur lors de la sauvegarde du progrès :", error);
-        });
+    alert(`Tu as battu ${currentEnnemy?.name} !`);
+    setEnnemyIndex(nextIndex); // Met à jour l'ennemi affiché localement
+
+    if (user && progress) {
+      // Comparaison de l'ID de l'ennemi à l'ID de l'ennemi dans progress
+      if (nextEnnemy.id > progress.ennemy_id) {
+        try {
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/progress/${user.id}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ennemy_id: nextEnnemy.id, // Met à jour uniquement l'ID de l'ennemi dans la BDD
+              }),
+            },
+          );
+
+          const updatedProgress = await response.json();
+
+          setProgress(updatedProgress); // Met à jour la progression dans le contexte
+
+          try {
+            const response = await fetch(
+              `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
+            );
+
+            const progressData = await response.json();
+            setProgress(progressData);
+          } catch (error) {
+            console.error(
+              "Erreur lors de la récupération de la progression :",
+              error,
+            );
+          }
+        } catch (error) {
+          console.error(
+            "Erreur lors de la mise à jour ou récupération du progrès :",
+            error,
+          );
+        }
+      }
     }
   };
 
