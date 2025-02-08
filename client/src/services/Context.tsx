@@ -139,7 +139,7 @@ export const Provider = ({ children }: ProviderProps) => {
     alert(`Tu as battu ${currentEnnemy?.name} !`);
     setEnnemyIndex(nextIndex);
 
-    //update the progress to
+    //update the progress to save the last defeated ennemy if the current ennemy is greater than the last defeated ennemy on progress
     if (user && progress) {
       if (nextEnnemy.id > progress.ennemy_id) {
         try {
@@ -157,7 +157,7 @@ export const Provider = ({ children }: ProviderProps) => {
           const updatedProgress = await response.json();
 
           setProgress(updatedProgress);
-
+         //fetch again progress to get the updated progress
           try {
             const response = await fetch(
               `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
