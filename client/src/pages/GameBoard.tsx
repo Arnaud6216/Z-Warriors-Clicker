@@ -17,8 +17,8 @@ function Gameboard() {
     <>
       {user ? (
         <>
-          <PlayerCard />
           <Navbar />
+          <PlayerCard />
           <Tech />
           <AudioController />
           <EnnemyCard />

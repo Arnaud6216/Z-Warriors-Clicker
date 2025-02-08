@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 600px;
   height: 55%;
   margin: 1rem;
   padding: 1rem;
@@ -12,8 +12,40 @@
 }
 
 .goku-approve {
-  padding: 0.5rem;
+  padding: 0.2rem;
   background-color: rgba(126, 70, 7, 0.9);
-  width: 90%;
+  width: 80%;
   border-radius: 15px;
+}
+
+.disclaimer-text {
+  border: double 4px rgb(216, 121, 13);
+  background-color: rgba(99, 64, 25, 0.9);
+}
+
+/* --------------------------------------------
+--------MOBILE PORTRAIT RESPONSIVE ------------
+-------------------------------------------- */
+@media screen and (max-width: 480px) and (min-height: 800px) {
+  .user-disconnected {
+    width: 80%;
+    height: 300px;
+  }
+}
+
+.goku-approve {
+  width: 90%;
+}
+
+@media (min-width: 800px) and (max-width: 930px) and (min-height: 320px) and (
+    max-height: 480px
+  ) {
+  .user-disconnected {
+    width: 50%;
+    height: 70%;
+  }
+
+  .goku-approve {
+    width: 50%;
+  }
 }

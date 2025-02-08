@@ -21,6 +21,12 @@ function Homepage() {
       {user ? (
         <div className="home-container">
           <h1>Z Warriors Clicker</h1>
+          <p className="disclaimer-text">
+            <strong>Disclaimer :</strong> Ce jeu est un projet de fan, non
+            commercial, inspiré de Dragon Ball. Il n'est en aucun cas affilié ou
+            approuvé par les créateurs ou détenteurs de droits de Dragon Ball Z.
+            Tous les droits appartiennent à leurs propriétaires respectifs.
+          </p>
           <p className="home-paragraph">
             Bienvenue dans Z Warriors Clicker, un jeu où votre objectif est de
             cliquer pour devenir plus puissant et vaincre des ennemis de plus en
