@@ -16,7 +16,7 @@ body {
 .home-container {
   border: double 10px rgb(216, 121, 13);
   background-color: rgba(51, 34, 14, 0.9);
-  width: 90%;
+  width: 50%;
 }
 
 .home-paragraph {
@@ -44,6 +44,7 @@ body {
 
   .home-container {
     height: 100%;
+    width: 95%;
   }
 
   h1 {
@@ -65,5 +66,12 @@ body {
 
   .home-container {
     overflow: scroll;
+    width: 95%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1080px) and (min-height: 500px) {
+  .home-container {
+    width: 90%;
   }
 }
