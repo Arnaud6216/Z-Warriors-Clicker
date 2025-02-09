@@ -28,7 +28,7 @@ body {
   display: flex;
 }
 
-@media screen and (max-width: 480px) and (min-height: 800px) {
+@media screen and (max-width: 480px) and (min-height: 660px) {
   #root {
     flex-direction: column;
     justify-content: initial;
@@ -51,7 +51,7 @@ body {
   }
 }
 
-@media (min-width: 800px) and (max-width: 930px) and (min-height: 320px) and (
+@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
     max-height: 480px
   ) {
   body {
@@ -62,11 +62,7 @@ body {
   #root {
     height: 100vh;
   }
-}
 
-@media (min-width: 800px) and (max-width: 930px) and (min-height: 320px) and (
-    max-height: 480px
-  ) {
   .home-container {
     overflow: scroll;
   }

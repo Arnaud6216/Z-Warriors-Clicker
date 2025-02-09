@@ -60,6 +60,9 @@ function Login() {
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <h2 className="connexion-title">Connexion</h2>
+      {errorMessage && (
+        <p style={{ color: "rgb(216, 121, 13)" }}>{errorMessage}</p>
+      )}
       <label htmlFor="email">Email</label>
       <input ref={emailRef} type="email" id="email" />
 
@@ -67,8 +70,6 @@ function Login() {
         Mot de passe
       </label>
       <input type="password" id="password" ref={passwordRef} />
-
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
       <button className="connexion-button" type="submit">
         Se connecter
