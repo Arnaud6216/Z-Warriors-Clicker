@@ -1,35 +1,78 @@
 .navbar-container {
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 9%;
-    border: double 7px rgb(216, 121, 13);
-    background-color: rgba(51, 34, 14, 0.9);
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 9%;
+  border: double 7px rgb(216, 121, 13);
+  background-color: rgba(51, 34, 14, 0.9);
 }
 
 .progress-container {
-    font-size: 0.8rem;
-}
-
-.disclaimer-text {
-    padding: 1rem;
-    font-size: 0.8rem;
-    max-width: 60rem;
+  font-size: 0.8rem;
 }
 
 .progress-username {
-    color: #ffcb00;
-    font-weight: bold;
-    font-size: 0.9rem;
+  color: #ffcb00;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .progress-ennemy {
-    font-weight: bold;
+  font-weight: bold;
+  margin-left: 2rem;
 }
 
 .logout-button {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
+}
+
+/* --------------------------------------------
+--------TABLET PORTRAIT RESPONSIVE ------------
+-------------------------------------------- */
+@media screen and (max-width: 480px) and (min-height: 660px) {
+  .navbar-container {
+    position: initial;
+    height: 15%;
+  }
+}
+
+/* --------------------------------------------
+--------MOBILE lANDSCAPE RESPONSIVE -----------
+-------------------------------------------- */
+@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
+    max-height: 480px
+  ) {
+  .progress-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-ennemy {
+    margin-left: 1rem;
+  }
+
+  .logout-button {
+    font-size: 0.6rem;
+  }
+}
+
+/* --------------------------------------------
+--------TABLET PORTRAIT RESPONSIVE ------------
+-------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1024px) and (min-height: 500px) {
+  .progress-ennemy {
+    margin-left: 2rem;
+  }
+}
+
+/* --------------------------------------------
+--------TABLET LANDSCAPE RESPONSIVE -----------
+-------------------------------------------- */
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .progress-ennemy {
+    margin-left: 2rem;
+  }
 }
