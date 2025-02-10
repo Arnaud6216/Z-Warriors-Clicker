@@ -23,12 +23,9 @@ function Tech() {
     setAttackMultiplier,
     ennemyLife,
     setEnnemyLife,
-    ennemyIndex,
-    setEnnemyIndex,
     setGifSize,
     setEnnemyStyle,
-    ennemy,
-    // soundEffectList,
+    ennemyDefeated,
   } = context;
 
   const [style, setStyle] = useState("tech-option");
@@ -48,6 +45,7 @@ function Tech() {
   const spiritBombCost = 500;
 
   useEffect(() => {
+    // display the available style if the player has enough points
     setStyle(
       count >= concentrationCost ? "tech-option-available" : "tech-option"
     );
@@ -99,18 +97,14 @@ function Tech() {
       setCount(count - kamehamehaCost);
       if (ennemyLife > kamehamehaDamage) {
         setEnnemyLife(Math.max(ennemyLife - kamehamehaDamage, 0));
-
-        setTimeout(() => {
-          setEnnemyStyle("");
-        }, 800);
       } else {
-        alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
-        setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+        ennemyDefeated();
       }
     }
   };
 
   const handleClickSpirit = () => {
+    // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
     setSpiritBombVisible("spirit-bomb-img-visible");
 
     if (count >= spiritBombCost) {
@@ -119,18 +113,15 @@ function Tech() {
       setTimeout(() => {
         handleSpirit();
         setSpiritCount((prevSpiritCount) => {
+          // set the damage by the number of clicks on the spirit bomb mutiply by the spirit multiplier (based on saiyan state)
           const damage = prevSpiritCount * spiritMultiplier;
 
           if (ennemyLife > damage) {
             setEnnemyLife(Math.max(ennemyLife - damage, 0));
-            setEnnemyStyle("attacked");
-            setTimeout(() => {
-              setEnnemyStyle("");
-            }, 800);
           } else {
-            alert(`Tu as battu ${ennemy[ennemyIndex].name} !`);
-            setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+            ennemyDefeated();
           }
+          //reset the spirit bomb minimal damage
           return 50;
         });
         setSpiritBombVisible("spirit-bomb-img");
@@ -143,6 +134,7 @@ function Tech() {
   };
 
   useEffect(() => {
+    //increment the count by the concentration count every second
     const interval = setInterval(() => {
       setCount(
         (prevCount: number) =>
@@ -153,6 +145,15 @@ function Tech() {
     return () => clearInterval(interval);
   }, [concentrationCount, concentrationIncrement, setCount]);
 
+  // gif[0] = normal state
+  // gif[1] = super saiyen transformation
+  // gif[2] = super saiyen state
+  // gif[3] = super saiyen 2 transformation
+  // gif[4] = super saiyen 2 state
+  // gif[5] = super saiyen 3 transformation
+  // gif[6] = super saiyen 3 state
+  // Transformation logic : if the player has enough points and is not already in a transformation, the gif will change to the
+  // transformation gif and then to the state gif after the transformation gif duration
   const handleClickSsj = () => {
     if (count >= superSaiyen1 && gif !== (1 || 2 || 3)) {
       setGifSize("player-img-transition");
@@ -212,15 +213,12 @@ function Tech() {
       <div className="spirit-container">
         <img
           src="./src/assets/spirit-bomb.png"
-          height={`${spiritCount * 3}px`}
-          width={`${spiritCount * 3}px`}
           className={SpiritBombVisible}
           alt="spirit bomb"
           onClick={handleSpirit}
           onKeyUp={handleSpirit}
           style={{
-            top: `${spiritCount * -0.2 + 50}%`, // modifie le top et le left pour que l'image reste au milieu quand elle grandit
-            left: `${spiritCount * -0.09 + 50}%`,
+            transform: `scale(${spiritCount * 0.002})`,
           }}
         />
       </div>

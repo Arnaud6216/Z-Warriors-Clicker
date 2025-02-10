@@ -47,6 +47,9 @@ function Card() {
           onClick={handleClickCount}
         />
       </div>
+      <button type="button" onClick={() => setCount(count + 200)}>
+        (dev) +200
+      </button>
     </div>
   );
 }

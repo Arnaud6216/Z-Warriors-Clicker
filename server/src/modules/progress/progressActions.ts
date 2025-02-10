@@ -14,8 +14,8 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const read: RequestHandler = async (req, res, next) => {
   try {
-    const progressId = Number(req.params.id);
-    const progress = await progressRepository.read(progressId);
+    const userId = Number(req.params.id);
+    const progress = await progressRepository.read(userId);
 
     if (progress == null) {
       res.sendStatus(404);
@@ -27,19 +27,26 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
-const add: RequestHandler = async (req, res, next) => {
+const edit: RequestHandler = async (req, res, next) => {
   try {
-    const newProgress = {
-      account_id: req.body.account_id,
-      ennemy_id: req.body.ennemi_id,
-    };
+    const userId = Number(req.params.id); // Récupération du userId via params
+    const { ennemy_id } = req.body; // Récupération de l'ennemi depuis le body
 
-    const progressId = await progressRepository.create(newProgress);
+    if (!ennemy_id) {
+      res.status(400).json({ error: "L'ennemi ID est requis." });
+      return;
+    }
 
-    res.status(201).json({ progressId });
-  } catch (err) {
-    next(err);
+    const updatedProgress = await progressRepository.edit(userId, ennemy_id);
+
+    if (!updatedProgress) {
+      res.status(404).json({ error: "Progression non trouvée." });
+      return;
+    }
+
+    res.status(200).json(updatedProgress);
+  } catch (error) {
+    next(error);
   }
 };
-
-export default { browse, read, add };
+export default { browse, read, edit };

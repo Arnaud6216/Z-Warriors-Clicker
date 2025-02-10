@@ -1,10 +1,4 @@
-interface OptionProps {
-  label: string;
-  isAvailable: boolean;
-  onClick: () => void;
-  className: string;
-  title: string;
-}
+import type { OptionProps } from "../../types/vite-env";
 
 const Option = ({
   label,

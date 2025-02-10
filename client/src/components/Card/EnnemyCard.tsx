@@ -13,22 +13,25 @@ function EnnemyCard() {
   const {
     ennemy,
     ennemyIndex,
-    setEnnemyIndex,
     ennemyLife,
     setEnnemyLife,
     soundEffectList,
     attackMultiplier,
+    effectVolume,
+    ennemyDefeated,
   } = context;
 
   const lightAttack = 1 * attackMultiplier;
   const strongAttack = 5 * attackMultiplier;
-  
+
+  //Ennemy's life initialisation
   useEffect(() => {
     if (ennemy[ennemyIndex]) {
       setEnnemyLife(ennemy[ennemyIndex].life);
     }
   }, [ennemyIndex, ennemy, setEnnemyLife]);
 
+  //Health bar color based on ennemy's life
   const getHealthBarClass = () => {
     const healthPercentage = (ennemyLife / ennemy[ennemyIndex]?.life) * 100;
     if (healthPercentage > 50) return "health-bar";
@@ -37,12 +40,12 @@ function EnnemyCard() {
   };
 
   const handleClickLightAttack = () => {
-    soundEffectList[0].play();
+    soundEffectList[0].play(effectVolume);
     if (ennemyLife > lightAttack) {
       setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
+      // Verify if the ennemy's life do not go below 0
     } else {
-      alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
-      setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+      ennemyDefeated();
     }
   };
 
@@ -51,10 +54,10 @@ function EnnemyCard() {
 
   const handleClickStrongAttack = () => {
     if (isButtonDisabled) return;
-
     setIsButtonDisabled(true);
     setProgress(0);
 
+    // disable the button for 3 seconds and display a progress bar
     let currentProgress = 0;
     const interval = setInterval(() => {
       currentProgress += 100 / 30;
@@ -69,12 +72,11 @@ function EnnemyCard() {
       setProgress(0);
     }, 3400);
 
-    soundEffectList[1].play();
+    soundEffectList[1].play(effectVolume);
     if (ennemyLife > strongAttack) {
       setEnnemyLife(Math.max(ennemyLife - strongAttack, 0));
     } else {
-      alert(`Tu as battu ${ennemy[ennemyIndex]?.name} !`);
-      setEnnemyIndex((ennemyIndex + 1) % ennemy.length);
+      ennemyDefeated();
     }
   };
 
@@ -100,7 +102,7 @@ function EnnemyCard() {
           }}
         />
       </div>
-      <p>Points de Vie : {ennemyLife}</p>
+      <p className="ennemy-info">Points de Vie : {ennemyLife}</p>
       <button
         type="button"
         className="button-attack"

@@ -4,7 +4,7 @@
 }
 
 .form-container {
-  width: 30%;
+  width: 80%;
   height: 80%;
   display: flex;
   flex-direction: column;
@@ -14,10 +14,34 @@
   margin: 5rem;
   border: double 10px rgb(216, 121, 13);
   font-weight: bold;
+  max-width: 300px;
+}
+
+.connexion-title {
+  margin: 0 0 3rem 0;
 }
 
 .submit,
 #username,
 #password #email {
   margin: 0.8rem;
+}
+
+.password-label {
+  margin-top: 0.5rem;
+}
+
+.connexion-button {
+  margin-top: 1rem;
+}
+
+/* --------------------------------------------
+--------MOBILE LANDSCAPE RESPONSIVE -----------
+-------------------------------------------- */
+@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
+    max-height: 480px
+  ) {
+  .connexion-title {
+    font-size: 1.2rem;
+  }
 }
