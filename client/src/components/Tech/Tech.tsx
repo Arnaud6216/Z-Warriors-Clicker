@@ -47,13 +47,13 @@ function Tech() {
   useEffect(() => {
     // display the available style if the player has enough points
     setStyle(
-      count >= concentrationCost ? "tech-option-available" : "tech-option",
+      count >= concentrationCost ? "tech-option-available" : "tech-option"
     );
     setKamehamehaStyle(
-      count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
+      count >= kamehamehaCost ? "kamehameha-available" : "kamehameha"
     );
     setSpiritBombStyle(
-      count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb",
+      count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb"
     );
   }, [count, concentrationCost]);
 
@@ -138,7 +138,7 @@ function Tech() {
     const interval = setInterval(() => {
       setCount(
         (prevCount: number) =>
-          prevCount + concentrationCount * concentrationIncrement,
+          prevCount + concentrationCount * concentrationIncrement
       );
     }, 1000);
 
