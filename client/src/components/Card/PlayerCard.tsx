@@ -32,10 +32,10 @@ function Card() {
   };
 
   return (
-    <div className="player-container">
+    <section className="player-container">
       <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
       <h2 className="player-title">Goku</h2>
-      <div className="info-container">
+      <article className="info-container">
         <h3>Puissance : {count}</h3>
         <p className="player-info">
           Attaque : <strong>x{attackMultiplier}</strong>{" "}
@@ -43,18 +43,18 @@ function Card() {
         <p className="player-info">
           Puissance par seconde : <strong>+{concentrationCount}</strong>
         </p>
-      </div>
-      <div className="power-button-container">
+      </article>
+      <article className="power-button-container">
         <button
           className={animation}
           type="button"
           onClick={handleClickCount}
         />
-      </div>
+      </article>
       <button type="button" onClick={test}>
         (dev) +200
       </button>
-    </div>
+    </section>
   );
 }
 

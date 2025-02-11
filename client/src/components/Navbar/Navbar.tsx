@@ -23,10 +23,10 @@ function Navbar() {
   return (
     <>
       <header className="navbar-container">
-        <div className="progress-container">
+        <section className="progress-container">
           <p className="progress-username">{`Bienvenue ${progress?.username} !`}</p>
           <p className="progress-ennemy">{`Dernier ennemi affronté : ${progress?.name}`}</p>
-        </div>
+        </section>
         <button className="logout-button" type="button" onClick={handleLogout}>
           Deconnexion
         </button>

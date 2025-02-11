@@ -50,18 +50,18 @@ function EnnemyCard() {
   };
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [barProgress, setBarProgress] = useState(0);
 
   const handleClickStrongAttack = () => {
     if (isButtonDisabled) return;
     setIsButtonDisabled(true);
-    setProgress(0);
+    setBarProgress(0);
 
     // disable the button for 3 seconds and display a progress bar
     let currentProgress = 0;
     const interval = setInterval(() => {
       currentProgress += 100 / 30;
-      setProgress(currentProgress);
+      setBarProgress(currentProgress);
       if (currentProgress >= 100) {
         clearInterval(interval);
       }
@@ -69,7 +69,7 @@ function EnnemyCard() {
 
     setTimeout(() => {
       setIsButtonDisabled(false);
-      setProgress(0);
+      setBarProgress(0);
     }, 3400);
 
     soundEffectList[1].play(effectVolume);
@@ -85,7 +85,7 @@ function EnnemyCard() {
   }
 
   return (
-    <div className="ennemy-container">
+    <section className="ennemy-container">
       <img
         src={ennemy[ennemyIndex]?.img_src}
         alt="ennemy"
@@ -94,14 +94,14 @@ function EnnemyCard() {
         className="ennemy-gif"
       />
       <h2 className="ennemy-title">{ennemy[ennemyIndex]?.name}</h2>
-      <div className="health-bar-container">
+      <aside className="health-bar-container">
         <div
           className={getHealthBarClass()}
           style={{
             width: `${(ennemyLife / ennemy[ennemyIndex]?.life) * 100}%`,
           }}
         />
-      </div>
+      </aside>
       <p className="ennemy-info">Points de Vie : {ennemyLife}</p>
       <button
         type="button"
@@ -120,9 +120,9 @@ function EnnemyCard() {
         style={{ position: "relative", overflow: "hidden" }}
       >
         Attaque lourde
-        <div className="progress-bar" style={{ width: `${progress}%` }} />
+        <div className="progress-bar" style={{ width: `${barProgress}%` }} />
       </button>
-    </div>
+    </section>
   );
 }
 

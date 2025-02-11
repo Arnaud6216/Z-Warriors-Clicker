@@ -24,11 +24,10 @@ function Tech() {
     ennemyLife,
     setEnnemyLife,
     setGifSize,
-    setEnnemyStyle,
     ennemyDefeated,
   } = context;
 
-  const [style, setStyle] = useState("tech-option");
+  const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
   const [saiyenState, setSaiyenState] = useState(0);
   const [kamehamehaStyle, setKamehamehaStyle] = useState("kamehameha");
   const [spiritBombStyle, setSpiritBombStyle] = useState("spirit-bomb");
@@ -46,7 +45,7 @@ function Tech() {
 
   useEffect(() => {
     // display the available style if the player has enough points
-    setStyle(
+    setTechButtonStyle(
       count >= concentrationCost ? "tech-option-available" : "tech-option",
     );
     setKamehamehaStyle(
@@ -92,7 +91,6 @@ function Tech() {
   //   };
 
   const handleClickKamehameha = () => {
-    setEnnemyStyle("attacked");
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
       if (ennemyLife > kamehamehaDamage) {
@@ -210,7 +208,7 @@ function Tech() {
 
   return (
     <>
-      <div className="spirit-container">
+      <aside className="spirit-container">
         <img
           src="./src/assets/spirit-bomb.png"
           className={SpiritBombVisible}
@@ -221,14 +219,14 @@ function Tech() {
             transform: `scale(${spiritCount * 0.002})`,
           }}
         />
-      </div>
-      <div className="tech-container">
+      </aside>
+      <section className="tech-container">
         <ul>
           <Option
             label={`Concentration du KI - Coût : ${concentrationCost}`}
             isAvailable={count >= concentrationCost}
             onClick={handleClickKi}
-            className={style}
+            className={techButtonStyle}
             title="Augmente le KI de 1 par seconde"
           />
 
@@ -276,7 +274,7 @@ function Tech() {
             />
           )}
         </ul>
-      </div>
+      </section>
     </>
   );
 }

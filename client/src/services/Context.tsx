@@ -23,8 +23,6 @@ interface ContextType {
   setEnnemyLife: (life: number) => void;
   gifSize: string;
   setGifSize: (size: string) => void;
-  ennemyStyle: string;
-  setEnnemyStyle: (style: string) => void;
   soundEffectList: { play: (volume: number) => void }[];
   ennemy: Ennemy[];
   musicVolume: number;
@@ -126,7 +124,6 @@ export const Provider = ({ children }: ProviderProps) => {
   const [ennemyIndex, setEnnemyIndex] = useState(0);
   const [ennemyLife, setEnnemyLife] = useState<number>(0);
   const [gifSize, setGifSize] = useState("player-img");
-  const [ennemyStyle, setEnnemyStyle] = useState("");
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [effectVolume, setEffectVolume] = useState(0.5);
 
@@ -157,7 +154,7 @@ export const Provider = ({ children }: ProviderProps) => {
           const updatedProgress = await response.json();
 
           setProgress(updatedProgress);
-         //fetch again progress to get the updated progress
+          //fetch again progress to get the updated progress
           try {
             const response = await fetch(
               `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
@@ -207,8 +204,6 @@ export const Provider = ({ children }: ProviderProps) => {
         setEnnemyLife,
         gifSize,
         setGifSize,
-        ennemyStyle,
-        setEnnemyStyle,
         soundEffectList,
         ennemy,
         musicVolume,
