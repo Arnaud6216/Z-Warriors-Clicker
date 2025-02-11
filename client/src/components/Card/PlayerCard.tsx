@@ -27,10 +27,6 @@ function Card() {
     setAnimation("power-button");
   };
 
-  const test = () => {
-    setCount(count + 200);
-  };
-
   return (
     <section className="player-container">
       <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
@@ -51,7 +47,7 @@ function Card() {
           onClick={handleClickCount}
         />
       </article>
-      <button type="button" onClick={test}>
+      <button type="button" onClick={() => setCount(count + 200)}>
         (dev) +200
       </button>
     </section>
