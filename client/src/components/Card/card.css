@@ -120,15 +120,15 @@
 }
 
 .button-attack {
-  margin: 0.2rem;
+  margin-top: 0.2rem;
 }
 
 .progress-bar {
-  overflow: hidden;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 20%;
+  max-width: 94%;
+  position: relative;
+  bottom: 18%;
+  left: 3%;
+  height: 10%;
   background-color: #beac06;
   transition: width 0.1s linear;
 }

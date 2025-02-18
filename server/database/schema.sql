@@ -29,11 +29,11 @@ VALUES
     ("Jeice", "src/assets/jeice.webp", 170),
     ("Recome", "src/assets/recome.webp", 180),
     ("Ginyu", "src/assets/ginyu.webp", 200),
-    ("Freezer", "src/assets/freezer.webp", 1000),
-    ("C 17", "src/assets/c17.webp", 500),
-    ("C 18", "src/assets/c18.webp", 600),
-    ("Cell", "src/assets/cell.webp", 3000),
-    ("Buu", "src/assets/buu.webp", 5000);
+    ("Freezer", "src/assets/freezer.webp", 2000),
+    ("C 17", "src/assets/c17.webp", 800),
+    ("C 18", "src/assets/c18.webp", 800),
+    ("Cell", "src/assets/cell.webp", 6000),
+    ("Buu", "src/assets/buu.webp", 20000);
 
 CREATE TRIGGER add_default_progress
 AFTER INSERT ON account

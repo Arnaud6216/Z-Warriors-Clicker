@@ -111,17 +111,19 @@ function EnnemyCard() {
       >
         Attaque légère
       </button>
-      <button
-        type="button"
-        className="button-attack"
-        onClick={handleClickStrongAttack}
-        disabled={isButtonDisabled}
-        title={`inflige ${strongAttack} points de dégâts`}
-        style={{ position: "relative", overflow: "hidden" }}
-      >
-        Attaque lourde
+      <div>
+        <button
+          type="button"
+          className="button-attack"
+          onClick={handleClickStrongAttack}
+          disabled={isButtonDisabled}
+          title={`inflige ${strongAttack} points de dégâts`}
+          style={{ position: "relative", overflow: "hidden" }}
+        >
+          Attaque lourde
+        </button>
         <div className="progress-bar" style={{ width: `${progress}%` }} />
-      </button>
+      </div>
     </div>
   );
 }
