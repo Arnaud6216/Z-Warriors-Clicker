@@ -27,20 +27,4 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
-const add: RequestHandler = async (req, res, next) => {
-  try {
-    const newEnnemy = {
-      name: req.body.name,
-      img_src: req.body.img_src,
-      life: req.body.life,
-    };
-
-    const ennemyId = await ennemyRepository.create(newEnnemy);
-
-    res.status(201).json({ ennemyId });
-  } catch (err) {
-    next(err);
-  }
-};
-
-export default { browse, read, add };
+export default { browse, read };

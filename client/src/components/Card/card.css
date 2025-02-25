@@ -79,6 +79,20 @@
   box-shadow: 0px 0px 30px 1px rgba(232, 225, 18, 1);
   color: black;
 }
+
+.floating-points-container {
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 25%;
+  pointer-events: none;
+}
+
+.floating-point {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcb00;
+}
 /* --------------------------------------------
 ---------------ENNEMY SECTION --------------
 -------------------------------------------- */
