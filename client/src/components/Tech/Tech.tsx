@@ -132,7 +132,6 @@ function Tech() {
   };
 
   useEffect(() => {
-    //increment the count by the concentration count every second
     const interval = setInterval(() => {
       setCount(
         (prevCount: number) =>

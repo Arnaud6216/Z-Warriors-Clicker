@@ -59,10 +59,10 @@ function Card() {
             {points.map((point) => (
               <motion.div
                 key={point.id}
-                initial={{ opacity: 1, x: 0 }}
-                animate={{ opacity: 1, x: -50 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 1 }}
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: -50 }}
+                exit={{ opacity: 0, y: -70 }}
+                transition={{ duration: 0.4 }}
                 className="floating-point"
               >
                 +1

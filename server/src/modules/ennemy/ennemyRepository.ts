@@ -1,6 +1,6 @@
 import databaseClient from "../../../database/client";
 import type { Ennemy } from "../../types/express/index";
-import type { Result, Rows } from "../../../database/client";
+import type { Rows } from "../../../database/client";
 
 class EnnemyRepository {
   async read(id: number) {
