@@ -29,7 +29,6 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     const newAccount = {
-      id: req.body.id,
       username: req.body.username,
       email: req.body.email,
       hashed_password: req.body.hashed_password,

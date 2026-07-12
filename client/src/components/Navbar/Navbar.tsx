@@ -15,7 +15,15 @@ function Navbar() {
     throw new Error("Context must be used within a Provider");
   }
   const { progress } = context;
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion :", err);
+    }
     setUser(null);
     navigate("/login");
   };

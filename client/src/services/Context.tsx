@@ -3,6 +3,16 @@ import type { ReactNode } from "react";
 import type { Ennemy } from "../types/vite-env";
 import type { Progress } from "../../../server/src/types/express";
 import { useOutletContext } from "react-router";
+import base from "../assets/base.webp";
+import ssj1Transition from "../assets/ssj1-transition.webp";
+import ssj1 from "../assets/ssj1.webp";
+import ssj2Transition from "../assets/ssj2-transition.webp";
+import ssj2 from "../assets/ssj2.webp";
+import ssj3Transition from "../assets/ssj3-transition.webp";
+import ssj3 from "../assets/ssj3.webp";
+import lightAttackSound from "../assets/music/lightAttack.mp3";
+import heavyAttackSound from "../assets/music/heavyAttack.mp3";
+import kamehamehaSound from "../assets/music/kamehameha.mp3";
 
 interface ContextType {
   gifSrc: string[];
@@ -42,13 +52,13 @@ interface ProviderProps {
 
 export const Provider = ({ children }: ProviderProps) => {
   const gifSrc = [
-    "src/assets/base.webp",
-    "src/assets/ssj1-transition.webp",
-    "src/assets/ssj1.webp",
-    "src/assets/ssj2-transition.webp",
-    "src/assets/ssj2.webp",
-    "src/assets/ssj3-transition.webp",
-    "src/assets/ssj3.webp",
+    base,
+    ssj1Transition,
+    ssj1,
+    ssj2Transition,
+    ssj2,
+    ssj3Transition,
+    ssj3,
   ];
 
   const [ennemy, setEnnemy] = useState([] as Ennemy[]);
@@ -73,7 +83,9 @@ export const Provider = ({ children }: ProviderProps) => {
   useEffect(() => {
     //get progress by the connected user
     if (user) {
-      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/progress/${user.id}`, {
+        credentials: "include",
+      })
         .then((response) => response.json())
         .then((data) => setProgress(data))
         .catch((error) => {
@@ -86,7 +98,7 @@ export const Provider = ({ children }: ProviderProps) => {
     {
       name: "lightAttack",
       play: (volume = 1) => {
-        const audio = new Audio("src/assets/music/lightAttack.mp3");
+        const audio = new Audio(lightAttackSound);
         audio.volume = Math.max(0, Math.min(volume, 1)); // Clamp volume
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son lightAttack :", err);
@@ -96,7 +108,7 @@ export const Provider = ({ children }: ProviderProps) => {
     {
       name: "heavyAttack",
       play: (volume = 1) => {
-        const audio = new Audio("src/assets/music/heavyAttack.mp3");
+        const audio = new Audio(heavyAttackSound);
         audio.volume = Math.max(0, Math.min(volume, 1));
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son heavyAttack :", err);
@@ -106,7 +118,7 @@ export const Provider = ({ children }: ProviderProps) => {
     {
       name: "kamehameha",
       play: (volume = 1) => {
-        const audio = new Audio("src/assets/music/kamehameha.mp3");
+        const audio = new Audio(kamehamehaSound);
         audio.volume = Math.max(0, Math.min(volume, 1));
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son kamehameha :", err);
@@ -144,6 +156,7 @@ export const Provider = ({ children }: ProviderProps) => {
             `${import.meta.env.VITE_API_URL}/api/progress/${user.id}`,
             {
               method: "PUT",
+              credentials: "include",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 ennemy_id: nextEnnemy.id,
@@ -158,6 +171,7 @@ export const Provider = ({ children }: ProviderProps) => {
           try {
             const response = await fetch(
               `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
+              { credentials: "include" },
             );
 
             const progressData = await response.json();

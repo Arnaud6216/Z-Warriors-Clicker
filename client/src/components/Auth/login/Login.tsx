@@ -32,6 +32,7 @@ function Login() {
         `${import.meta.env.VITE_API_URL}/api/login`,
         {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: (emailRef.current as HTMLInputElement).value,

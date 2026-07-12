@@ -2,19 +2,15 @@ import type { RequestHandler } from "express";
 
 import progressRepository from "./progressRepository";
 
-const browse: RequestHandler = async (req, res, next) => {
-  try {
-    const progress = await progressRepository.readAll();
-
-    res.json(progress);
-  } catch (err) {
-    next(err);
-  }
-};
-
 const read: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
+
+    if (req.user?.id !== userId) {
+      res.sendStatus(403);
+      return;
+    }
+
     const progress = await progressRepository.read(userId);
 
     if (progress == null) {
@@ -31,6 +27,11 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id); // Récupération du userId via params
     const { ennemy_id } = req.body; // Récupération de l'ennemi depuis le body
+
+    if (req.user?.id !== userId) {
+      res.sendStatus(403);
+      return;
+    }
 
     if (!ennemy_id) {
       res.status(400).json({ error: "L'ennemi ID est requis." });
@@ -49,4 +50,4 @@ const edit: RequestHandler = async (req, res, next) => {
     next(error);
   }
 };
-export default { browse, read, edit };
+export default { read, edit };

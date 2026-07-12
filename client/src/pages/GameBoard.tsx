@@ -6,6 +6,7 @@ import Tech from "../components/Tech/Tech";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import "./Gameboard.css";
 import type { User } from "../types/vite-env";
+import connexionImg from "../assets/connexion.jpeg";
 
 function Gameboard() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Gameboard() {
         <main className="user-disconnected">
           <img
             className="goku-approve"
-            src="./src/assets/connexion.jpeg"
+            src={connexionImg}
             alt=""
           />
           <p>Connecte toi pour pouvoir jouer !</p>

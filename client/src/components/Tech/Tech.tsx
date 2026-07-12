@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../../services/Context";
 import Option from "../options/Option";
 import "./tech.css";
+import spiritBombImg from "../../assets/spirit-bomb.png";
 
 function Tech() {
   const context = useContext(Context);
@@ -63,32 +64,6 @@ function Tech() {
       setConcentrationCost(concentrationCost + 5);
     }
   };
-
-  //   const [isAvailable, setIsAvailable] = useState(true);
-
-  // kamehameha avec la musique, bloqué pendant 15.8s mais il reste à trouver comment desactiver les autres boutons pendant ce temps
-  //   const handleClickKamehameha = () => {
-  //     if (!isAvailable) return; // Bloque l'action si non disponible
-
-  //     soundEffectList[2].play();
-  //     setIsAvailable(false);
-  //     setTimeout(() => {
-  //       setIsAvailable(true); // Rétablit la disponibilité après 15.8s
-  //     }, 15800);
-  //     if (count >= kamehamehaCost) {
-  //       setCount(count - kamehamehaCost);
-  //       if (ennemyLife > kamehamehaDamage) {
-  //         setEnnemyLife(Math.max(ennemyLife - kamehamehaDamage, 0));
-
-  //         setTimeout(() => {
-  //           setEnnemyStyle("");
-  //         }, 800);
-  //       } else {
-  //         alert(`Tu as battu ${ennemyList[ennemyIndex].name} !`);
-  //         setEnnemyIndex((ennemyIndex + 1) % ennemyList.length);
-  //       }
-  //     }
-  //   };
 
   const handleClickKamehameha = () => {
     if (count >= kamehamehaCost) {
@@ -152,7 +127,7 @@ function Tech() {
   // Transformation logic : if the player has enough points and is not already in a transformation, the gif will change to the
   // transformation gif and then to the state gif after the transformation gif duration
   const handleClickSsj = () => {
-    if (count >= superSaiyen1 && gif !== (1 || 2 || 3)) {
+    if (count >= superSaiyen1 && ![1, 2, 3].includes(gif)) {
       setGifSize("player-img-transition");
       setGif(1);
 
@@ -170,7 +145,7 @@ function Tech() {
   };
 
   const handleClickSsj2 = () => {
-    if (count >= superSaiyen2 && gif !== (1 || 3 || 5)) {
+    if (count >= superSaiyen2 && ![1, 3, 5].includes(gif)) {
       setGif(3);
       setGifSize("player-img-transition");
 
@@ -188,7 +163,7 @@ function Tech() {
   };
 
   const handleClickSsj3 = () => {
-    if (count >= superSaiyen3 && gif !== (1 || 3 || 5)) {
+    if (count >= superSaiyen3 && ![1, 3, 5].includes(gif)) {
       setGif(5);
       setGifSize("player-img-transition");
 
@@ -209,7 +184,7 @@ function Tech() {
     <>
       <aside className="spirit-container">
         <img
-          src="./src/assets/spirit-bomb.png"
+          src={spiritBombImg}
           className={SpiritBombVisible}
           alt="spirit bomb"
           onClick={handleSpirit}

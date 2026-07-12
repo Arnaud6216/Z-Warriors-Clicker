@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import connexionImg from "../../assets/connexion.jpeg";
 
 function Homepage() {
   const { user } = useOutletContext() as {
@@ -54,7 +55,7 @@ function Homepage() {
         <main className="user-disconnected">
           <img
             className="goku-approve"
-            src="./src/assets/connexion.jpeg"
+            src={connexionImg}
             alt="Goku approval"
           />
           <p>Connecte toi pour pouvoir jouer !</p>
