@@ -1,0 +1,54 @@
+.victory-banner-flash {
+  position: fixed;
+  inset: 0;
+  background-color: #fff2b0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.victory-banner {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  border: double 8px rgb(216, 121, 13);
+  border-radius: 8px;
+  background-color: rgba(51, 34, 14, 0.9);
+  box-shadow: 0px 0px 30px 4px rgba(232, 225, 18, 0.8);
+  pointer-events: none;
+  z-index: 1001;
+  text-align: center;
+}
+
+.victory-banner-ko {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffcb00;
+  text-shadow: 0px 0px 10px rgba(232, 225, 18, 0.9);
+  letter-spacing: 0.2rem;
+}
+
+.victory-banner-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+@media screen and (max-width: 480px) {
+  .victory-banner {
+    padding: 0.8rem 1.5rem;
+    top: 15%;
+  }
+
+  .victory-banner-ko {
+    font-size: 1.8rem;
+  }
+
+  .victory-banner-name {
+    font-size: 1rem;
+  }
+}

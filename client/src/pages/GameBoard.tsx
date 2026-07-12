@@ -3,6 +3,7 @@ import EnnemyCard from "../components/Card/EnnemyCard";
 import PlayerCard from "../components/Card/PlayerCard";
 import Navbar from "../components/Navbar/Navbar";
 import Tech from "../components/Tech/Tech";
+import VictoryBanner from "../components/VictoryBanner/VictoryBanner";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import "./Gameboard.css";
 import type { User } from "../types/vite-env";
@@ -23,6 +24,7 @@ function Gameboard() {
           <Tech />
           <AudioController />
           <EnnemyCard />
+          <VictoryBanner />
         </>
       ) : (
         <main className="user-disconnected">

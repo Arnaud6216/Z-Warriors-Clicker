@@ -42,6 +42,7 @@ interface ContextType {
   progress: Progress | null;
   setProgress: (progress: Progress | null) => void;
   ennemyDefeated: () => void;
+  defeatedEnnemyName: string | null;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -138,14 +139,20 @@ export const Provider = ({ children }: ProviderProps) => {
   const [gifSize, setGifSize] = useState("player-img");
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [effectVolume, setEffectVolume] = useState(0.5);
+  const [defeatedEnnemyName, setDefeatedEnnemyName] = useState<string | null>(
+    null,
+  );
 
   const ennemyDefeated = async () => {
     //when the ennemy's life is below 0
     const nextIndex = (ennemyIndex + 1) % ennemy.length;
     const currentEnnemy = ennemy[ennemyIndex];
     const nextEnnemy = ennemy[nextIndex];
-    //alert the user that he has defeated the ennemy and pass to the next one
-    alert(`Tu as battu ${currentEnnemy?.name} !`);
+    //show the victory banner instead of a blocking alert, then pass to the next one
+    if (currentEnnemy) {
+      setDefeatedEnnemyName(currentEnnemy.name);
+      setTimeout(() => setDefeatedEnnemyName(null), 2000);
+    }
     setEnnemyIndex(nextIndex);
 
     //update the progress to save the last defeated ennemy if the current ennemy is greater than the last defeated ennemy on progress
@@ -227,6 +234,7 @@ export const Provider = ({ children }: ProviderProps) => {
         progress,
         setProgress,
         ennemyDefeated,
+        defeatedEnnemyName,
       }}
     >
       {children}
