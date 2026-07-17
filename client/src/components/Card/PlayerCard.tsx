@@ -19,9 +19,11 @@ function Card() {
     gifSize,
     attackMultiplier,
     concentrationCount,
+    isEnnemyKO,
   } = context;
 
   const handleClickCount = () => {
+    if (isEnnemyKO) return;
     setCount(count + 1);
 
     // Ajoute une animation temporaire

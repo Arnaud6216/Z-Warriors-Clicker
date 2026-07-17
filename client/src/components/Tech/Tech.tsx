@@ -26,6 +26,7 @@ function Tech() {
     setEnnemyLife,
     setGifSize,
     ennemyDefeated,
+    isEnnemyKO,
   } = context;
 
   const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
@@ -58,6 +59,7 @@ function Tech() {
   }, [count, concentrationCost]);
 
   const handleClickKi = () => {
+    if (isEnnemyKO) return;
     if (count >= concentrationCost) {
       setCount(count - concentrationCost);
       setConcentrationCount(concentrationCount + 1);
@@ -66,6 +68,7 @@ function Tech() {
   };
 
   const handleClickKamehameha = () => {
+    if (isEnnemyKO) return;
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
       if (ennemyLife > kamehamehaDamage) {
@@ -77,6 +80,7 @@ function Tech() {
   };
 
   const handleClickSpirit = () => {
+    if (isEnnemyKO) return;
     // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
     setSpiritBombVisible("spirit-bomb-img-visible");
 
@@ -103,6 +107,7 @@ function Tech() {
   };
 
   const handleSpirit = () => {
+    if (isEnnemyKO) return;
     setSpiritCount((prevSpiritCount) => prevSpiritCount + 5);
   };
 
@@ -127,6 +132,7 @@ function Tech() {
   // Transformation logic : if the player has enough points and is not already in a transformation, the gif will change to the
   // transformation gif and then to the state gif after the transformation gif duration
   const handleClickSsj = () => {
+    if (isEnnemyKO) return;
     if (count >= superSaiyen1 && ![1, 2, 3].includes(gif)) {
       setGifSize("player-img-transition");
       setGif(1);
@@ -145,6 +151,7 @@ function Tech() {
   };
 
   const handleClickSsj2 = () => {
+    if (isEnnemyKO) return;
     if (count >= superSaiyen2 && ![1, 3, 5].includes(gif)) {
       setGif(3);
       setGifSize("player-img-transition");
@@ -163,6 +170,7 @@ function Tech() {
   };
 
   const handleClickSsj3 = () => {
+    if (isEnnemyKO) return;
     if (count >= superSaiyen3 && ![1, 3, 5].includes(gif)) {
       setGif(5);
       setGifSize("player-img-transition");

@@ -43,6 +43,7 @@ interface ContextType {
   setProgress: (progress: Progress | null) => void;
   ennemyDefeated: () => void;
   defeatedEnnemyName: string | null;
+  isEnnemyKO: boolean;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -142,62 +143,71 @@ export const Provider = ({ children }: ProviderProps) => {
   const [defeatedEnnemyName, setDefeatedEnnemyName] = useState<string | null>(
     null,
   );
+  const [isEnnemyKO, setIsEnnemyKO] = useState(false);
 
   const ennemyDefeated = async () => {
+    if (isEnnemyKO) return;
     //when the ennemy's life is below 0
-    const nextIndex = (ennemyIndex + 1) % ennemy.length;
+    setIsEnnemyKO(true);
+    setEnnemyLife(0);
+
     const currentEnnemy = ennemy[ennemyIndex];
-    const nextEnnemy = ennemy[nextIndex];
-    //show the victory banner instead of a blocking alert, then pass to the next one
     if (currentEnnemy) {
       setDefeatedEnnemyName(currentEnnemy.name);
-      setTimeout(() => setDefeatedEnnemyName(null), 2000);
     }
-    setEnnemyIndex(nextIndex);
 
-    //update the progress to save the last defeated ennemy if the current ennemy is greater than the last defeated ennemy on progress
-    if (user && progress) {
-      if (nextEnnemy.id > progress.ennemy_id) {
-        try {
-          const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/api/progress/${user.id}`,
-            {
-              method: "PUT",
-              credentials: "include",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                ennemy_id: nextEnnemy.id,
-              }),
-            },
-          );
+    setTimeout(async () => {
+      const nextIndex = (ennemyIndex + 1) % ennemy.length;
+      const nextEnnemy = ennemy[nextIndex];
+      
+      setEnnemyIndex(nextIndex);
+      setDefeatedEnnemyName(null);
+      setIsEnnemyKO(false);
 
-          const updatedProgress = await response.json();
-
-          setProgress(updatedProgress);
-          //fetch again progress to get the updated progress
+      //update the progress to save the last defeated ennemy if the current ennemy is greater than the last defeated ennemy on progress
+      if (user && progress && nextEnnemy) {
+        if (nextEnnemy.id > progress.ennemy_id) {
           try {
             const response = await fetch(
-              `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
-              { credentials: "include" },
+              `${import.meta.env.VITE_API_URL}/api/progress/${user.id}`,
+              {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  ennemy_id: nextEnnemy.id,
+                }),
+              },
             );
 
-            const progressData = await response.json();
+            const updatedProgress = await response.json();
 
-            setProgress(progressData);
+            setProgress(updatedProgress);
+            //fetch again progress to get the updated progress
+            try {
+              const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/progress/${user?.id}`,
+                { credentials: "include" },
+              );
+
+              const progressData = await response.json();
+
+              setProgress(progressData);
+            } catch (error) {
+              console.error(
+                "Erreur lors de la récupération de la progression :",
+                error,
+              );
+            }
           } catch (error) {
             console.error(
-              "Erreur lors de la récupération de la progression :",
+              "Erreur lors de la mise à jour ou récupération du progrès :",
               error,
             );
           }
-        } catch (error) {
-          console.error(
-            "Erreur lors de la mise à jour ou récupération du progrès :",
-            error,
-          );
         }
       }
-    }
+    }, 2500);
   };
 
   return (
@@ -235,6 +245,7 @@ export const Provider = ({ children }: ProviderProps) => {
         setProgress,
         ennemyDefeated,
         defeatedEnnemyName,
+        isEnnemyKO,
       }}
     >
       {children}

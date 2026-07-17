@@ -10,10 +10,13 @@ function VictoryBanner() {
     return null;
   }
 
-  const { defeatedEnnemyName } = context;
+  const { defeatedEnnemyName, isEnnemyKO } = context;
 
   return (
     <AnimatePresence>
+      {isEnnemyKO && (
+        <div className="screen-blocker-overlay" />
+      )}
       {defeatedEnnemyName && (
         <motion.div
           className="victory-banner-flash"
@@ -25,9 +28,9 @@ function VictoryBanner() {
       {defeatedEnnemyName && (
         <motion.div
           className="victory-banner"
-          initial={{ opacity: 0, scale: 0.6, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 1.15 }}
+          initial={{ opacity: 0, scale: 0.6, x: "-50%", y: "-70%" }}
+          animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+          exit={{ opacity: 0, scale: 1.15, x: "-50%", y: "-50%" }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <span className="victory-banner-ko">K.O.</span>

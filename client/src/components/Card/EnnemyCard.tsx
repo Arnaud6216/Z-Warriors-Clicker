@@ -19,6 +19,7 @@ function EnnemyCard() {
     attackMultiplier,
     effectVolume,
     ennemyDefeated,
+    isEnnemyKO,
   } = context;
 
   const lightAttack = 1 * attackMultiplier;
@@ -40,6 +41,7 @@ function EnnemyCard() {
   };
 
   const handleClickLightAttack = () => {
+    if (isEnnemyKO) return;
     soundEffectList[0].play(effectVolume);
     if (ennemyLife > lightAttack) {
       setEnnemyLife(Math.max(ennemyLife - lightAttack, 0));
@@ -53,7 +55,7 @@ function EnnemyCard() {
   const [barProgress, setBarProgress] = useState(0);
 
   const handleClickStrongAttack = () => {
-    if (isButtonDisabled) return;
+    if (isButtonDisabled || isEnnemyKO) return;
     setIsButtonDisabled(true);
     setBarProgress(0);
 
@@ -91,7 +93,7 @@ function EnnemyCard() {
         alt="ennemy"
         width="390px"
         height="220px"
-        className="ennemy-gif"
+        className={`ennemy-gif ${isEnnemyKO ? "ko" : ""}`}
       />
       <h2 className="ennemy-title">{ennemy[ennemyIndex]?.name}</h2>
       <aside className="health-bar-container">
@@ -115,7 +117,7 @@ function EnnemyCard() {
         type="button"
         className="button-attack"
         onClick={handleClickStrongAttack}
-        disabled={isButtonDisabled}
+        disabled={isButtonDisabled || isEnnemyKO}
         title={`inflige ${strongAttack} points de dégâts`}
         style={{ position: "relative", overflow: "hidden" }}
       >
