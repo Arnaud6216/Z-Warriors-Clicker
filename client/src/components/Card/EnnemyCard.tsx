@@ -20,10 +20,11 @@ function EnnemyCard() {
     effectVolume,
     ennemyDefeated,
     isEnnemyKO,
+    isKaiokenActive,
   } = context;
 
-  const lightAttack = 1 * attackMultiplier;
-  const strongAttack = 5 * attackMultiplier;
+  const lightAttack = 1 * attackMultiplier * (isKaiokenActive ? 3 : 1);
+  const strongAttack = 5 * attackMultiplier * (isKaiokenActive ? 3 : 1);
 
   //Ennemy's life initialisation
   useEffect(() => {

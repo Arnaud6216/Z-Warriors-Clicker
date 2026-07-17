@@ -138,6 +138,48 @@ li {
   border: double 5px rgb(117, 66, 7);
 }
 
+.kaioken {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20vw;
+  height: 7vh;
+  background-color: rgb(150, 70, 70);
+  margin: 2rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 5px #221403;
+  color: white;
+  border: double 5px rgb(117, 10, 10);
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.kaioken:disabled {
+  background-color: rgb(100, 70, 70);
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  border: double 5px rgb(80, 20, 20);
+}
+
+.kaioken-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20vw;
+  height: 7vh;
+  margin: 2rem;
+  border-radius: 5px;
+  background-color: rgb(230, 20, 20);
+  box-shadow: 0px 0px 18px 6px rgba(255, 0, 0, 1);
+  color: white;
+  font-weight: bold;
+  border: double 5px rgb(150, 0, 0);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .spirit-bomb-img {
   background: none;
   position: relative;
@@ -200,7 +242,9 @@ li {
   .tech-option,
   .kamehameha,
   .spirit-bomb,
-  .saiyan-option {
+  .saiyan-option,
+  .kaioken,
+  .kaioken-active {
     width: 30vw;
     margin: 0.3rem;
     font-size: 0.6rem;
@@ -238,7 +282,9 @@ li {
   .tech-option-available,
   .kamehameha-available,
   .spirit-bomb-available,
-  .saiyan-option-available {
+  .saiyan-option-available,
+  .kaioken,
+  .kaioken-active {
     font-size: 0.7rem;
     margin: 0.2rem auto;
     height: 2.5rem;
@@ -269,7 +315,9 @@ li {
   .tech-option-available,
   .kamehameha-available,
   .spirit-bomb-available,
-  .saiyan-option-available {
+  .saiyan-option-available,
+  .kaioken,
+  .kaioken-active {
     font-size: 0.7rem;
     margin: 0.2rem auto;
     height: 4rem;
@@ -292,7 +340,9 @@ li {
   .tech-option-available,
   .kamehameha-available,
   .spirit-bomb-available,
-  .saiyan-option-available {
+  .saiyan-option-available,
+  .kaioken,
+  .kaioken-active {
     font-size: 0.8rem;
     margin: 1rem 0;
   }

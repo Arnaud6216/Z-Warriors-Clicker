@@ -20,6 +20,7 @@ function Card() {
     attackMultiplier,
     concentrationCount,
     isEnnemyKO,
+    isKaiokenActive,
   } = context;
 
   const handleClickCount = () => {
@@ -44,12 +45,12 @@ function Card() {
 
   return (
     <section className="player-container">
-      <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif`} />
+      <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif ${isKaiokenActive ? "kaioken-aura" : ""}`} />
       <h2 className="player-title">Goku</h2>
       <article className="info-container">
         <h3>Puissance : {count}</h3>
         <p className="player-info">
-          Attaque : <strong>x{attackMultiplier}</strong>{" "}
+          Attaque : <strong>x{attackMultiplier * (isKaiokenActive ? 3 : 1)}</strong>{" "}
         </p>
         <p className="player-info">
           Puissance par seconde : <strong>+{concentrationCount}</strong>

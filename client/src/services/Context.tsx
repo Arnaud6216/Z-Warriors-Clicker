@@ -44,6 +44,9 @@ interface ContextType {
   ennemyDefeated: () => void;
   defeatedEnnemyName: string | null;
   isEnnemyKO: boolean;
+  isKaiokenActive: boolean;
+  setIsKaiokenActive: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleKaioken: () => void;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -144,6 +147,31 @@ export const Provider = ({ children }: ProviderProps) => {
     null,
   );
   const [isEnnemyKO, setIsEnnemyKO] = useState(false);
+  const [isKaiokenActive, setIsKaiokenActive] = useState(false);
+
+  // Auto-deactivate Kaioken if Goku transforms into Super Saiyan (gif > 0)
+  useEffect(() => {
+    if (gif > 0 && isKaiokenActive) {
+      setIsKaiokenActive(false);
+    }
+  }, [gif, isKaiokenActive]);
+
+  const toggleKaioken = () => {
+    if (isEnnemyKO) return;
+    if (gif > 0) {
+      alert("Tu ne peux pas activer le Kaioken en étant Super Saiyen !");
+      return;
+    }
+    if (!isKaiokenActive) {
+      if (count >= 50) {
+        setIsKaiokenActive(true);
+      } else {
+        alert("Tu as besoin d'au moins 50 de Puissance pour activer le Kaioken !");
+      }
+    } else {
+      setIsKaiokenActive(false);
+    }
+  };
 
   const ennemyDefeated = async () => {
     if (isEnnemyKO) return;
@@ -246,6 +274,9 @@ export const Provider = ({ children }: ProviderProps) => {
         ennemyDefeated,
         defeatedEnnemyName,
         isEnnemyKO,
+        isKaiokenActive,
+        setIsKaiokenActive,
+        toggleKaioken,
       }}
     >
       {children}

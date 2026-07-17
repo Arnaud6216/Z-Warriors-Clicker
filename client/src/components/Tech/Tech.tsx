@@ -27,6 +27,9 @@ function Tech() {
     setGifSize,
     ennemyDefeated,
     isEnnemyKO,
+    isKaiokenActive,
+    setIsKaiokenActive,
+    toggleKaioken,
   } = context;
 
   const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
@@ -71,8 +74,9 @@ function Tech() {
     if (isEnnemyKO) return;
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
-      if (ennemyLife > kamehamehaDamage) {
-        setEnnemyLife(Math.max(ennemyLife - kamehamehaDamage, 0));
+      const damage = kamehamehaDamage * (isKaiokenActive ? 3 : 1);
+      if (ennemyLife > damage) {
+        setEnnemyLife(Math.max(ennemyLife - damage, 0));
       } else {
         ennemyDefeated();
       }
@@ -91,7 +95,8 @@ function Tech() {
         handleSpirit();
         setSpiritCount((prevSpiritCount) => {
           // set the damage by the number of clicks on the spirit bomb mutiply by the spirit multiplier (based on saiyan state)
-          const damage = prevSpiritCount * spiritMultiplier;
+          const damage =
+            prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
 
           if (ennemyLife > damage) {
             setEnnemyLife(Math.max(ennemyLife - damage, 0));
@@ -113,14 +118,27 @@ function Tech() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount(
-        (prevCount: number) =>
-          prevCount + concentrationCount * concentrationIncrement,
-      );
+      setCount((prevCount: number) => {
+        let nextCount = prevCount + concentrationCount * concentrationIncrement;
+        if (isKaiokenActive) {
+          nextCount -= 15;
+          if (nextCount <= 0) {
+            nextCount = 0;
+            setIsKaiokenActive(false);
+          }
+        }
+        return nextCount;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [concentrationCount, concentrationIncrement, setCount]);
+  }, [
+    concentrationCount,
+    concentrationIncrement,
+    isKaiokenActive,
+    setIsKaiokenActive,
+    setCount,
+  ]);
 
   // gif[0] = normal state
   // gif[1] = super saiyen transformation
@@ -226,6 +244,14 @@ function Tech() {
             onClick={handleClickSpirit}
             className={spiritBombStyle}
             title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
+          />
+
+          <Option
+            label={isKaiokenActive ? "Kaioken" : "Kaioken Coût: 50"}
+            isAvailable={(count >= 50 && gif === 0) || isKaiokenActive}
+            onClick={toggleKaioken}
+            className={isKaiokenActive ? "kaioken-active" : "kaioken"}
+            title="Multiplie tous les dégâts infligés par 3, mais consomme 15 points de puissance par seconde. Uniquement utilisable en état normal."
           />
 
           {count >= superSaiyen1 && saiyenState === 0 && (
