@@ -10,12 +10,21 @@ function VictoryBanner() {
     return null;
   }
 
-  const { defeatedEnnemyName, isEnnemyKO } = context;
+  const { defeatedEnnemyName, isEnnemyKO, isTransforming, showTransformationFlash } = context;
 
   return (
     <AnimatePresence>
-      {isEnnemyKO && (
-        <div className="screen-blocker-overlay" />
+      {(isEnnemyKO || isTransforming) && (
+        <div className={`screen-blocker-overlay ${isTransforming ? "transformation-active" : ""}`} />
+      )}
+      {showTransformationFlash && (
+        <motion.div
+          className="victory-banner-flash"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{ backgroundColor: "#ffffff" }}
+        />
       )}
       {defeatedEnnemyName && (
         <motion.div

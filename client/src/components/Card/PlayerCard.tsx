@@ -21,10 +21,12 @@ function Card() {
     concentrationCount,
     isEnnemyKO,
     isKaiokenActive,
+    isTransforming,
+    gif,
   } = context;
 
   const handleClickCount = () => {
-    if (isEnnemyKO) return;
+    if (isEnnemyKO || isTransforming) return;
     setCount(count + 1);
 
     // Ajoute une animation temporaire
@@ -43,8 +45,15 @@ function Card() {
     }, 1000);
   };
 
+  const getTransformingClass = () => {
+    if (gif === 1) return "transforming ssj1";
+    if (gif === 3) return "transforming ssj2";
+    if (gif === 5) return "transforming ssj3";
+    return "";
+  };
+
   return (
-    <section className="player-container">
+    <section className={`player-container ${getTransformingClass()}`}>
       <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif ${isKaiokenActive ? "kaioken-aura" : ""}`} />
       <h2 className="player-title">Goku</h2>
       <article className="info-container">

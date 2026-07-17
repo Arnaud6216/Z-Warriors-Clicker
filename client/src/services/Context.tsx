@@ -47,6 +47,8 @@ interface ContextType {
   isKaiokenActive: boolean;
   setIsKaiokenActive: React.Dispatch<React.SetStateAction<boolean>>;
   toggleKaioken: () => void;
+  isTransforming: boolean;
+  showTransformationFlash: boolean;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -148,6 +150,16 @@ export const Provider = ({ children }: ProviderProps) => {
   );
   const [isEnnemyKO, setIsEnnemyKO] = useState(false);
   const [isKaiokenActive, setIsKaiokenActive] = useState(false);
+  const isTransforming = [1, 3, 5].includes(gif);
+  const [showTransformationFlash, setShowTransformationFlash] = useState(false);
+
+  useEffect(() => {
+    if ([2, 4, 6].includes(gif)) {
+      setShowTransformationFlash(true);
+      const timer = setTimeout(() => setShowTransformationFlash(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [gif]);
 
   // Auto-deactivate Kaioken if Goku transforms into Super Saiyan (gif > 0)
   useEffect(() => {
@@ -277,6 +289,8 @@ export const Provider = ({ children }: ProviderProps) => {
         isKaiokenActive,
         setIsKaiokenActive,
         toggleKaioken,
+        isTransforming,
+        showTransformationFlash,
       }}
     >
       {children}
