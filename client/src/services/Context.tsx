@@ -13,6 +13,8 @@ import ssj3 from "../assets/ssj3.webp";
 import lightAttackSound from "../assets/music/lightAttack.mp3";
 import heavyAttackSound from "../assets/music/heavyAttack.mp3";
 import kamehamehaSound from "../assets/music/kamehameha.mp3";
+import kikohaSound from "../assets/music/kikoha.mp3";
+import heavyKikohaSound from "../assets/music/heavyKikoha.mp3";
 
 interface ContextType {
   gifSrc: string[];
@@ -123,6 +125,26 @@ export const Provider = ({ children }: ProviderProps) => {
       },
     },
     {
+      name: "kikoha",
+      play: (volume = 1) => {
+        const audio = new Audio(kikohaSound);
+        audio.volume = Math.max(0, Math.min(volume, 1));
+        audio.play().catch((err) => {
+          console.error("Erreur lors de la lecture du son kikoha :", err);
+        });
+      },
+    },
+    {
+      name: "heavyKikoha",
+      play: (volume = 1) => {
+        const audio = new Audio(heavyKikohaSound);
+        audio.volume = Math.max(0, Math.min(volume, 1));
+        audio.play().catch((err) => {
+          console.error("Erreur lors de la lecture du son heavyKikoha :", err);
+        });
+      },
+    },
+    {
       name: "kamehameha",
       play: (volume = 1) => {
         const audio = new Audio(kamehamehaSound);
@@ -178,7 +200,9 @@ export const Provider = ({ children }: ProviderProps) => {
       if (count >= 50) {
         setIsKaiokenActive(true);
       } else {
-        alert("Tu as besoin d'au moins 50 de Puissance pour activer le Kaioken !");
+        alert(
+          "Tu as besoin d'au moins 50 de Puissance pour activer le Kaioken !",
+        );
       }
     } else {
       setIsKaiokenActive(false);
@@ -199,7 +223,7 @@ export const Provider = ({ children }: ProviderProps) => {
     setTimeout(async () => {
       const nextIndex = (ennemyIndex + 1) % ennemy.length;
       const nextEnnemy = ennemy[nextIndex];
-      
+
       setEnnemyIndex(nextIndex);
       setDefeatedEnnemyName(null);
       setIsEnnemyKO(false);
