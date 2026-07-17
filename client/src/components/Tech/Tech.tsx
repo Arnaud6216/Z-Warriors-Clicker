@@ -246,13 +246,15 @@ function Tech() {
             title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
           />
 
-          <Option
-            label={isKaiokenActive ? "Kaioken" : "Kaioken Coût: 50"}
-            isAvailable={(count >= 50 && gif === 0) || isKaiokenActive}
-            onClick={toggleKaioken}
-            className={isKaiokenActive ? "kaioken-active" : "kaioken"}
-            title="Multiplie tous les dégâts infligés par 3, mais consomme 15 points de puissance par seconde. Uniquement utilisable en état normal."
-          />
+          {gif === 0 && (
+            <Option
+              label={isKaiokenActive ? "Kaioken" : "Kaioken Coût: 50"}
+              isAvailable={count >= 50 || isKaiokenActive}
+              onClick={toggleKaioken}
+              className={isKaiokenActive ? "kaioken-active" : "kaioken"}
+              title="Multiplie tous les dégâts infligés par 3, mais consomme 15 points de puissance par seconde."
+            />
+          )}
 
           {count >= superSaiyen1 && saiyenState === 0 && (
             <Option
