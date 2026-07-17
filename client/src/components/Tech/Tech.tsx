@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Context } from "../../services/Context";
 import Option from "../options/Option";
 import "./tech.css";
 import spiritBombImg from "../../assets/spirit-bomb.png";
+import kamehamehaSound from "../../assets/music/kamehameha.mp3";
 
 function Tech() {
   const context = useContext(Context);
@@ -31,6 +32,10 @@ function Tech() {
     setIsKaiokenActive,
     toggleKaioken,
     isTransforming,
+    soundEffectList,
+    effectVolume,
+    isKamehamehaChanneling,
+    setIsKamehamehaChanneling,
   } = context;
 
   const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
@@ -41,6 +46,25 @@ function Tech() {
   const [spiritCount, setSpiritCount] = useState(50);
   const [spiritMultiplier, setSpiritMultiplier] = useState(1);
   const [kamehamehaDamage, setKamehamehaDamage] = useState(50);
+
+  const [kamehamehaDuration, setKamehamehaDuration] = useState(4500); // 4.5s fallback
+  const [kamehamehaCooldown, setKamehamehaCooldown] = useState(0);
+  const kamehamehaIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Load Kamehameha audio duration dynamically on mount
+  useEffect(() => {
+    const audio = new Audio(kamehamehaSound);
+    const handleLoadedMetadata = () => {
+      setKamehamehaDuration(audio.duration * 1000);
+    };
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      if (kamehamehaIntervalRef.current) {
+        clearInterval(kamehamehaIntervalRef.current);
+      }
+    };
+  }, []);
 
   const superSaiyen1 = 1000;
   const superSaiyen2 = 2000;
@@ -72,15 +96,52 @@ function Tech() {
   };
 
   const handleClickKamehameha = () => {
-    if (isEnnemyKO || isTransforming) return;
+    if (isEnnemyKO || isTransforming || isKamehamehaChanneling) return;
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
-      const damage = kamehamehaDamage * (isKaiokenActive ? 3 : 1);
-      if (ennemyLife > damage) {
-        setEnnemyLife(Math.max(ennemyLife - damage, 0));
-      } else {
-        ennemyDefeated();
-      }
+      
+      // Snapshot damage at cast time
+      const damageToApply = kamehamehaDamage * (isKaiokenActive ? 3 : 1);
+
+      // Play the sound (index 4 in soundEffectList is kamehameha)
+      soundEffectList[4].play(effectVolume);
+
+      // Block button and start cooldown progress
+      setIsKamehamehaChanneling(true);
+      setKamehamehaCooldown(100);
+
+      let remainingTime = kamehamehaDuration;
+      const intervalTime = 100;
+      kamehamehaIntervalRef.current = setInterval(() => {
+        remainingTime -= intervalTime;
+        setKamehamehaCooldown((remainingTime / kamehamehaDuration) * 100);
+        if (remainingTime <= 0) {
+          if (kamehamehaIntervalRef.current) {
+            clearInterval(kamehamehaIntervalRef.current);
+          }
+          setIsKamehamehaChanneling(false);
+          setKamehamehaCooldown(0);
+
+          // Trigger impact shake animation on enemy card
+          const enemyCard = document.querySelector(".ennemy-container");
+          if (enemyCard) {
+            enemyCard.classList.add("kamehameha-impact");
+            setTimeout(() => {
+              enemyCard.classList.remove("kamehameha-impact");
+            }, 800);
+          }
+
+          // Apply damage at the end of the cooldown (when the Kamehameha hits)
+          setEnnemyLife((prevLife) => {
+            if (prevLife > damageToApply) {
+              return Math.max(prevLife - damageToApply, 0);
+            } else {
+              ennemyDefeated();
+              return 0;
+            }
+          });
+        }
+      }, intervalTime);
     }
   };
 
@@ -233,10 +294,12 @@ function Tech() {
 
           <Option
             label={`Kamehameha - Coût : ${kamehamehaCost}`}
-            isAvailable={count >= 40}
+            isAvailable={count >= 40 && !isKamehamehaChanneling}
             onClick={handleClickKamehameha}
             className={kamehamehaStyle}
             title={`Inflige ${kamehamehaDamage} points de dégats.`}
+            progress={kamehamehaCooldown}
+            progressClassName="kamehameha-progress-bar"
           />
 
           <Option

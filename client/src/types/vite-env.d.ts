@@ -8,6 +8,8 @@ export interface OptionProps {
   onClick: () => void;
   className: string;
   title: string;
+  progress?: number;
+  progressClassName?: string;
 }
 
 export interface Ennemy {

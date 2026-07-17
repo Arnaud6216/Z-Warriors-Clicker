@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import type { ReactNode } from "react";
 import type { Ennemy } from "../types/vite-env";
 import type { Progress } from "../../../server/src/types/express";
@@ -32,7 +32,7 @@ interface ContextType {
   ennemyIndex: number;
   setEnnemyIndex: (index: number) => void;
   ennemyLife: number;
-  setEnnemyLife: (life: number) => void;
+  setEnnemyLife: React.Dispatch<React.SetStateAction<number>>;
   gifSize: string;
   setGifSize: (size: string) => void;
   soundEffectList: { play: (volume: number) => void }[];
@@ -51,6 +51,8 @@ interface ContextType {
   toggleKaioken: () => void;
   isTransforming: boolean;
   showTransformationFlash: boolean;
+  isKamehamehaChanneling: boolean;
+  setIsKamehamehaChanneling: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -103,12 +105,24 @@ export const Provider = ({ children }: ProviderProps) => {
     }
   }, [user]);
 
+  const activeAudiosRef = useRef<HTMLAudioElement[]>([]);
+
+  const trackAudio = (audio: HTMLAudioElement, volume: number) => {
+    audio.volume = Math.max(0, Math.min(volume, 1));
+    activeAudiosRef.current.push(audio);
+    audio.addEventListener("ended", () => {
+      activeAudiosRef.current = activeAudiosRef.current.filter(
+        (a) => a !== audio,
+      );
+    });
+  };
+
   const soundEffectList = [
     {
       name: "lightAttack",
       play: (volume = 1) => {
         const audio = new Audio(lightAttackSound);
-        audio.volume = Math.max(0, Math.min(volume, 1)); // Clamp volume
+        trackAudio(audio, volume);
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son lightAttack :", err);
         });
@@ -118,7 +132,7 @@ export const Provider = ({ children }: ProviderProps) => {
       name: "heavyAttack",
       play: (volume = 1) => {
         const audio = new Audio(heavyAttackSound);
-        audio.volume = Math.max(0, Math.min(volume, 1));
+        trackAudio(audio, volume);
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son heavyAttack :", err);
         });
@@ -128,7 +142,7 @@ export const Provider = ({ children }: ProviderProps) => {
       name: "kikoha",
       play: (volume = 1) => {
         const audio = new Audio(kikohaSound);
-        audio.volume = Math.max(0, Math.min(volume, 1));
+        trackAudio(audio, volume);
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son kikoha :", err);
         });
@@ -138,7 +152,7 @@ export const Provider = ({ children }: ProviderProps) => {
       name: "heavyKikoha",
       play: (volume = 1) => {
         const audio = new Audio(heavyKikohaSound);
-        audio.volume = Math.max(0, Math.min(volume, 1));
+        trackAudio(audio, volume);
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son heavyKikoha :", err);
         });
@@ -146,9 +160,9 @@ export const Provider = ({ children }: ProviderProps) => {
     },
     {
       name: "kamehameha",
-      play: (volume = 1) => {
+      play: (volume = 10) => {
         const audio = new Audio(kamehamehaSound);
-        audio.volume = Math.max(0, Math.min(volume, 1));
+        trackAudio(audio, volume);
         audio.play().catch((err) => {
           console.error("Erreur lors de la lecture du son kamehameha :", err);
         });
@@ -167,13 +181,21 @@ export const Provider = ({ children }: ProviderProps) => {
   const [gifSize, setGifSize] = useState("player-img");
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [effectVolume, setEffectVolume] = useState(0.5);
+  const [isEnnemyKO, setIsEnnemyKO] = useState(false);
+  const [isKaiokenActive, setIsKaiokenActive] = useState(false);
   const [defeatedEnnemyName, setDefeatedEnnemyName] = useState<string | null>(
     null,
   );
-  const [isEnnemyKO, setIsEnnemyKO] = useState(false);
-  const [isKaiokenActive, setIsKaiokenActive] = useState(false);
   const isTransforming = [1, 3, 5].includes(gif);
   const [showTransformationFlash, setShowTransformationFlash] = useState(false);
+  const [isKamehamehaChanneling, setIsKamehamehaChanneling] = useState(false);
+
+  // Sync volume of actively playing sound effects in real-time
+  useEffect(() => {
+    activeAudiosRef.current.forEach((audio) => {
+      audio.volume = effectVolume;
+    });
+  }, [effectVolume]);
 
   useEffect(() => {
     if ([2, 4, 6].includes(gif)) {
@@ -315,6 +337,8 @@ export const Provider = ({ children }: ProviderProps) => {
         toggleKaioken,
         isTransforming,
         showTransformationFlash,
+        isKamehamehaChanneling,
+        setIsKamehamehaChanneling,
       }}
     >
       {children}

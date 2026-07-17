@@ -42,6 +42,7 @@ function EnnemyCard() {
   const strongAttackIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorKey, setErrorKey] = useState(0);
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const showError = (msg: string) => {
@@ -49,6 +50,7 @@ function EnnemyCard() {
       clearTimeout(errorTimeoutRef.current);
     }
     setErrorMessage(msg);
+    setErrorKey((prev) => prev + 1);
     errorTimeoutRef.current = setTimeout(() => {
       setErrorMessage(null);
     }, 2500);
@@ -296,7 +298,7 @@ function EnnemyCard() {
         </div>
       </div>
       {errorMessage && (
-        <p className="ennemy-error-message">{errorMessage}</p>
+        <p key={errorKey} className="ennemy-error-message">{errorMessage}</p>
       )}
     </section>
   );

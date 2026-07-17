@@ -78,11 +78,13 @@ li {
 .kamehameha-progress-bar {
   overflow: hidden;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  height: 20%;
-  background-color: #beac06;
+  height: 100%;
+  background-color: rgba(0, 162, 255, 0.45);
+  box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.5);
   transition: width 0.1s linear;
+  z-index: 1;
 }
 
 .saiyan-option {
@@ -107,6 +109,9 @@ li {
 .spirit-container {
   position: fixed;
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20000;
 }
 
 .spirit-bomb {

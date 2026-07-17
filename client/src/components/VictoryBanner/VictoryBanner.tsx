@@ -10,11 +10,11 @@ function VictoryBanner() {
     return null;
   }
 
-  const { defeatedEnnemyName, isEnnemyKO, isTransforming, showTransformationFlash } = context;
+  const { defeatedEnnemyName, isEnnemyKO, isTransforming, showTransformationFlash, isKamehamehaChanneling } = context;
 
   return (
     <AnimatePresence>
-      {(isEnnemyKO || isTransforming) && (
+      {(isEnnemyKO || isTransforming || isKamehamehaChanneling) && (
         <div className={`screen-blocker-overlay ${isTransforming ? "transformation-active" : ""}`} />
       )}
       {showTransformationFlash && (
