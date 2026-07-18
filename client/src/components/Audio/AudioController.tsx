@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import "./AudioController.css";
 import { useContext } from "react";
-import { Context } from "../../services/Context";
 import audioIcon from "../../assets/audio.png";
-import weGottaPowerTrack from "../../assets/music/We-gotta-power.mp3";
-import solidStateScouterTrack from "../../assets/music/Solid-state-scouter.mp3";
 import gohanAngerTrack from "../../assets/music/Gohan-anger.mp3";
-import changeTrack from "../../assets/music/change.mp3";
 import gokuSsj1ThemeTrack from "../../assets/music/Goku-ssj1-theme.mp3";
 import gokuSsj3ThemeTrack from "../../assets/music/Goku-ssj3-theme.mp3";
 import gokuSsj4ThemeTrack from "../../assets/music/Goku-ssj4-theme.mp3";
+import solidStateScouterTrack from "../../assets/music/Solid-state-scouter.mp3";
+import weGottaPowerTrack from "../../assets/music/We-gotta-power.mp3";
+import changeTrack from "../../assets/music/change.mp3";
+import { Context } from "../../services/Context";
 
 // Drop a track in client/src/assets/music/boss/ named after the ennemy
 // (lowercase, no spaces/accents, e.g. "Freezer" -> freezer.mp3, "C 17" -> c17.mp3)
@@ -22,16 +22,40 @@ const bossTrackModules = import.meta.glob("../../assets/music/boss/*.mp3", {
 
 const bossTracks: Record<string, string> = {};
 for (const path in bossTrackModules) {
-  const fileName = path.split("/").pop()?.replace(/\.mp3$/, "") ?? "";
+  const fileName =
+    path
+      .split("/")
+      .pop()
+      ?.replace(/\.mp3$/, "") ?? "";
   bossTracks[fileName] = bossTrackModules[path];
 }
 
 const normalizeEnnemyName = (name: string) =>
   name
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    // biome-ignore lint/suspicious/noMisleadingCharacterClass: diacritics regex
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/\s+/g, "")
     .toLowerCase();
+
+const musicList = [
+  weGottaPowerTrack,
+  solidStateScouterTrack,
+  gohanAngerTrack,
+  changeTrack,
+  gokuSsj1ThemeTrack,
+  gokuSsj3ThemeTrack,
+  gokuSsj4ThemeTrack,
+];
+
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
 
 const AudioController: React.FC = () => {
   const context = useContext(Context);
@@ -42,16 +66,6 @@ const AudioController: React.FC = () => {
 
   const { effectVolume, setEffectVolume, ennemy, ennemyIndex } = context;
 
-  const musicList = [
-    weGottaPowerTrack,
-    solidStateScouterTrack,
-    gohanAngerTrack,
-    changeTrack,
-    gokuSsj1ThemeTrack,
-    gokuSsj3ThemeTrack,
-    gokuSsj4ThemeTrack,
-  ];
-
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [musicVolume, setMusicVolume] = useState(50);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -60,6 +74,11 @@ const AudioController: React.FC = () => {
   const [visible, setVisible] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [containerHeight, setContainerHeight] = useState("");
+
+  const shuffledPlaylistRef = useRef<string[]>([]);
+  if (shuffledPlaylistRef.current.length === 0) {
+    shuffledPlaylistRef.current = shuffleArray(musicList);
+  }
 
   // Plays `src`, replacing whatever is currently playing, and calls `onEnded`
   // once (not on every "ended" event of a stale, already-replaced track).
@@ -75,9 +94,13 @@ const AudioController: React.FC = () => {
   };
 
   const advanceToNextTrack = () => {
-    setCurrentTrackIndex((previousIndex) =>
-      previousIndex < musicList.length - 1 ? previousIndex + 1 : 0,
-    );
+    setCurrentTrackIndex((previousIndex) => {
+      if (previousIndex < musicList.length - 1) {
+        return previousIndex + 1;
+      }
+      shuffledPlaylistRef.current = shuffleArray(musicList);
+      return 0;
+    });
   };
 
   const handleMusic = () => {
@@ -90,7 +113,10 @@ const AudioController: React.FC = () => {
         setIsMusicPlaying(true);
       }
     } else {
-      startTrack(musicList[currentTrackIndex], advanceToNextTrack);
+      startTrack(
+        shuffledPlaylistRef.current[currentTrackIndex],
+        advanceToNextTrack,
+      );
     }
   };
 
@@ -108,14 +134,18 @@ const AudioController: React.FC = () => {
     setEffectVolume(volume / 100);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only start new track when track index changes
   useEffect(() => {
     // Skip on first render: startTrack already handles the very first play.
     if (audioRef.current) {
-      startTrack(musicList[currentTrackIndex], advanceToNextTrack);
+      startTrack(
+        shuffledPlaylistRef.current[currentTrackIndex],
+        advanceToNextTrack,
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackIndex]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only evaluate boss track replacement on enemy change
   useEffect(() => {
     // Don't force music to start before the player has pressed Play once.
     if (!audioRef.current) return;
@@ -129,13 +159,18 @@ const AudioController: React.FC = () => {
       startTrack(bossTrackSrc, () => {
         isBossTrackPlayingRef.current = false;
         // Resume the previous track from the very beginning once the boss theme ends.
-        startTrack(musicList[currentTrackIndex], advanceToNextTrack);
+        startTrack(
+          shuffledPlaylistRef.current[currentTrackIndex],
+          advanceToNextTrack,
+        );
       });
     } else if (isBossTrackPlayingRef.current) {
       isBossTrackPlayingRef.current = false;
-      startTrack(musicList[currentTrackIndex], advanceToNextTrack);
+      startTrack(
+        shuffledPlaylistRef.current[currentTrackIndex],
+        advanceToNextTrack,
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ennemyIndex]);
 
   // The Audio object lives outside React's DOM tree, so unmounting this
