@@ -1,20 +1,21 @@
-import { createContext, useEffect, useState, useRef } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import type { Ennemy } from "../types/vite-env";
-import type { Progress } from "../../../server/src/types/express";
 import { useOutletContext } from "react-router";
+import type { Progress } from "../../../server/src/types/express";
 import base from "../assets/base.webp";
+import kaioken from "../assets/kaioken.gif";
+import heavyAttackSound from "../assets/music/heavyAttack.mp3";
+import heavyKikohaSound from "../assets/music/heavyKikoha.mp3";
+import kamehamehaSound from "../assets/music/kamehameha.mp3";
+import kikohaSound from "../assets/music/kikoha.mp3";
+import lightAttackSound from "../assets/music/lightAttack.mp3";
 import ssj1Transition from "../assets/ssj1-transition.webp";
 import ssj1 from "../assets/ssj1.webp";
 import ssj2Transition from "../assets/ssj2-transition.webp";
 import ssj2 from "../assets/ssj2.webp";
 import ssj3Transition from "../assets/ssj3-transition.webp";
 import ssj3 from "../assets/ssj3.webp";
-import lightAttackSound from "../assets/music/lightAttack.mp3";
-import heavyAttackSound from "../assets/music/heavyAttack.mp3";
-import kamehamehaSound from "../assets/music/kamehameha.mp3";
-import kikohaSound from "../assets/music/kikoha.mp3";
-import heavyKikohaSound from "../assets/music/heavyKikoha.mp3";
+import type { Ennemy } from "../types/vite-env";
 
 interface ContextType {
   gifSrc: string[];
@@ -192,9 +193,9 @@ export const Provider = ({ children }: ProviderProps) => {
 
   // Sync volume of actively playing sound effects in real-time
   useEffect(() => {
-    activeAudiosRef.current.forEach((audio) => {
+    for (const audio of activeAudiosRef.current) {
       audio.volume = effectVolume;
-    });
+    }
   }, [effectVolume]);
 
   useEffect(() => {
@@ -300,7 +301,7 @@ export const Provider = ({ children }: ProviderProps) => {
     <Context.Provider
       value={{
         gifSrc: [
-          gifSrc[gif],
+          isKaiokenActive ? kaioken : gifSrc[gif],
           gifSrc[gif === 1 ? 1 : gif === 2 ? 2 : gif === 3 ? 3 : 0],
           gifSrc[3],
         ], // Dynamically select gifSrc based on `gif`
