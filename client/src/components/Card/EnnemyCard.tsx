@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../services/Context";
 
 function EnnemyCard() {
@@ -26,6 +26,16 @@ function EnnemyCard() {
     setCount,
   } = context;
 
+  const currentEnnemyName = ennemy[ennemyIndex]
+    ? ennemy[ennemyIndex].name
+        .normalize("NFD")
+        // biome-ignore lint/suspicious/noMisleadingCharacterClass: diacritics regex
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "")
+        .toLowerCase()
+    : "";
+  const isBoss = ["freezer", "cell", "buu"].includes(currentEnnemyName);
+
   const lightAttack = 1 * attackMultiplier * (isKaiokenActive ? 3 : 1);
   const strongAttack = 5 * attackMultiplier * (isKaiokenActive ? 3 : 1);
 
@@ -34,8 +44,7 @@ function EnnemyCard() {
   const [kikohaProgress, setKikohaProgress] = useState(0);
   const kikohaIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [isHeavyKikohaDisabled, setIsHeavyKikohaDisabled] =
-    useState(false);
+  const [isHeavyKikohaDisabled, setIsHeavyKikohaDisabled] = useState(false);
   const [heavyKikohaProgress, setHeavyKikohaProgress] = useState(0);
   const heavyKikohaIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -165,6 +174,11 @@ function EnnemyCard() {
   //Health bar color based on ennemy's life
   const getHealthBarClass = () => {
     const healthPercentage = (ennemyLife / ennemy[ennemyIndex]?.life) * 100;
+    if (isBoss) {
+      if (healthPercentage > 50) return "health-bar boss-health";
+      if (healthPercentage > 20) return "health-bar boss-health medium";
+      return "health-bar boss-health low";
+    }
     if (healthPercentage > 50) return "health-bar";
     if (healthPercentage > 20) return "health-bar medium";
     return "health-bar low";
@@ -217,7 +231,12 @@ function EnnemyCard() {
   }
 
   return (
-    <section className="ennemy-container">
+    <section className={`ennemy-container ${isBoss ? "boss-card" : ""}`}>
+      {isBoss && (
+        <div className="boss-badge">
+          <span>BOSS</span>
+        </div>
+      )}
       <img
         src={ennemy[ennemyIndex]?.img_src}
         alt="ennemy"
@@ -298,7 +317,9 @@ function EnnemyCard() {
         </div>
       </div>
       {errorMessage && (
-        <p key={errorKey} className="ennemy-error-message">{errorMessage}</p>
+        <p key={errorKey} className="ennemy-error-message">
+          {errorMessage}
+        </p>
       )}
     </section>
   );
