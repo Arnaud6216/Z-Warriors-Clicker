@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../services/Context";
 import Option from "../options/Option";
 import "./tech.css";
-import spiritBombImg from "../../assets/spirit-bomb.png";
 import kamehamehaSound from "../../assets/music/kamehameha.mp3";
+import spiritBombImg from "../../assets/spirit-bomb.png";
 
 function Tech() {
   const context = useContext(Context);
@@ -44,8 +44,8 @@ function Tech() {
   const [spiritBombStyle, setSpiritBombStyle] = useState("spirit-bomb");
   const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
   const [spiritCount, setSpiritCount] = useState(50);
-  const [spiritMultiplier, setSpiritMultiplier] = useState(1);
-  const [kamehamehaDamage, setKamehamehaDamage] = useState(50);
+  const [spiritMultiplier, setSpiritMultiplier] = useState(3);
+  const [kamehamehaDamage, setKamehamehaDamage] = useState(150);
 
   const [kamehamehaDuration, setKamehamehaDuration] = useState(4500); // 4.5s fallback
   const [kamehamehaCooldown, setKamehamehaCooldown] = useState(0);
@@ -99,7 +99,7 @@ function Tech() {
     if (isEnnemyKO || isTransforming || isKamehamehaChanneling) return;
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
-      
+
       // Snapshot damage at cast time
       const damageToApply = kamehamehaDamage * (isKaiokenActive ? 3 : 1);
 
@@ -135,10 +135,9 @@ function Tech() {
           setEnnemyLife((prevLife) => {
             if (prevLife > damageToApply) {
               return Math.max(prevLife - damageToApply, 0);
-            } else {
-              ennemyDefeated();
-              return 0;
             }
+            ennemyDefeated();
+            return 0;
           });
         }
       }, intervalTime);
@@ -156,7 +155,7 @@ function Tech() {
       setTimeout(() => {
         handleSpirit();
         setSpiritCount((prevSpiritCount) => {
-          // set the damage by the number of clicks on the spirit bomb mutiply by the spirit multiplier (based on saiyan state)
+          // set the damage by the number of clicks on the spirit bomb multiplied by the spirit multiplier
           const damage =
             prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
 
@@ -226,8 +225,8 @@ function Tech() {
     }
     setSaiyenState(1);
     setAttackMultiplier(5);
-    setKamehamehaDamage(100);
-    setSpiritMultiplier(1.5);
+    setKamehamehaDamage(400);
+    setSpiritMultiplier(8);
   };
 
   const handleClickSsj2 = () => {
@@ -245,8 +244,8 @@ function Tech() {
     }
     setSaiyenState(2);
     setAttackMultiplier(10);
-    setKamehamehaDamage(150);
-    setSpiritMultiplier(2);
+    setKamehamehaDamage(800);
+    setSpiritMultiplier(15);
   };
 
   const handleClickSsj3 = () => {
@@ -264,8 +263,8 @@ function Tech() {
     }
     setSaiyenState(3);
     setAttackMultiplier(15);
-    setKamehamehaDamage(200);
-    setSpiritMultiplier(3);
+    setKamehamehaDamage(1500);
+    setSpiritMultiplier(25);
   };
 
   return (
@@ -297,7 +296,7 @@ function Tech() {
             isAvailable={count >= 40 && !isKamehamehaChanneling}
             onClick={handleClickKamehameha}
             className={kamehamehaStyle}
-            title={`Inflige ${kamehamehaDamage} points de dégats.`}
+            title={`Inflige ${kamehamehaDamage * (isKaiokenActive ? 3 : 1)} points de dégâts.`}
             progress={kamehamehaCooldown}
             progressClassName="kamehameha-progress-bar"
           />
@@ -307,7 +306,7 @@ function Tech() {
             isAvailable={count >= 200}
             onClick={handleClickSpirit}
             className={spiritBombStyle}
-            title="Inflige des dégats en fontion de la taille de la Spirit Bomb. Multipliés en fonction de l'état de Super Saiyen"
+            title="Inflige des dégâts massifs en fonction de la taille de la Spirit Bomb (smash click). Multipliés par la transformation et le Kaioken."
           />
 
           {gif === 0 && (

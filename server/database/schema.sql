@@ -22,18 +22,18 @@ CREATE TABLE progress (
 
 INSERT INTO ennemy (name, img_src, life)
 VALUES
-    ("Nappa", "src/assets/nappa.webp", 50),
-    ("Vegeta", "src/assets/vegeta.webp", 500),
-    ("Guldo", "src/assets/guldo.webp", 150),
-    ("Burter", "src/assets/burter.webp", 160),
-    ("Jeice", "src/assets/jeice.webp", 170),
-    ("Recome", "src/assets/recome.webp", 180),
-    ("Ginyu", "src/assets/ginyu.webp", 200),
-    ("Freezer", "src/assets/freezer.webp", 1000),
-    ("C 17", "src/assets/c17.webp", 500),
-    ("C 18", "src/assets/c18.webp", 600),
-    ("Cell", "src/assets/cell.webp", 3000),
-    ("Buu", "src/assets/buu.webp", 5000);
+    ("Nappa", "src/assets/nappa.webp", 100),
+    ("Vegeta", "src/assets/vegeta.webp", 600),
+    ("Guldo", "src/assets/guldo.webp", 800),
+    ("Burter", "src/assets/burter.webp", 900),
+    ("Jeice", "src/assets/jeice.webp", 1000),
+    ("Recome", "src/assets/recome.webp", 1100),
+    ("Ginyu", "src/assets/ginyu.webp", 1500),
+    ("Freezer", "src/assets/freezer.webp", 4000),
+    ("C 17", "src/assets/c17.webp", 5000),
+    ("C 18", "src/assets/c18.webp", 6000),
+    ("Cell", "src/assets/cell.webp", 12000),
+    ("Buu", "src/assets/buu.webp", 25000);
 
 CREATE TRIGGER add_default_progress
 AFTER INSERT ON account
