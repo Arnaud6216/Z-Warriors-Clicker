@@ -36,7 +36,6 @@ function Tech() {
     effectVolume,
     isKamehamehaChanneling,
     setIsKamehamehaChanneling,
-    ennemyIndex,
   } = context;
 
   const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
@@ -46,13 +45,16 @@ function Tech() {
   const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
   const [spiritCount, setSpiritCount] = useState(50);
   const [spiritMultiplier, setSpiritMultiplier] = useState(3);
-  const [isSpiritBombUsed, setIsSpiritBombUsed] = useState(false);
+  const [isSpiritBombReloading, setIsSpiritBombReloading] = useState(false);
+  const [spiritBombCooldown, setSpiritBombCooldown] = useState(0);
+  const [spiritBombTimerText, setSpiritBombTimerText] = useState("");
 
   const [kamehamehaDamage, setKamehamehaDamage] = useState(350);
   const [isKamehamehaReloading, setIsKamehamehaReloading] = useState(false);
 
   const [kamehamehaDuration, setKamehamehaDuration] = useState(4500); // 4.5s fallback
   const kamehamehaReloadDuration = 20000; // 20s reload time
+  const spiritBombReloadDuration = 270000; // 4m 30s reload time
   const [kamehamehaCooldown, setKamehamehaCooldown] = useState(0);
   const kamehamehaIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -72,16 +74,11 @@ function Tech() {
   }, []);
 
   const superSaiyen1 = 1000;
-  const superSaiyen2 = 3000;
-  const superSaiyen3 = 5000;
+  const superSaiyen2 = 5000;
+  const superSaiyen3 = 15000;
 
   const kamehamehaCost = 150;
-  const spiritBombBaseCost = 500;
-  const spiritBombRechargeCost = 4000;
-
-  const currentSpiritBombCost = isSpiritBombUsed
-    ? spiritBombRechargeCost
-    : spiritBombBaseCost;
+  const spiritBombCost = 500;
 
   useEffect(() => {
     // display the available style if the player has enough points
@@ -96,7 +93,8 @@ function Tech() {
         : "kamehameha",
     );
     setSpiritBombStyle(
-      count >= currentSpiritBombCost &&
+      count >= spiritBombCost &&
+        !isSpiritBombReloading &&
         SpiritBombVisible !== "spirit-bomb-img-visible"
         ? "spirit-bomb-available"
         : "spirit-bomb",
@@ -104,17 +102,11 @@ function Tech() {
   }, [
     count,
     concentrationCost,
-    currentSpiritBombCost,
     SpiritBombVisible,
     isKamehamehaChanneling,
     isKamehamehaReloading,
+    isSpiritBombReloading,
   ]);
-
-  useEffect(() => {
-    if (!isEnnemyKO && ennemyIndex >= 0) {
-      setIsSpiritBombUsed(false);
-    }
-  }, [ennemyIndex, isEnnemyKO]);
 
   const handleClickKi = () => {
     if (isEnnemyKO || isTransforming) return;
@@ -205,13 +197,13 @@ function Tech() {
     if (
       isEnnemyKO ||
       isTransforming ||
+      isSpiritBombReloading ||
       SpiritBombVisible === "spirit-bomb-img-visible"
     )
       return;
-    if (count < currentSpiritBombCost) return;
+    if (count < spiritBombCost) return;
 
-    setCount(count - currentSpiritBombCost);
-    setIsSpiritBombUsed(true);
+    setCount(count - spiritBombCost);
     // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
     setSpiritBombVisible("spirit-bomb-img-visible");
 
@@ -232,6 +224,33 @@ function Tech() {
         return 50;
       });
       setSpiritBombVisible("spirit-bomb-img");
+
+      // Start 4m30s reverse reload phase
+      setIsSpiritBombReloading(true);
+      setSpiritBombCooldown(0);
+
+      let elapsedReloadTime = 0;
+      const intervalTime = 1000;
+      const reloadInterval = setInterval(() => {
+        elapsedReloadTime += intervalTime;
+        const remainingMs = spiritBombReloadDuration - elapsedReloadTime;
+        const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+        const minutes = Math.floor(remainingSec / 60);
+        const seconds = remainingSec % 60;
+        const formattedSec = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+        setSpiritBombTimerText(`${minutes}m ${formattedSec}s`);
+        setSpiritBombCooldown(
+          Math.min((elapsedReloadTime / spiritBombReloadDuration) * 100, 100),
+        );
+
+        if (elapsedReloadTime >= spiritBombReloadDuration) {
+          clearInterval(reloadInterval);
+          setIsSpiritBombReloading(false);
+          setSpiritBombCooldown(0);
+          setSpiritBombTimerText("");
+        }
+      }, intervalTime);
     }, 5000);
   };
 
@@ -370,21 +389,24 @@ function Tech() {
 
           <Option
             label={
-              isSpiritBombUsed
-                ? `Spirit Bomb (Recharge) - Coût : ${spiritBombRechargeCost}`
-                : `Spirit Bomb - Coût : ${spiritBombBaseCost}`
+              isSpiritBombReloading
+                ? `Spirit Bomb (Recharge: ${spiritBombTimerText})`
+                : `Spirit Bomb - Coût : ${spiritBombCost}`
             }
             isAvailable={
-              count >= currentSpiritBombCost &&
+              count >= spiritBombCost &&
+              !isSpiritBombReloading &&
               SpiritBombVisible !== "spirit-bomb-img-visible"
             }
             onClick={handleClickSpirit}
             className={spiritBombStyle}
             title={
-              isSpiritBombUsed
-                ? `Redébloquée pour cet ennemi au coût de ${spiritBombRechargeCost} points de puissance.`
+              isSpiritBombReloading
+                ? `Technique en rechargement (temps restant : ${spiritBombTimerText}).`
                 : "Inflige des dégâts massifs en fonction de la taille de la Spirit Bomb (smash click). Multipliés par la transformation et le Kaioken."
             }
+            progress={isSpiritBombReloading ? spiritBombCooldown : undefined}
+            progressClassName="kamehameha-progress-bar"
           />
 
           {gif === 0 && (

@@ -127,12 +127,12 @@ li {
   justify-content: center;
   width: 20vw;
   height: 7vh;
-  background-color: rgb(179, 146, 119);
+  background-color: #122836;
   margin: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 15px 5px #221403;
-  color: black;
-  border: double 5px rgb(117, 66, 7);
+  box-shadow: 0px 0px 12px 3px #05141e;
+  color: #79adc4;
+  border: double 5px #0a4f6e;
 }
 
 .spirit-bomb-available {
@@ -143,11 +143,26 @@ li {
   height: 7vh;
   margin: 2rem;
   border-radius: 5px;
-  background-color: rgb(247, 219, 158);
-  box-shadow: 0px 0px 14px 4px rgba(232, 225, 18, 1);
-  color: black;
+  background: linear-gradient(135deg, #e0f7fa, #00e5ff, #0091ea);
+  box-shadow: 0px 0px 18px 6px rgba(0, 229, 255, 0.95), inset 0px 0px 8px
+    rgba(255, 255, 255, 0.8);
+  color: #00223e;
   font-weight: bold;
-  border: double 5px rgb(117, 66, 7);
+  border: double 5px #00838f;
+  cursor: pointer;
+  animation: spirit-bomb-glow 2s infinite alternate ease-in-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes spirit-bomb-glow {
+  0% {
+    box-shadow: 0px 0px 14px 4px rgba(0, 229, 255, 0.75), inset 0px 0px 6px
+      rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0px 0px 24px 8px rgba(0, 229, 255, 1), inset 0px 0px 12px
+      rgba(255, 255, 255, 1);
+  }
 }
 
 .kaioken {
