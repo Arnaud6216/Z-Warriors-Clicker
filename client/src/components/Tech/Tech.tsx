@@ -48,9 +48,11 @@ function Tech() {
   const [spiritMultiplier, setSpiritMultiplier] = useState(3);
   const [isSpiritBombUsed, setIsSpiritBombUsed] = useState(false);
 
-  const [kamehamehaDamage, setKamehamehaDamage] = useState(150);
+  const [kamehamehaDamage, setKamehamehaDamage] = useState(350);
+  const [isKamehamehaReloading, setIsKamehamehaReloading] = useState(false);
 
   const [kamehamehaDuration, setKamehamehaDuration] = useState(4500); // 4.5s fallback
+  const kamehamehaReloadDuration = 20000; // 20s reload time
   const [kamehamehaCooldown, setKamehamehaCooldown] = useState(0);
   const kamehamehaIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -87,7 +89,11 @@ function Tech() {
       count >= concentrationCost ? "tech-option-available" : "tech-option",
     );
     setKamehamehaStyle(
-      count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
+      count >= kamehamehaCost &&
+        !isKamehamehaChanneling &&
+        !isKamehamehaReloading
+        ? "kamehameha-available"
+        : "kamehameha",
     );
     setSpiritBombStyle(
       count >= currentSpiritBombCost &&
@@ -95,7 +101,14 @@ function Tech() {
         ? "spirit-bomb-available"
         : "spirit-bomb",
     );
-  }, [count, concentrationCost, currentSpiritBombCost, SpiritBombVisible]);
+  }, [
+    count,
+    concentrationCost,
+    currentSpiritBombCost,
+    SpiritBombVisible,
+    isKamehamehaChanneling,
+    isKamehamehaReloading,
+  ]);
 
   useEffect(() => {
     if (!isEnnemyKO && ennemyIndex >= 0) {
@@ -113,7 +126,13 @@ function Tech() {
   };
 
   const handleClickKamehameha = () => {
-    if (isEnnemyKO || isTransforming || isKamehamehaChanneling) return;
+    if (
+      isEnnemyKO ||
+      isTransforming ||
+      isKamehamehaChanneling ||
+      isKamehamehaReloading
+    )
+      return;
     if (count >= kamehamehaCost) {
       setCount(count - kamehamehaCost);
 
@@ -123,7 +142,7 @@ function Tech() {
       // Play the sound (index 4 in soundEffectList is kamehameha)
       soundEffectList[4].play(effectVolume);
 
-      // Block button and start cooldown progress
+      // Block Kamehameha button and start channeling (100% -> 0%)
       setIsKamehamehaChanneling(true);
       setKamehamehaCooldown(100);
 
@@ -131,13 +150,17 @@ function Tech() {
       const intervalTime = 100;
       kamehamehaIntervalRef.current = setInterval(() => {
         remainingTime -= intervalTime;
-        setKamehamehaCooldown((remainingTime / kamehamehaDuration) * 100);
+        setKamehamehaCooldown(
+          Math.max((remainingTime / kamehamehaDuration) * 100, 0),
+        );
         if (remainingTime <= 0) {
           if (kamehamehaIntervalRef.current) {
             clearInterval(kamehamehaIntervalRef.current);
           }
+
+          // Unblock screen immediately when attack hits, enter reload phase
           setIsKamehamehaChanneling(false);
-          setKamehamehaCooldown(0);
+          setIsKamehamehaReloading(true);
 
           // Trigger impact shake animation on enemy card
           const enemyCard = document.querySelector(".ennemy-container");
@@ -148,7 +171,7 @@ function Tech() {
             }, 800);
           }
 
-          // Apply damage at the end of the cooldown (when the Kamehameha hits)
+          // Apply damage at the end of the channeling (when the Kamehameha hits)
           setEnnemyLife((prevLife) => {
             if (prevLife > damageToApply) {
               return Math.max(prevLife - damageToApply, 0);
@@ -156,6 +179,23 @@ function Tech() {
             ennemyDefeated();
             return 0;
           });
+
+          // Phase 2: Reverse Cooldown / Reloading (0% -> 100%) - screen is free!
+          let reloadTime = 0;
+          kamehamehaIntervalRef.current = setInterval(() => {
+            reloadTime += intervalTime;
+            setKamehamehaCooldown(
+              Math.min((reloadTime / kamehamehaReloadDuration) * 100, 100),
+            );
+
+            if (reloadTime >= kamehamehaReloadDuration) {
+              if (kamehamehaIntervalRef.current) {
+                clearInterval(kamehamehaIntervalRef.current);
+              }
+              setIsKamehamehaReloading(false);
+              setKamehamehaCooldown(0);
+            }
+          }, intervalTime);
         }
       }, intervalTime);
     }
@@ -248,7 +288,7 @@ function Tech() {
     }
     setSaiyenState(1);
     setAttackMultiplier(5);
-    setKamehamehaDamage(400);
+    setKamehamehaDamage(1000);
     setSpiritMultiplier(8);
   };
 
@@ -267,7 +307,7 @@ function Tech() {
     }
     setSaiyenState(2);
     setAttackMultiplier(10);
-    setKamehamehaDamage(800);
+    setKamehamehaDamage(2500);
     setSpiritMultiplier(15);
   };
 
@@ -286,7 +326,7 @@ function Tech() {
     }
     setSaiyenState(3);
     setAttackMultiplier(15);
-    setKamehamehaDamage(1500);
+    setKamehamehaDamage(5000);
     setSpiritMultiplier(25);
   };
 
@@ -316,7 +356,11 @@ function Tech() {
 
           <Option
             label={`Kamehameha - Coût : ${kamehamehaCost}`}
-            isAvailable={count >= 40 && !isKamehamehaChanneling}
+            isAvailable={
+              count >= kamehamehaCost &&
+              !isKamehamehaChanneling &&
+              !isKamehamehaReloading
+            }
             onClick={handleClickKamehameha}
             className={kamehamehaStyle}
             title={`Inflige ${kamehamehaDamage * (isKaiokenActive ? 3 : 1)} points de dégâts.`}

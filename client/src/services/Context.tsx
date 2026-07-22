@@ -108,14 +108,46 @@ export const Provider = ({ children }: ProviderProps) => {
   }, [user]);
 
   const activeAudiosRef = useRef<HTMLAudioElement[]>([]);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
-  const trackAudio = (audio: HTMLAudioElement, volume: number) => {
-    audio.volume = Math.max(0, Math.min(volume, 1));
+  const playSoundWithBoost = (
+    soundSrc: string,
+    volume: number,
+    gainMultiplier = 1.0,
+  ) => {
+    const audio = new Audio(soundSrc);
     activeAudiosRef.current.push(audio);
     audio.addEventListener("ended", () => {
       activeAudiosRef.current = activeAudiosRef.current.filter(
         (a) => a !== audio,
       );
+    });
+
+    try {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext;
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioCtx();
+      }
+      const ctx = audioCtxRef.current;
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+
+      const source = ctx.createMediaElementSource(audio);
+      const gainNode = ctx.createGain();
+      gainNode.gain.value = Math.max(0, volume * gainMultiplier);
+
+      source.connect(gainNode);
+      gainNode.connect(ctx.destination);
+    } catch {
+      audio.volume = Math.max(0, Math.min(volume * gainMultiplier, 1));
+    }
+
+    audio.play().catch((err) => {
+      console.error("Erreur lors de la lecture du son :", err);
     });
   };
 
@@ -123,51 +155,31 @@ export const Provider = ({ children }: ProviderProps) => {
     {
       name: "lightAttack",
       play: (volume = 1) => {
-        const audio = new Audio(lightAttackSound);
-        trackAudio(audio, volume);
-        audio.play().catch((err) => {
-          console.error("Erreur lors de la lecture du son lightAttack :", err);
-        });
+        playSoundWithBoost(lightAttackSound, volume, 0.7);
       },
     },
     {
       name: "heavyAttack",
       play: (volume = 1) => {
-        const audio = new Audio(heavyAttackSound);
-        trackAudio(audio, volume);
-        audio.play().catch((err) => {
-          console.error("Erreur lors de la lecture du son heavyAttack :", err);
-        });
+        playSoundWithBoost(heavyAttackSound, volume, 0.7);
       },
     },
     {
       name: "kikoha",
       play: (volume = 1) => {
-        const audio = new Audio(kikohaSound);
-        trackAudio(audio, volume);
-        audio.play().catch((err) => {
-          console.error("Erreur lors de la lecture du son kikoha :", err);
-        });
+        playSoundWithBoost(kikohaSound, volume, 0.7);
       },
     },
     {
       name: "heavyKikoha",
       play: (volume = 1) => {
-        const audio = new Audio(heavyKikohaSound);
-        trackAudio(audio, volume);
-        audio.play().catch((err) => {
-          console.error("Erreur lors de la lecture du son heavyKikoha :", err);
-        });
+        playSoundWithBoost(heavyKikohaSound, volume, 2.0);
       },
     },
     {
       name: "kamehameha",
-      play: (volume = 10) => {
-        const audio = new Audio(kamehamehaSound);
-        trackAudio(audio, volume);
-        audio.play().catch((err) => {
-          console.error("Erreur lors de la lecture du son kamehameha :", err);
-        });
+      play: (volume = 1) => {
+        playSoundWithBoost(kamehamehaSound, volume, 4);
       },
     },
   ];

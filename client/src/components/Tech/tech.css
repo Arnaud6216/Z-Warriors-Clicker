@@ -52,12 +52,12 @@ li {
   justify-content: center;
   width: 20vw;
   height: 7vh;
-  background-color: rgb(179, 146, 119);
+  background-color: #1a3a5c;
   margin: 2rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 15px 5px #221403;
-  color: black;
-  border: double 5px rgb(117, 66, 7);
+  box-shadow: 0px 0px 15px 5px #0a192f;
+  color: #8bbce8;
+  border: double 5px #0d47a1;
 }
 
 .kamehameha-available {
@@ -68,11 +68,13 @@ li {
   height: 7vh;
   margin: 2rem;
   border-radius: 5px;
-  background-color: rgb(247, 219, 158);
-  box-shadow: 0px 0px 14px 4px rgba(232, 225, 18, 1);
-  color: black;
+  background: linear-gradient(135deg, #00b0ff, #0077c2);
+  box-shadow: 0px 0px 16px 5px rgba(0, 176, 255, 0.9);
+  color: white;
   font-weight: bold;
-  border: double 5px rgb(117, 66, 7);
+  border: double 5px #004481;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .kamehameha-progress-bar {
@@ -81,8 +83,13 @@ li {
   top: 0;
   left: 0;
   height: 100%;
-  background-color: rgba(0, 162, 255, 0.45);
-  box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 191, 255, 0.75),
+    rgba(0, 229, 255, 0.95)
+  );
+  box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.9), 0 0 12px
+    rgba(0, 191, 255, 0.7);
   transition: width 0.1s linear;
   z-index: 1;
 }
