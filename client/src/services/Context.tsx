@@ -54,6 +54,7 @@ interface ContextType {
   showTransformationFlash: boolean;
   isKamehamehaChanneling: boolean;
   setIsKamehamehaChanneling: React.Dispatch<React.SetStateAction<boolean>>;
+  powerPerClick: number;
 }
 
 export const Context = createContext<ContextType | undefined>(undefined);
@@ -190,6 +191,8 @@ export const Provider = ({ children }: ProviderProps) => {
   const isTransforming = [1, 3, 5].includes(gif);
   const [showTransformationFlash, setShowTransformationFlash] = useState(false);
   const [isKamehamehaChanneling, setIsKamehamehaChanneling] = useState(false);
+  const [defeatedBosses, setDefeatedBosses] = useState<string[]>([]);
+  const powerPerClick = 1 + defeatedBosses.length;
 
   // Sync volume of actively playing sound effects in real-time
   useEffect(() => {
@@ -240,7 +243,14 @@ export const Provider = ({ children }: ProviderProps) => {
 
     const currentEnnemy = ennemy[ennemyIndex];
     if (currentEnnemy) {
+      const enemyNameLower = currentEnnemy.name.toLowerCase();
       setDefeatedEnnemyName(currentEnnemy.name);
+
+      if (["freezer", "cell", "buu"].includes(enemyNameLower)) {
+        setDefeatedBosses((prev) =>
+          prev.includes(enemyNameLower) ? prev : [...prev, enemyNameLower],
+        );
+      }
     }
 
     setTimeout(async () => {
@@ -340,6 +350,7 @@ export const Provider = ({ children }: ProviderProps) => {
         showTransformationFlash,
         isKamehamehaChanneling,
         setIsKamehamehaChanneling,
+        powerPerClick,
       }}
     >
       {children}

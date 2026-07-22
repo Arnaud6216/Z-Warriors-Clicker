@@ -36,6 +36,7 @@ function Tech() {
     effectVolume,
     isKamehamehaChanneling,
     setIsKamehamehaChanneling,
+    ennemyIndex,
   } = context;
 
   const [techButtonStyle, setTechButtonStyle] = useState("tech-option");
@@ -45,6 +46,8 @@ function Tech() {
   const [SpiritBombVisible, setSpiritBombVisible] = useState("spirit-bomb-img");
   const [spiritCount, setSpiritCount] = useState(50);
   const [spiritMultiplier, setSpiritMultiplier] = useState(3);
+  const [isSpiritBombUsed, setIsSpiritBombUsed] = useState(false);
+
   const [kamehamehaDamage, setKamehamehaDamage] = useState(150);
 
   const [kamehamehaDuration, setKamehamehaDuration] = useState(4500); // 4.5s fallback
@@ -67,11 +70,16 @@ function Tech() {
   }, []);
 
   const superSaiyen1 = 1000;
-  const superSaiyen2 = 2000;
-  const superSaiyen3 = 3000;
+  const superSaiyen2 = 3000;
+  const superSaiyen3 = 5000;
 
   const kamehamehaCost = 150;
-  const spiritBombCost = 500;
+  const spiritBombBaseCost = 500;
+  const spiritBombRechargeCost = 4000;
+
+  const currentSpiritBombCost = isSpiritBombUsed
+    ? spiritBombRechargeCost
+    : spiritBombBaseCost;
 
   useEffect(() => {
     // display the available style if the player has enough points
@@ -82,9 +90,18 @@ function Tech() {
       count >= kamehamehaCost ? "kamehameha-available" : "kamehameha",
     );
     setSpiritBombStyle(
-      count >= spiritBombCost ? "spirit-bomb-available" : "spirit-bomb",
+      count >= currentSpiritBombCost &&
+        SpiritBombVisible !== "spirit-bomb-img-visible"
+        ? "spirit-bomb-available"
+        : "spirit-bomb",
     );
-  }, [count, concentrationCost]);
+  }, [count, concentrationCost, currentSpiritBombCost, SpiritBombVisible]);
+
+  useEffect(() => {
+    if (!isEnnemyKO && ennemyIndex >= 0) {
+      setIsSpiritBombUsed(false);
+    }
+  }, [ennemyIndex, isEnnemyKO]);
 
   const handleClickKi = () => {
     if (isEnnemyKO || isTransforming) return;
@@ -145,31 +162,37 @@ function Tech() {
   };
 
   const handleClickSpirit = () => {
-    if (isEnnemyKO || isTransforming) return;
+    if (
+      isEnnemyKO ||
+      isTransforming ||
+      SpiritBombVisible === "spirit-bomb-img-visible"
+    )
+      return;
+    if (count < currentSpiritBombCost) return;
+
+    setCount(count - currentSpiritBombCost);
+    setIsSpiritBombUsed(true);
     // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
     setSpiritBombVisible("spirit-bomb-img-visible");
 
-    if (count >= spiritBombCost) {
-      setCount(count - spiritBombCost);
-      alert("Clique sur la Spirit bomb pour augmenter ses dégats !");
-      setTimeout(() => {
-        handleSpirit();
-        setSpiritCount((prevSpiritCount) => {
-          // set the damage by the number of clicks on the spirit bomb multiplied by the spirit multiplier
-          const damage =
-            prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
+    alert("Clique sur la Spirit bomb pour augmenter ses dégats !");
+    setTimeout(() => {
+      handleSpirit();
+      setSpiritCount((prevSpiritCount) => {
+        // set the damage by the number of clicks on the spirit bomb multiplied by the spirit multiplier
+        const damage =
+          prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
 
-          if (ennemyLife > damage) {
-            setEnnemyLife(Math.max(ennemyLife - damage, 0));
-          } else {
-            ennemyDefeated();
-          }
-          //reset the spirit bomb minimal damage
-          return 50;
-        });
-        setSpiritBombVisible("spirit-bomb-img");
-      }, 5000);
-    }
+        if (ennemyLife > damage) {
+          setEnnemyLife(Math.max(ennemyLife - damage, 0));
+        } else {
+          ennemyDefeated();
+        }
+        //reset the spirit bomb minimal damage
+        return 50;
+      });
+      setSpiritBombVisible("spirit-bomb-img");
+    }, 5000);
   };
 
   const handleSpirit = () => {
@@ -302,11 +325,22 @@ function Tech() {
           />
 
           <Option
-            label={`Spirit Bomb - Coût : ${spiritBombCost}`}
-            isAvailable={count >= 200}
+            label={
+              isSpiritBombUsed
+                ? `Spirit Bomb (Recharge) - Coût : ${spiritBombRechargeCost}`
+                : `Spirit Bomb - Coût : ${spiritBombBaseCost}`
+            }
+            isAvailable={
+              count >= currentSpiritBombCost &&
+              SpiritBombVisible !== "spirit-bomb-img-visible"
+            }
             onClick={handleClickSpirit}
             className={spiritBombStyle}
-            title="Inflige des dégâts massifs en fonction de la taille de la Spirit Bomb (smash click). Multipliés par la transformation et le Kaioken."
+            title={
+              isSpiritBombUsed
+                ? `Redébloquée pour cet ennemi au coût de ${spiritBombRechargeCost} points de puissance.`
+                : "Inflige des dégâts massifs en fonction de la taille de la Spirit Bomb (smash click). Multipliés par la transformation et le Kaioken."
+            }
           />
 
           {gif === 0 && (

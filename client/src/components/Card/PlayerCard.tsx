@@ -1,6 +1,6 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { Context } from "../../services/Context";
-import { motion, AnimatePresence } from "framer-motion";
 import "./card.css";
 
 function Card() {
@@ -23,11 +23,12 @@ function Card() {
     isKaiokenActive,
     isTransforming,
     gif,
+    powerPerClick,
   } = context;
 
   const handleClickCount = () => {
     if (isEnnemyKO || isTransforming) return;
-    setCount(count + 1);
+    setCount(count + powerPerClick);
 
     // Ajoute une animation temporaire
     setAnimation("power-button power-button-animation");
@@ -35,7 +36,7 @@ function Card() {
       setAnimation("power-button");
     }, 300); // Temps pour l'effet du bouton
 
-    // Gère l'animation du "+1"
+    // Gère l'animation du point flottant
     const id = Date.now();
     setPoints((prev) => [...prev, { id }]);
 
@@ -54,12 +55,20 @@ function Card() {
 
   return (
     <section className={`player-container ${getTransformingClass()}`}>
-      <img src={gifSrc[0]} alt="Goku" className={`${gifSize} character-gif ${isKaiokenActive ? "kaioken-aura" : ""}`} />
+      <img
+        src={gifSrc[0]}
+        alt="Goku"
+        className={`${gifSize} character-gif ${isKaiokenActive ? "kaioken-aura" : ""}`}
+      />
       <h2 className="player-title">Goku</h2>
       <article className="info-container">
         <h3>Puissance : {count}</h3>
         <p className="player-info">
-          Attaque : <strong>x{attackMultiplier * (isKaiokenActive ? 3 : 1)}</strong>{" "}
+          Attaque :{" "}
+          <strong>x{attackMultiplier * (isKaiokenActive ? 3 : 1)}</strong>{" "}
+        </p>
+        <p className="player-info">
+          Puissance par clic : <strong>+{powerPerClick}</strong>
         </p>
         <p className="player-info">
           Puissance par seconde : <strong>+{concentrationCount}</strong>
@@ -77,7 +86,7 @@ function Card() {
                 transition={{ duration: 0.4 }}
                 className="floating-point"
               >
-                +1
+                +{powerPerClick}
               </motion.div>
             ))}
           </AnimatePresence>
