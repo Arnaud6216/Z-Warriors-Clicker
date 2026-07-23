@@ -1,3 +1,9 @@
+/* ============================================================
+   DBZ FIGHTERZ / COMBAT ARCADE - GLOBAL & HOMEPAGE STYLES
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&display=swap');
+
 #root {
   display: flex;
   justify-content: center;
@@ -13,74 +19,108 @@ body {
   overflow: hidden;
 }
 
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ffffff 20%, #ffcc00 80%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9));
+  margin-bottom: 1rem;
+}
+
 .home-container {
-  border: double 10px rgb(216, 121, 13);
-  background-color: rgba(51, 34, 14, 0.9);
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55%;
+  max-width: 750px;
+  padding: 2rem 2.5rem;
+  margin: 2rem auto;
+  position: relative;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(20, 15, 28, 0.95) 0%, rgba(35, 22, 12, 0.93) 100%);
+  border: 2px solid rgba(255, 153, 0, 0.7);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.85),
+    inset 0 0 20px rgba(255, 140, 0, 0.15),
+    0 0 25px rgba(255, 140, 0, 0.3);
+  backdrop-filter: blur(12px);
+}
+
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #ffaa00, #ff4500, #ffaa00, transparent);
+  border-radius: 14px 14px 0 0;
+}
+
+.disclaimer-text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #ffcc99;
+  background: rgba(45, 20, 10, 0.75);
+  border: 1px solid rgba(255, 100, 0, 0.5);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.disclaimer-text strong {
+  color: #ff6600;
+  text-transform: uppercase;
 }
 
 .home-paragraph {
-  padding: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  padding: 0.6rem 0;
   text-align: center;
+  margin: 0;
 }
 
-.overlay {
-  display: flex;
+.home-paragraph strong {
+  color: #ffaa00;
+  text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
 }
 
-/* --------------------------------------------
---------MOBILE PORTRAIT RESPONSIVE ------------
--------------------------------------------- */
-@media screen and (max-width: 480px) and (min-height: 660px) {
-  #root {
-    flex-direction: column;
-    justify-content: initial;
-    align-items: center;
-    height: 100%;
-  }
-
-  body {
-    min-height: 0;
-    overflow: scroll;
-    height: 100%;
-  }
-
-  .home-container {
-    height: 100%;
-    width: 95%;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
+.start-button,
+.home-container button {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff9900 0%, #e65100 100%);
+  border: 2px solid #ffcc00;
+  border-radius: 8px;
+  padding: 0.8rem 2.2rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* --------------------------------------------
---------MOBILE LANDSCAPE RESPONSIVE ------------
--------------------------------------------- */
-@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
-    max-height: 480px
-  ) {
-  body {
-    height: 100%;
-    min-height: none;
-  }
-
-  #root {
-    height: 100vh;
-  }
-
-  .home-container {
-    overflow: scroll;
-    width: 95%;
-  }
+.start-button:hover,
+.home-container button:hover {
+  background: linear-gradient(135deg, #ffaa00 0%, #ff5722 100%);
+  border-color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 170, 0, 0.85), inset 0 0 12px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px) scale(1.03);
 }
 
-/* --------------------------------------------
---------TABLET PORTRAIT RESPONSIVE ------------
--------------------------------------------- */
-@media (min-width: 768px) and (max-width: 1080px) and (min-height: 500px) {
-  .home-container {
-    width: 90%;
-  }
+.start-button:active,
+.home-container button:active {
+  transform: translateY(1px) scale(0.98);
 }

@@ -1,32 +1,84 @@
+/* ============================================================
+   DBZ FIGHTERZ / COMBAT ARCADE - NAVBAR DESIGN SYSTEM
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&display=swap');
+
 .navbar-container {
   position: absolute;
   top: 0;
+  left: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 9%;
-  border: double 7px rgb(216, 121, 13);
-  background-color: rgba(51, 34, 14, 0.9);
+  padding: 0 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(22, 16, 30, 0.96) 0%, rgba(15, 10, 20, 0.92) 100%);
+  border-bottom: 2px solid #ff9d00;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.8),
+    0 0 15px rgba(255, 157, 0, 0.3);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
 }
 
 .progress-container {
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
 }
 
 .progress-username {
   color: #ffcb00;
-  font-weight: bold;
-  font-size: 0.9rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255, 203, 0, 0.6);
+  margin: 0;
 }
 
 .progress-ennemy {
-  font-weight: bold;
-  margin-left: 2rem;
+  color: #e2e8f0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.35rem 0.8rem;
+  background: rgba(40, 25, 15, 0.7);
+  border: 1px solid rgba(255, 153, 0, 0.4);
+  border-radius: 6px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .logout-button {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
   font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(160, 20, 20, 0.9) 0%, rgba(90, 10, 10, 0.95) 100%);
+  border: 1px solid #ff4444;
+  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 0 6px rgba(255, 68, 68, 0.3);
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, rgba(200, 30, 30, 0.95) 0%, rgba(120, 15, 15, 0.98) 100%);
+  border-color: #ff6666;
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.7), inset 0 0 8px rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.logout-button:active {
+  transform: translateY(1px);
 }
 
 /* --------------------------------------------
@@ -36,43 +88,5 @@
   .navbar-container {
     position: initial;
     height: 15%;
-  }
-}
-
-/* --------------------------------------------
---------MOBILE lANDSCAPE RESPONSIVE -----------
--------------------------------------------- */
-@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
-    max-height: 480px
-  ) {
-  .progress-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .progress-ennemy {
-    margin-left: 1rem;
-  }
-
-  .logout-button {
-    font-size: 0.6rem;
-  }
-}
-
-/* --------------------------------------------
---------TABLET PORTRAIT RESPONSIVE ------------
--------------------------------------------- */
-@media (min-width: 768px) and (max-width: 1024px) and (min-height: 500px) {
-  .progress-ennemy {
-    margin-left: 2rem;
-  }
-}
-
-/* --------------------------------------------
---------TABLET LANDSCAPE RESPONSIVE -----------
--------------------------------------------- */
-@media (min-width: 1024px) and (max-width: 1240px) {
-  .progress-ennemy {
-    margin-left: 2rem;
   }
 }

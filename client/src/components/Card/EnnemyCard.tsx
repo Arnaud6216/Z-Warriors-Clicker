@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../services/Context";
+import "./card.css";
 
 function EnnemyCard() {
   const context = useContext(Context);
@@ -291,7 +292,7 @@ function EnnemyCard() {
             style={{ position: "relative", overflow: "hidden" }}
           >
             <span style={{ position: "relative", zIndex: 2 }}>
-              {isKikohaCooldown ? "Surchauffe !" : "Kikoha"}
+              Kikoha
             </span>
             <div
               className="kikoha-progress-bar"

@@ -1,54 +1,77 @@
+/* ============================================================
+   DBZ FIGHTERZ / COMBAT ARCADE - GAMEBOARD & DISCONNECTED STYLES
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&display=swap');
+
 .user-disconnected {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 600px;
-  height: 55%;
-  margin: 1rem;
-  padding: 1rem;
-  border: double 10px rgb(216, 121, 13);
-  background-color: rgba(51, 34, 14, 0.9);
+  width: 500px;
+  max-width: 90vw;
+  margin: 3rem auto;
+  padding: 2rem;
+  position: relative;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(20, 15, 28, 0.95) 0%, rgba(35, 22, 12, 0.93) 100%);
+  border: 2px solid rgba(255, 153, 0, 0.7);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.85),
+    inset 0 0 15px rgba(255, 140, 0, 0.15),
+    0 0 20px rgba(255, 140, 0, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.user-disconnected::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #ffaa00, #ff4500, #ffaa00, transparent);
+  border-radius: 14px 14px 0 0;
 }
 
 .goku-approve {
-  padding: 0.2rem;
-  background-color: rgba(126, 70, 7, 0.9);
+  padding: 0.35rem;
+  background: radial-gradient(circle, rgba(60, 35, 15, 0.8) 0%, rgba(20, 10, 5, 0.95) 100%);
   width: 80%;
-  border-radius: 15px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 170, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
-.disclaimer-text {
-  border: double 4px rgb(216, 121, 13);
-  background-color: rgba(99, 64, 25, 0.9);
+.user-disconnected p {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffcb00;
+  text-shadow: 0 0 8px rgba(255, 203, 0, 0.5);
+  margin: 1.2rem 0 0.8rem 0;
 }
 
-/* --------------------------------------------
---------MOBILE PORTRAIT RESPONSIVE ------------
--------------------------------------------- */
-@media screen and (max-width: 480px) and (min-height: 660px) {
-  .user-disconnected {
-    width: 80%;
-    height: 300px;
-  }
+.user-disconnected button {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff9900 0%, #e65100 100%);
+  border: 2px solid #ffcc00;
+  border-radius: 6px;
+  padding: 0.6rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-.goku-approve {
-  width: 90%;
-}
-
-/* --------------------------------------------
---------MOBILE LANDSCAPE RESPONSIVE -----------
--------------------------------------------- */
-@media (min-width: 660px) and (max-width: 930px) and (min-height: 320px) and (
-    max-height: 480px
-  ) {
-  .user-disconnected {
-    width: 50%;
-    height: 70%;
-  }
-
-  .goku-approve {
-    width: 50%;
-  }
+.user-disconnected button:hover {
+  background: linear-gradient(135deg, #ffaa00 0%, #ff5722 100%);
+  border-color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
+  transform: translateY(-2px);
 }
