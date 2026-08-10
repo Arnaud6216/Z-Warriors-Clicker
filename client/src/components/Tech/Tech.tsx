@@ -23,7 +23,6 @@ function Tech() {
     gif,
     setGif,
     setAttackMultiplier,
-    ennemyLife,
     setEnnemyLife,
     setGifSize,
     ennemyDefeated,
@@ -193,70 +192,134 @@ function Tech() {
     }
   };
 
+  const [showSpiritPrompt, setShowSpiritPrompt] = useState(false);
+  const [isSpiritBombCharging, setIsSpiritBombCharging] = useState(false);
+  const [spiritChargeTimeLeft, setSpiritChargeTimeLeft] = useState(5.0);
+  const [spiritClickCount, setSpiritClickCount] = useState(0);
+  const spiritChargeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (spiritChargeIntervalRef.current) {
+        clearInterval(spiritChargeIntervalRef.current);
+      }
+    };
+  }, []);
+
   const handleClickSpirit = () => {
     if (
       isEnnemyKO ||
       isTransforming ||
       isSpiritBombReloading ||
+      isSpiritBombCharging ||
+      showSpiritPrompt ||
       SpiritBombVisible === "spirit-bomb-img-visible"
     )
       return;
     if (count < spiritBombCost) return;
 
     setCount(count - spiritBombCost);
-    // display the spirit bomb : player has 5 seconds to smash click on it to increase the damage and grow the spirit bomb
+    // Display instruction modal before starting the 5s timer
+    setShowSpiritPrompt(true);
+  };
+
+  const startSpiritBombCharge = () => {
+    setShowSpiritPrompt(false);
+    setSpiritCount(50);
+    setSpiritClickCount(0);
+    setSpiritChargeTimeLeft(5.0);
+    setIsSpiritBombCharging(true);
     setSpiritBombVisible("spirit-bomb-img-visible");
 
-    alert("Clique sur la Spirit bomb pour augmenter ses dégats !");
-    setTimeout(() => {
-      handleSpirit();
-      setSpiritCount((prevSpiritCount) => {
-        // set the damage by the number of clicks on the spirit bomb multiplied by the spirit multiplier
-        const damage =
-          prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
+    if (soundEffectList[2]) {
+      soundEffectList[2].play(effectVolume);
+    }
 
-        if (ennemyLife > damage) {
-          setEnnemyLife(Math.max(ennemyLife - damage, 0));
-        } else {
-          ennemyDefeated();
+    const duration = 5000;
+    const startTime = Date.now();
+
+    spiritChargeIntervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const remainingMs = Math.max(0, duration - elapsed);
+      setSpiritChargeTimeLeft(remainingMs / 1000);
+
+      if (elapsed >= duration) {
+        if (spiritChargeIntervalRef.current) {
+          clearInterval(spiritChargeIntervalRef.current);
         }
-        //reset the spirit bomb minimal damage
-        return 50;
-      });
-      setSpiritBombVisible("spirit-bomb-img");
 
-      // Start 4m30s reverse reload phase
-      setIsSpiritBombReloading(true);
-      setSpiritBombCooldown(0);
-
-      let elapsedReloadTime = 0;
-      const intervalTime = 1000;
-      const reloadInterval = setInterval(() => {
-        elapsedReloadTime += intervalTime;
-        const remainingMs = spiritBombReloadDuration - elapsedReloadTime;
-        const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
-        const minutes = Math.floor(remainingSec / 60);
-        const seconds = remainingSec % 60;
-        const formattedSec = seconds < 10 ? `0${seconds}` : `${seconds}`;
-
-        setSpiritBombTimerText(`${minutes}m ${formattedSec}s`);
-        setSpiritBombCooldown(
-          Math.min((elapsedReloadTime / spiritBombReloadDuration) * 100, 100),
-        );
-
-        if (elapsedReloadTime >= spiritBombReloadDuration) {
-          clearInterval(reloadInterval);
-          setIsSpiritBombReloading(false);
-          setSpiritBombCooldown(0);
-          setSpiritBombTimerText("");
+        if (soundEffectList[3]) {
+          soundEffectList[3].play(effectVolume);
         }
-      }, intervalTime);
-    }, 5000);
+
+        const enemyCard = document.querySelector(".ennemy-container");
+        if (enemyCard) {
+          enemyCard.classList.add("kamehameha-impact");
+          setTimeout(() => {
+            enemyCard.classList.remove("kamehameha-impact");
+          }, 800);
+        }
+
+        setSpiritCount((prevSpiritCount) => {
+          const damage =
+            prevSpiritCount * spiritMultiplier * (isKaiokenActive ? 3 : 1);
+
+          setEnnemyLife((prevLife) => {
+            if (prevLife > damage) {
+              return Math.max(prevLife - damage, 0);
+            }
+            ennemyDefeated();
+            return 0;
+          });
+          return 50;
+        });
+
+        setIsSpiritBombCharging(false);
+        setSpiritBombVisible("spirit-bomb-img");
+        setIsSpiritBombReloading(true);
+        setSpiritBombCooldown(0);
+
+        let elapsedReloadTime = 0;
+        const intervalTime = 1000;
+        const reloadInterval = setInterval(() => {
+          elapsedReloadTime += intervalTime;
+          const remainingMsReload =
+            spiritBombReloadDuration - elapsedReloadTime;
+          const remainingSec = Math.max(
+            0,
+            Math.ceil(remainingMsReload / 1000),
+          );
+          const minutes = Math.floor(remainingSec / 60);
+          const seconds = remainingSec % 60;
+          const formattedSec = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+          setSpiritBombTimerText(`${minutes}m ${formattedSec}s`);
+          setSpiritBombCooldown(
+            Math.min(
+              (elapsedReloadTime / spiritBombReloadDuration) * 100,
+              100,
+            ),
+          );
+
+          if (elapsedReloadTime >= spiritBombReloadDuration) {
+            clearInterval(reloadInterval);
+            setIsSpiritBombReloading(false);
+            setSpiritBombCooldown(0);
+            setSpiritBombTimerText("");
+          }
+        }, intervalTime);
+      }
+    }, 50);
   };
 
   const handleSpirit = () => {
-    if (isEnnemyKO || isTransforming) return;
+    if (isEnnemyKO || isTransforming || !isSpiritBombCharging) return;
     setSpiritCount((prevSpiritCount) => prevSpiritCount + 5);
+    setSpiritClickCount((prevCount) => prevCount + 1);
+
+    if (soundEffectList[2]) {
+      soundEffectList[2].play(effectVolume * 0.7);
+    }
   };
 
   useEffect(() => {
@@ -351,18 +414,54 @@ function Tech() {
 
   return (
     <>
-      <aside className="spirit-container">
-        <img
-          src={spiritBombImg}
-          className={SpiritBombVisible}
-          alt="spirit bomb"
-          onClick={handleSpirit}
-          onKeyUp={handleSpirit}
-          style={{
-            transform: `scale(${spiritCount * 0.002})`,
-          }}
-        />
-      </aside>
+      {/* Explanation Modal BEFORE starting the 5s countdown */}
+      {showSpiritPrompt && (
+        <div className="spirit-prompt-modal-backdrop">
+          <div className="spirit-prompt-modal">
+            <h3 className="spirit-prompt-title">⚡ SPIRIT BOMB</h3>
+            <p className="spirit-prompt-text">
+              Cliquez le plus vite possible sur la Spirit Bomb pendant 5
+              secondes pour concentrer son énergie et décupler ses dégâts !
+            </p>
+            <button
+              type="button"
+              className="spirit-prompt-btn"
+              onClick={startSpiritBombCharge}
+            >
+              LANCER LA CHARGE !
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 5-Second Timer Badge during charge */}
+      {isSpiritBombCharging && (
+        <div className="spirit-timer-badge">
+          ⏱️ TEMPS : {spiritChargeTimeLeft.toFixed(1)}s
+        </div>
+      )}
+
+      {/* Spirit Bomb Orb Container - rendered ONLY when active */}
+      {SpiritBombVisible === "spirit-bomb-img-visible" && (
+        <aside className="spirit-container charging">
+          <div
+            className="spirit-bomb-wrapper"
+            style={{
+              transform: isSpiritBombCharging
+                ? `scale(${Math.min(0.85 + spiritClickCount * 0.08, 4.2)})`
+                : `scale(${spiritCount * 0.002})`,
+            }}
+          >
+            <img
+              src={spiritBombImg}
+              className={SpiritBombVisible}
+              alt="spirit bomb"
+              onClick={handleSpirit}
+              onKeyUp={handleSpirit}
+            />
+          </div>
+        </aside>
+      )}
       <section className="tech-container">
         <ul>
           <Option
